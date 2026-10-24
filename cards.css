@@ -38,6 +38,7 @@
 .card .count { text-align: right; flex: none; }
 .card .count b { display: block; font: 700 1.85rem/1 "Segoe UI", system-ui, sans-serif;
   font-variant-numeric: tabular-nums; }
+.card .count b.est { color: var(--warn); }
 .card .count span { color: var(--muted); font-size: .85rem; }
 
 .card .bar { height: 5px; background: #ffffff12; border-radius: 3px; margin: .7rem 0 .54rem; overflow: hidden; }

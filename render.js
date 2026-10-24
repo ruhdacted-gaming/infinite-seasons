@@ -53,7 +53,7 @@
       status = ["live", "Live"];
       const days = Math.ceil((end.t - now) / DAY);
       big = (end.est ? "~" : "") + (days > 1 ? days : span(end.t - now));
-      sub = days > 1 ? (end.est ? "days left (est.)" : "days left") : (end.est ? "left (est.)" : "left");
+      sub = days > 1 ? "days left" : "left";
     } else if (end.est) {
       status = ["overdue", "Ending?"];
       big = Math.floor((now - start) / DAY) + "d"; sub = "in, past estimate";
@@ -86,7 +86,7 @@
           <span class="name">${esc(g.name)}</span>
           <span class="num">${esc(g.game)} · Season ${esc(g.season)}</span>
         </${h}>
-        <div class="count"><b>${big}</b><span>${sub}</span></div>
+        <div class="count"><b${end && end.est && now < end.t ? ' class="est" title="Estimate, not announced"' : ""}>${big}</b><span>${sub}</span></div>
       </div>
       <div class="bar ${end && end.est ? "est" : ""}"><i style="width:${pct.toFixed(1)}%"></i></div>
       <div class="dates">

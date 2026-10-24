@@ -16,7 +16,7 @@
 <style>
   /* Site layout. Card styles live in cards.css, card rendering in render.js. */
   * { box-sizing: border-box; }
-  html { font-size: 15px; }
+  html { font-size: 15px; scroll-behavior: smooth; }
   html, body { margin: 0; color: var(--text);
     font-family: "Segoe UI", system-ui, sans-serif; line-height: 1.45; }
   body { background: var(--bg) radial-gradient(ellipse 90% 40% at 50% -5%, #2a1f14 0, var(--bg) 100%) no-repeat; min-height: 100vh;
@@ -32,15 +32,15 @@
     text-transform: uppercase; color: var(--gold); text-decoration: none; white-space: nowrap; }
   .wordmark span { color: var(--text); font-weight: 400; }
   .site-header nav { display: flex; gap: .45rem; flex-wrap: wrap; }
-  .site-header nav a { color: var(--accent, var(--gold)); border: 1px solid var(--line);
+  .site-header nav a { color: var(--muted); border: 1px solid var(--line);
     background: var(--card); border-radius: 999px; padding: .22rem .75rem; font-size: .78rem;
     font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
     white-space: nowrap; }
-  .site-header nav a:hover { border-color: var(--accent, var(--gold)); }
+  .site-header nav a:hover { color: var(--accent, var(--gold)); border-color: var(--accent, var(--gold)); }
 
   main { flex: 1; }
   .hero { padding: 2.6rem 0 1.6rem; max-width: 42rem; }
-  .hero h1 { margin: 0 0 .7rem; font: 600 clamp(1.7rem, 4.5vw, 2.4rem)/1.15 Georgia, "Times New Roman", serif;
+  .hero h1 { text-wrap: balance; margin: 0 0 .7rem; font: 600 clamp(1.7rem, 4.5vw, 2.4rem)/1.15 Georgia, "Times New Roman", serif;
     color: var(--text); }
   .hero p { margin: 0; color: #cfc3b2; font-size: 1.05rem; }
   .hero em { font-style: normal; color: var(--warn); font-weight: 700; }
@@ -52,7 +52,7 @@
     padding: 1.6rem 0 2rem; }
   .site-footer p { margin: 0 0 .7rem; max-width: 46rem; }
   .site-footer p:last-child { margin-bottom: 0; }
-  .site-footer .checked.stale { color: var(--warn); }
+  .site-footer .checked { color: var(--warn); }
   .site-footer em { font-style: normal; color: var(--warn); }
   .site-footer a { color: var(--muted); }
   .site-footer a:hover { color: var(--text); }
@@ -76,7 +76,7 @@
 <main class="wrap">
   <section class="hero">
     <h1>When does the current Diablo season end?</h1>
-    <p>Live countdowns, start dates and end dates for the Diablo II: Resurrected ladder, Project Diablo&nbsp;2, Diablo&nbsp;III and Diablo&nbsp;IV. Official dates are shown plainly; anything estimated is marked with <em>~</em>.</p>
+    <p>Live countdowns for the Diablo II: Resurrected ladder, Project Diablo&nbsp;2, Diablo&nbsp;III and Diablo&nbsp;IV. Estimates are marked <em>~</em> in orange; every other date is confirmed.</p>
     <p class="meta" id="meta"></p>
   </section>
 
@@ -85,8 +85,8 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p class="checked" id="checked"></p>
-    <p>How end dates work: when a season's end has been officially announced it is shown as-is. Otherwise we show an estimate, marked <em>~</em> in orange: either a date reported but not yet confirmed (for example from in-game data), or the start date plus that game's typical season length. Estimates are never official. All times are shown in your local time zone.</p>
+    <p class="checked" id="checked" hidden></p>
+    <p>How end dates work: if Blizzard or the PD2 team has announced an end date, that date is shown. If not, we show an estimate marked <em>~</em> in orange: either a date reported but not yet confirmed (for example from in-game data), or the start date plus that game's typical season length. Estimates are never official.</p>
     <p class="sources" id="sources"></p>
     <p class="fine">Infinite Seasons is an independent fan project and is not affiliated with Blizzard Entertainment or the Project Diablo 2 team.</p>
   </div>
@@ -96,6 +96,7 @@
 <script src="/render.js"></script>
 <script>
 const S = window.Seasons;
+const fmtVerified = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 const data = window.SEASON_DATA || { games: [] };
 
 // Game links are in-page anchors for now. Once per-game hub pages exist, switch this to `/${g.id}`.
@@ -111,13 +112,15 @@ function render() {
   const now = Date.now();
   S.renderCards(document.getElementById("grid"), data, now, { headingTag: "h2" });
 
+  // verified is a calendar date, so format it in UTC to avoid showing the previous day in the Americas.
+  const verified = data.verified ? fmtVerified.format(Date.parse(data.verified)) : "?";
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
-  document.getElementById("meta").textContent = `${S.fmtClock.format(now)} · times shown in your local time zone (${tz})`;
+  document.getElementById("meta").textContent = `Data checked ${verified} · times in your local zone (${tz})`;
 
-  const checked = document.getElementById("checked");
   const age = S.dataAge(data, now);
-  checked.className = "checked" + (age > 30 ? " stale" : "");
-  checked.textContent = `Data checked ${data.verified || "?"}` + (age > 30 ? " — this may be out of date." : "") + " · ~ = estimate";
+  const checked = document.getElementById("checked");
+  checked.hidden = !(age > 30);
+  checked.textContent = `Data last checked ${verified}. Some dates may be out of date.`;
 }
 
 render();
