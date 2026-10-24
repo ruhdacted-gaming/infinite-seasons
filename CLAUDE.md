@@ -4,10 +4,17 @@ Tracks seasons for games that run them: current season, start date, end date (of
 
 ## Current state
 
-- `seasons.js`: the single source of season data (`window.SEASON_DATA`). Times are UTC ISO strings. `end: null` means not announced. The widget then uses `endEstimate`, or `start + typicalDays`, and labels the result as an estimate.
+- `seasons.js`: the single source of season data (`window.SEASON_DATA`). Each game has a `seasons` list with every announced season, oldest first. The current season is the latest one that has started.
+  - Times are UTC ISO strings. A date-only string means the exact time isn't known.
+  - `end: null` means no end date was announced. The site then uses `endEstimate`, or else the start date plus the median length of the last 6 finished seasons (falling back to `typicalDays`). Either way the result is labelled as an estimate.
+  - The header comment documents every field.
+- `research/`: the source research behind the season history.
+  - `BRIEF.md` holds the research rules.
+  - `<game>.json` holds raw findings with sources and notes.
+  - `merge.mjs` merges a game's JSON into `seasons.js`.
 - `render.js` and `cards.css`: the card and countdown rendering and the card styles, shared by the widget and the site. Estimate handling (`~`, orange end date, dashed bar) lives here.
 - `widget.html`: the desktop widget page. It loads `seasons.js` and `render.js` with `<script>` tags, not fetch, so it works from `file://`.
-- `site/index.html`: the website homepage. It has a header with in-page game anchors (these become `/{game}` links once hub pages exist), an intro, the cards, and a footer that explains estimates and lists sources.
+- `site/pages.mjs`: the page templates. Every sentence that states a date is generated from the data. `site/site.css` holds the page styles. `site/live.js` keeps countdowns live and shows dates in the reader's time zone.
 - `Diablo Seasons.cmd`: opens the widget as an Edge `--app` window with its own profile dir, so the window size is respected.
 
 Tracked games: D2R ladder, Project Diablo 2, Diablo III, Diablo IV.
@@ -55,7 +62,10 @@ Rollout: ARPGs first (the Diablo games, PoE 1/2, Last Epoch). Then Marvel Rivals
 
 The site is static, hosted on Cloudflare Workers with static assets, on the Cloudflare account for ruhdacted@gmail.com. The domain infiniteseasons.com is registered at Porkbun, with its nameservers pointed at Cloudflare.
 
-- `build.mjs` generates the site into `dist/` (gitignored). For now it copies `site/index.html`, `seasons.js`, `render.js` and `cards.css`. The cards render client-side. pSEO pages should be pre-rendered here so crawlers see the dates in the HTML.
+- `build.mjs` pre-renders every page into `dist/` (gitignored), so crawlers see the dates in the HTML. Pre-rendered dates use Pacific time, and `live.js` then switches them to the reader's zone. The build writes:
+  - `/`, `/{game}`, `/{game}/history` and one `/{game}/season-{n}` page per announced season
+  - `404.html`, `sitemap.xml` and `robots.txt`
+  - a slim `seasons.js` holding only the previous, current and next seasons
 - `src/worker.js` serves `dist/` through the `ASSETS` binding and 301-redirects http to https and `www.` to the apex domain. `run_worker_first` is on so the redirect runs before assets are served. The redirects only run when `CANONICAL_REDIRECTS` is `"true"`. `npm run dev` sets it to false, because `wrangler dev` reports the production hostname and would loop.
 - `wrangler.jsonc` holds the Worker config and the custom-domain routes.
 - `npm run deploy` builds and deploys. `wrangler login` must be done with the ruhdacted@gmail.com Cloudflare account.

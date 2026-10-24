@@ -1,0 +1,97 @@
+/* Site layout. Card styles live in cards.css, card rendering in render.js. */
+* { box-sizing: border-box; }
+html { font-size: 15px; scroll-behavior: smooth; }
+html, body { margin: 0; color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif; line-height: 1.45; }
+body { background: var(--bg) radial-gradient(ellipse 90% 40% at 50% -5%, #2a1f14 0, var(--bg) 100%) no-repeat; min-height: 100vh;
+  display: flex; flex-direction: column; }
+a { color: var(--gold); }
+.wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 1.1rem; }
+
+.site-header { position: sticky; top: 0; z-index: 10; background: #0d0b0ae6;
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 3.4rem; flex-wrap: wrap; padding-top: .5rem; padding-bottom: .5rem; }
+.wordmark { font: 700 1.05rem/1 Georgia, "Times New Roman", serif; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold); text-decoration: none; white-space: nowrap; }
+.wordmark span { color: var(--text); font-weight: 400; }
+.site-header nav { display: flex; gap: .45rem; flex-wrap: wrap; }
+.site-header nav a { color: var(--muted); border: 1px solid var(--line);
+  background: var(--card); border-radius: 999px; padding: .22rem .75rem; font-size: .78rem;
+  font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  white-space: nowrap; }
+.site-header nav a:hover { color: var(--accent, var(--gold)); border-color: var(--accent, var(--gold)); }
+
+main { flex: 1; }
+.hero { padding: 2.6rem 0 1.6rem; max-width: 42rem; }
+.hero h1 { text-wrap: balance; margin: 0 0 .7rem; font: 600 clamp(1.7rem, 4.5vw, 2.4rem)/1.15 Georgia, "Times New Roman", serif;
+  color: var(--text); }
+.hero p { margin: 0; color: #cfc3b2; font-size: 1.05rem; }
+.hero em { font-style: normal; color: var(--warn); font-weight: 700; }
+.hero .meta { margin-top: .9rem; color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
+
+.cards { gap: .9rem; padding-bottom: 2.5rem; }
+
+.site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem;
+  padding: 1.6rem 0 2rem; }
+.site-footer p { margin: 0 0 .7rem; max-width: 46rem; }
+.site-footer p:last-child { margin-bottom: 0; }
+.site-footer .checked { color: var(--warn); }
+.site-footer em { font-style: normal; color: var(--warn); }
+.site-footer a { color: var(--muted); }
+.site-footer a:hover { color: var(--text); }
+.site-footer .sources a { white-space: nowrap; }
+.site-footer .fine { font-size: .8rem; margin-top: 1.1rem; }
+
+@media (max-width: 480px) {
+  .hero { padding-top: 1.8rem; }
+  .site-header .wrap { justify-content: center; text-align: center; }
+}
+
+/* Inner pages */
+.site-header nav a[aria-current="page"] { color: var(--accent, var(--gold)); border-color: var(--accent, var(--gold)); }
+.crumbs { padding-top: 1.6rem; color: var(--muted); font-size: .85rem; }
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--text); }
+.page-head { padding: .8rem 0 1.4rem; max-width: 44rem; }
+.page-head h1 { text-wrap: balance; margin: 0 0 .7rem;
+  font: 600 clamp(1.6rem, 4vw, 2.2rem)/1.15 Georgia, "Times New Roman", serif; }
+.page-head p { margin: 0; color: #cfc3b2; font-size: 1.05rem; }
+.page-head em, .prose em, td em, dd em { font-style: normal; color: var(--warn); }
+
+section.block { margin: 0 0 2.2rem; }
+section.block > h2 { font: 600 1.3rem/1.2 Georgia, "Times New Roman", serif; margin: 0 0 .8rem; }
+.prose { max-width: 44rem; color: #cfc3b2; }
+.prose p { margin: 0 0 .8rem; }
+.single-card { max-width: 30rem; }
+.cards.single-card { grid-template-columns: 1fr; padding-bottom: 0; margin-bottom: 2.2rem; }
+
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: .45rem 1.4rem; margin: 0;
+  background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 1.2rem; max-width: 44rem; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+.table-wrap { overflow-x: auto; }
+table.seasons { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .93rem; }
+table.seasons th, table.seasons td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.seasons th { color: var(--muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+table.seasons td.name { white-space: normal; min-width: 10rem; }
+table.seasons td.num { text-align: right; }
+table.seasons th.num { text-align: right; }
+table.seasons tr.current td { background: #ffffff08; }
+table.seasons a { color: var(--text); }
+.more { margin-top: .8rem; }
+
+.pager { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin: 0 0 2.2rem; }
+.pager a { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+  padding: .6rem .9rem; text-decoration: none; color: var(--text); }
+.pager a:hover { border-color: var(--gold); }
+.pager small { display: block; color: var(--muted); font-size: .78rem; }
+
+.chart { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1rem; }
+.chart svg { display: block; width: 100%; height: auto; }
+.chart figcaption { color: var(--muted); font-size: .85rem; margin-top: .6rem; }
+.sources-list { color: var(--muted); font-size: .88rem; padding-left: 1.1rem; }
+.sources-list a { color: var(--muted); word-break: break-all; }
+.card .name a { color: inherit; text-decoration-color: #ffffff40; text-underline-offset: 3px; }
+.card .name a:hover { text-decoration-color: currentColor; }

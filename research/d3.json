@@ -1,0 +1,613 @@
+{
+  "game": "d3",
+  "checked": "2026-10-24",
+  "seasons": [
+    {
+      "season": 1,
+      "name": null,
+      "start": "2014-08-30T01:00:00Z",
+      "end": "2015-02-04T00:00:00Z",
+      "patch": "2.1.0",
+      "theme": "The first season, introduced with patch 2.1.0 alongside seasonal leaderboards and season-exclusive legendaries.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/forums/en/d3/topic/14058735855",
+        "https://us.battle.net/d3/en/blog/17152343",
+        "https://www.engadget.com/2014-08-28-diablo-season-1-launches-friday-august-29.html"
+      ],
+      "confidence": "official",
+      "notes": "Americas start 6:00 PM PDT Aug 29; end 4:00 PM PST Feb 3 (Blizzard forum schedule, via fandom and press). Regions launched staggered."
+    },
+    {
+      "season": 2,
+      "name": null,
+      "start": "2015-02-14T02:00:00Z",
+      "end": "2015-04-06T04:00:00Z",
+      "patch": "2.1.2",
+      "theme": "New season-exclusive legendaries, conquests and banner rewards.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/16607841",
+        "https://us.battle.net/d3/en/blog/18313042",
+        "https://cinemablend.com/games/Diablo-3-Season-2-Start-Date-Announced-69783.html"
+      ],
+      "confidence": "official",
+      "notes": "Americas start 6:00 PM PST; end 9:00 PM PDT Apr 5 (Blizzard posts as reported by fandom and press). Shortest season (~7 weeks)."
+    },
+    {
+      "season": 3,
+      "name": null,
+      "start": "2015-04-11T01:00:00Z",
+      "end": "2015-08-24T00:00:00Z",
+      "patch": "2.2.0",
+      "theme": "Launched with patch 2.2.0 with new season-exclusive legendaries and the first seasonal pennant.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/21534734",
+        "https://us.battle.net/d3/en/blog/19842943",
+        "https://games.softpedia.com/blog/Diablo-3-Season-2-Ends-on-April-5-Season-3-Starts-on-April-10-476397.shtml"
+      ],
+      "confidence": "official",
+      "notes": "Americas start 6:00 PM PDT (one press report said 10 PM Pacific; Blizzard's forum schedule and other reports say 6 PM). End 5:00 PM PDT."
+    },
+    {
+      "season": 4,
+      "name": null,
+      "start": "2015-08-29T00:00:00Z",
+      "end": "2015-12-31T01:00:00Z",
+      "patch": "2.3.0",
+      "theme": "Introduced the Season Journey for tracking seasonal progress.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/19824753",
+        "https://us.battle.net/d3/en/blog/19975528"
+      ],
+      "confidence": "official",
+      "notes": "First season with 5:00 PM start and end times. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 5,
+      "name": null,
+      "start": "2016-01-16T01:00:00Z",
+      "end": "2016-04-16T00:00:00Z",
+      "patch": "2.4.0",
+      "theme": "Introduced Haedrig's Gift free class sets and Season Rebirth; first bonus stash tab reward.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/19993877",
+        "https://us.battle.net/d3/en/blog/20077425"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 6,
+      "name": null,
+      "start": "2016-04-30T00:00:00Z",
+      "end": "2016-07-23T00:00:00Z",
+      "patch": "2.4.1",
+      "theme": null,
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/20099645",
+        "https://us.battle.net/d3/en/blog/20167107"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 7,
+      "name": null,
+      "start": "2016-08-06T00:00:00Z",
+      "end": "2016-10-15T00:00:00Z",
+      "patch": "2.4.2",
+      "theme": null,
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/20187365",
+        "https://us.battle.net/d3/en/blog/20275888"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 8,
+      "name": null,
+      "start": "2016-10-22T00:00:00Z",
+      "end": "2016-12-31T01:00:00Z",
+      "patch": null,
+      "theme": "First season launched without a new patch; only conquests and rewards rotated.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/20324040",
+        "https://us.battle.net/d3/en/blog/20405165"
+      ],
+      "confidence": "official",
+      "notes": "No new patch at launch (game was on 2.4.2). Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 9,
+      "name": null,
+      "start": "2017-01-07T01:00:00Z",
+      "end": "2017-03-18T00:00:00Z",
+      "patch": "2.4.3",
+      "theme": null,
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/20407576",
+        "https://us.battle.net/d3/en/blog/20570422"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 10,
+      "name": null,
+      "start": "2017-04-01T00:00:00Z",
+      "end": "2017-06-24T00:00:00Z",
+      "patch": "2.5.0",
+      "theme": "First season available on consoles.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/20631435",
+        "https://us.battle.net/d3/en/blog/20845156"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 11,
+      "name": null,
+      "start": "2017-07-21T00:00:00Z",
+      "end": "2017-10-21T00:00:00Z",
+      "patch": "2.6.0",
+      "theme": "First season with the Necromancer class from Rise of the Necromancer.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/20845160",
+        "https://us.battle.net/d3/en/blog/21097429"
+      ],
+      "confidence": "official",
+      "notes": "Started on a Thursday instead of Friday. End 5:00 PM PDT Oct 20 per Blizzard. Start time assumed 5:00 PM PDT from fandom's 5 PM convention; EU started 5:00 PM CEST."
+    },
+    {
+      "season": 12,
+      "name": null,
+      "start": "2017-11-10T01:00:00Z",
+      "end": "2018-02-12T01:00:00Z",
+      "patch": "2.6.1",
+      "theme": null,
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/21160657",
+        "https://us.diablo3.com/en/blog/21492188",
+        "https://mp1st.com/news/diablo-3-season-12-stat-date-announced"
+      ],
+      "confidence": "official",
+      "notes": "Started Thursday, Nov 9 at 5:00 PM PST. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 13,
+      "name": null,
+      "start": "2018-02-24T01:00:00Z",
+      "end": "2018-06-04T00:00:00Z",
+      "patch": null,
+      "theme": null,
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/21534734",
+        "https://us.diablo3.com/en/blog/21791946"
+      ],
+      "confidence": "official",
+      "notes": "Launched without a new patch. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 14,
+      "name": "Season of Greed",
+      "start": "2018-06-16T00:00:00Z",
+      "end": "2018-09-17T00:00:00Z",
+      "patch": null,
+      "theme": "First themed season: Treasure Goblin spawns were doubled.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.battle.net/d3/en/blog/21839180",
+        "https://us.diablo3.com/en/blog/22312196"
+      ],
+      "confidence": "official",
+      "notes": "Name per fandom; Blizzard's announcement was titled 'Season 14 First Look: Themed Seasons'. Launch patch not sourced. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 15,
+      "name": "Boon of the Horadrim",
+      "start": "2018-09-22T00:00:00Z",
+      "end": "2019-01-07T01:00:00Z",
+      "patch": null,
+      "theme": "Horadric Caches from bounties were doubled.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/22493264",
+        "https://us.battle.net/forums/en/d3/topic/20770676889"
+      ],
+      "confidence": "official",
+      "notes": "Originally scheduled to end Dec 16, 2018; extended to Jan 6, 2019. Launch patch not sourced. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 16,
+      "name": "Season of Grandeur",
+      "start": "2019-01-19T01:00:00Z",
+      "end": "2019-05-13T00:00:00Z",
+      "patch": "2.6.4",
+      "theme": "All seasonal players gained the Ring of Royal Grandeur legendary power.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/22820656",
+        "https://us.battle.net/forums/en/d3/topic/20771057397"
+      ],
+      "confidence": "official",
+      "notes": "Originally scheduled to end Mar 17, 2019; extended 8 weeks to May 12. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 17,
+      "name": "Season of Nightmares",
+      "start": "2019-05-18T00:00:00Z",
+      "end": "2019-08-19T00:00:00Z",
+      "patch": "2.6.5",
+      "theme": "Seasonal buff based on Legacy of Nightmares: big damage bonus per equipped Ancient item with no set bonuses active.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/22976066",
+        "https://us.forums.blizzard.com/en/d3/t/season-17-ends-august-18/1088"
+      ],
+      "confidence": "official",
+      "notes": "First season with no end date announced up front; Blizzard committed to at least two weeks' notice. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 18,
+      "name": "Season of the Triune",
+      "start": "2019-08-24T00:00:00Z",
+      "end": "2019-11-11T01:00:00Z",
+      "patch": "2.6.6",
+      "theme": "Triune's Will: hits can spawn circles granting damage, resource-cost or cooldown bonuses.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/23093786",
+        "https://us.forums.blizzard.com/en/d3/t/season-18-ends-11-10/5055"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 19,
+      "name": "Season of Eternal Conflict",
+      "start": "2019-11-23T01:00:00Z",
+      "end": "2020-03-02T01:00:00Z",
+      "patch": "2.6.7",
+      "theme": "Pandemonium-style killstreak buffs that trigger chaotic battlefield effects.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/23220970",
+        "https://twitter.com/Diablo/status/1228406672860663808"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 20,
+      "name": "Season of the Forbidden Archives",
+      "start": "2020-03-14T00:00:00Z",
+      "end": "2020-06-22T00:00:00Z",
+      "patch": "2.6.8",
+      "theme": "Kanai's Cube's three slots could hold legendary powers of any type (weapon, armor or jewelry).",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/23319442",
+        "https://us.forums.blizzard.com/en/d3/t/season-20-ends-june-21st/18056"
+      ],
+      "confidence": "official",
+      "notes": "Name per fandom; Blizzard's launch post was titled 'Season 20 Now Live'. Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 21,
+      "name": "Trials of Tempests",
+      "start": "2020-07-04T00:00:00Z",
+      "end": "2020-11-09T01:00:00Z",
+      "patch": "2.6.9",
+      "theme": "Characters periodically channel an elemental power that is unleashed into the environment.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en/blog/23428368",
+        "https://us.forums.blizzard.com/en/d3/t/season-21-trials-of-tempests-end-dates/23661"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 22,
+      "name": "Shades of the Nephalem",
+      "start": "2020-11-21T01:00:00Z",
+      "end": "2021-03-29T00:00:00Z",
+      "patch": "2.6.10",
+      "theme": "Shadows of the Past: activating a shrine or pylon summons a shadow clone of your class; Kanai's Cube gets a fourth slot.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en-us/blog/23548757",
+        "https://us.forums.blizzard.com/en/d3/t/season-22-shades-of-the-nephalem-end-dates/28900"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 23,
+      "name": "The Disciples of Sanctuary",
+      "start": "2021-04-03T00:00:00Z",
+      "end": "2021-07-19T00:00:00Z",
+      "patch": "2.7.0",
+      "theme": "Launched with the follower revamp, which gave followers 14 gear slots and Emanate powers.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en-us/blog/23647866",
+        "https://us.forums.blizzard.com/en/d3/t/season-23-the-disciples-of-sanctuary-end-dates/36084"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 24,
+      "name": "Ethereal Memory",
+      "start": "2021-07-24T00:00:00Z",
+      "end": "2021-12-06T01:00:00Z",
+      "patch": "2.7.1",
+      "theme": "Ethereals: seasonal weapons that roll a random class weapon legendary power and class passive.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en-us/blog/23695733",
+        "https://us.forums.blizzard.com/en/d3/t/season-24-ethereal-memory-end-dates/47878"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 25,
+      "name": "The Lords of Hell",
+      "start": "2021-12-11T01:00:00Z",
+      "end": "2022-04-11T00:00:00Z",
+      "patch": "2.7.2",
+      "theme": "Soul Shards: socketable powers of the Prime and Lesser Evils, upgraded with Hellforge Embers.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.com/en-us/blog/23746130",
+        "https://us.forums.blizzard.com/en/d3/t/season-25-the-lords-of-hell-end-dates/50248"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 26,
+      "name": "The Fall of the Nephalem",
+      "start": "2022-04-16T00:00:00Z",
+      "end": "2022-08-22T00:00:00Z",
+      "patch": "2.7.3",
+      "theme": "Echoing Nightmares: a wave-survival event entered with a seasonal item.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.blizzard.com/en-us/blog/23785083",
+        "https://us.forums.blizzard.com/en/d3/t/season-26-the-fall-of-the-nephalem-ending-soon/53614"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 27,
+      "name": "Light's Calling",
+      "start": "2022-08-27T00:00:00Z",
+      "end": "2023-02-20T01:00:00Z",
+      "patch": "2.7.4",
+      "theme": "Angelic Crucibles: sanctify a legendary item to perfect Ancient stats plus one of three class-specific powers.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.blizzard.com/en-us/blog/23816414",
+        "https://us.forums.blizzard.com/en/d3/t/season-27-lights-calling-ending-soon/56871"
+      ],
+      "confidence": "official",
+      "notes": "Times per fandom: Season 4 onward starts and ends at 5:00 PM Pacific (Americas)."
+    },
+    {
+      "season": 28,
+      "name": "Rites of Sanctuary",
+      "start": "2023-02-25T01:00:00Z",
+      "end": "2023-09-11T00:00:00Z",
+      "patch": "2.7.5",
+      "theme": "Introduced the Altar of Rites, a seasonal progression altar unlocked with materials and choices.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.blizzard.com/en-us/blog/23897180",
+        "https://us.forums.blizzard.com/en/d3/t/season-28-rites-of-sanctuary-ending-soon-notice/61444"
+      ],
+      "confidence": "official",
+      "notes": "End Sep 10 at 5:00 PM PDT per Blizzard forum notice (Aug 28, 2023). Dexerto reported Aug 20, 2023, which is wrong. Longest D3 season (~28 weeks)."
+    },
+    {
+      "season": 29,
+      "name": "Visions of Enmity",
+      "start": "2023-09-16T00:00:00Z",
+      "end": "2024-01-07",
+      "patch": "2.7.6",
+      "theme": "Visions of Enmity: random portals to high-density monster areas; also introduced Solo Self-Found mode.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://us.diablo3.blizzard.com/en-us/blog/23999068",
+        "https://blizzardwatch.com/2023/12/04/diablo-3-season-29-end/"
+      ],
+      "confidence": "secondary",
+      "notes": "Start 5:00 PM PDT is official. End date (Sunday, Jan 7, 2024) is from BlizzardWatch and fandom; no Blizzard post found. Last season with an original theme."
+    },
+    {
+      "season": 30,
+      "name": "The Lords of Hell",
+      "start": "2024-01-13T01:00:00Z",
+      "end": "2024-04-08T00:00:00Z",
+      "patch": "2.7.7",
+      "theme": "Returning Soul Shards theme from Season 25; Altar of Rites and Visions of Enmity became permanent seasonal features.",
+      "sources": [
+        "https://diablo.fandom.com/wiki/Season",
+        "https://news.blizzard.com/en-us/diablo3/24046224/season-30-the-lords-of-hell-now-live",
+        "https://blizzardwatch.com/2024/01/22/diablo-3-season-30-end/",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "conflicting",
+      "notes": "Start is official. End Sunday, Apr 7, 2024 at 5 PM Pacific per BlizzardWatch and fandom; d3guides lists Mar 31, 2024. No Blizzard post found for the end. First season to remix past themes."
+    },
+    {
+      "season": 31,
+      "name": "Season of the Forbidden Archives",
+      "start": "2024-04-13T00:00:00Z",
+      "end": "2024-07-07",
+      "patch": null,
+      "theme": "Returning Forbidden Archives theme from Season 20: Kanai's Cube slots accept legendary powers of any type.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24078323",
+        "https://diablo.fandom.com/wiki/Season",
+        "https://blizzardwatch.com/2024/04/26/diablo-3-season-31-end/",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "conflicting",
+      "notes": "Start 5:00 PM PDT is official. End Jul 7, 2024 per BlizzardWatch and fandom; d3guides lists Jun 30, 2024. No Blizzard post found for the end. Blizzard's season page lists patch 2.7.7 only; no new patch at launch."
+    },
+    {
+      "season": 32,
+      "name": "Ethereal Memory",
+      "start": "2024-07-13T00:00:00Z",
+      "end": "2024-10-20",
+      "patch": null,
+      "theme": "Returning Ethereals theme from Season 24.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24104599",
+        "https://blizzardwatch.com/2024/10/16/diablo-3-season-32-end/",
+        "https://www.gamewatcher.com/news/diablo-3-season-33-start-end-dates",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "conflicting",
+      "notes": "Start 5:00 PM PDT is official. End Oct 20, 2024 per BlizzardWatch, GameWatcher and fandom; d3guides lists Oct 6, 2024. Launch patch not sourced."
+    },
+    {
+      "season": 33,
+      "name": "Shades of the Nephalem",
+      "start": "2024-10-26T00:00:00Z",
+      "end": "2025-01-20T01:00:00Z",
+      "patch": "2.7.8",
+      "theme": "Returning Shadows of the Past theme from Season 22: shrine/pylon shadow clones and a fourth Kanai's Cube slot.",
+      "sources": [
+        "https://us.forums.blizzard.com/en/d3/t/season-33-shades-of-the-nephalem-%E2%80%93-has-concluded/64375/1",
+        "https://blizzardwatch.com/2025/01/14/diablo-3-season-33-end/",
+        "https://icy-veins.com/forums/topic/81515-diablo-iii-patch-278-preview-what-to-expect-in-season-33",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "secondary",
+      "notes": "Start Oct 25 at 5:00 PM PDT is official (delayed two weeks to avoid D4's Vessel of Hatred). End Jan 19, 2025 per BlizzardWatch citing Blizzard's Season 34 preview; the season accidentally ended early in early January and was restored. GameWatcher reported Feb 4, 2025; d3guides lists Oct 18, 2024 for the start, contradicting Blizzard. End time 5 PM PST assumed from the usual schedule. Patch 2.7.8 per Icy Veins' PTR preview."
+    },
+    {
+      "season": 34,
+      "name": "Light's Calling",
+      "start": "2025-02-01T01:00:00Z",
+      "end": "2025-06-01",
+      "patch": null,
+      "theme": "Returning Angelic Crucibles theme from Season 27.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24166297",
+        "https://news.blizzard.com/en-us/article/24191146/season-35-eternal-conflict-now-live",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "official",
+      "notes": "Start Jan 31 at 5:00 PM PST (delayed from Jan 24). End Jun 1 per Blizzard's Season 35 post; no time given. d3guides lists May 4, 2025 for the end, contradicting Blizzard. Launch patch not sourced."
+    },
+    {
+      "season": 35,
+      "name": "Eternal Conflict",
+      "start": "2025-06-07T00:00:00Z",
+      "end": "2025-09-07",
+      "patch": null,
+      "theme": "Returning Season 19 theme: Pandemonium killstreak stacks with battlefield effects at kill milestones.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24191146/season-35-eternal-conflict-now-live",
+        "https://blizzardwatch.com/2025/09/11/diablo-3-season-35-end-season-36-start/",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "secondary",
+      "notes": "Start Jun 6 at 5:00 PM PDT is official. End Sunday, Sep 7, 2025 per BlizzardWatch (13 weeks 2 days); no Blizzard post found. d3guides lists May 16 to Aug 17, 2025, which contradicts Blizzard's start date. Launch patch not sourced."
+    },
+    {
+      "season": 36,
+      "name": "The Lords of Hell",
+      "start": "2025-09-13T00:00:00Z",
+      "end": "2025-11-30",
+      "patch": null,
+      "theme": "Returning Soul Shards theme from Season 25.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24231417/season-36-the-lords-of-hell-preview",
+        "https://blizzardwatch.com/2025/11/13/diablo-3-season-36-end-date/",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "official",
+      "notes": "Start Sep 12 at 5:00 PM PDT is official. End Sunday, Nov 30, 2025 per a Blizzard blog post quoted by BlizzardWatch; no time given. d3guides lists Aug 29 for the start, contradicting Blizzard. Launch patch not sourced."
+    },
+    {
+      "season": 37,
+      "name": "The Forbidden Archives",
+      "start": "2025-12-06T01:00:00Z",
+      "end": "2026-03-22",
+      "patch": null,
+      "theme": "Returning Forbidden Archives theme: Kanai's Cube slots accept legendary powers of any type.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24243442/season-37-the-forbidden-archives-now-live",
+        "https://blizzardwatch.com/2026/01/30/diablo-3-season-37-end-season-38-start",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "conflicting",
+      "notes": "Start Dec 5 at 5:00 PM PST is official. End Sunday, Mar 22, 2026 per BlizzardWatch, which says Blizzard confirmed it; d3guides lists Mar 15, 2026. BlizzardWatch had earlier estimated Mar 1. Launch patch not sourced."
+    },
+    {
+      "season": 38,
+      "name": "Ethereal Memory",
+      "start": "2026-03-28T00:00:00Z",
+      "end": "2026-06-21",
+      "patch": null,
+      "theme": "Returning Ethereals theme from Season 24.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24262572/38",
+        "https://blizzardwatch.com/2026/06/24/diablo-3-season-39-shades-nephalem/",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "secondary",
+      "notes": "Start Mar 27 at 5:00 PM PDT is official. End Jun 21, 2026 per BlizzardWatch (ended without prior announcement) and d3guides; Blizzard's page only says 'Has Concluded'. Launch patch not sourced."
+    },
+    {
+      "season": 39,
+      "name": "Shades of the Nephalem",
+      "start": "2026-06-27T00:00:00Z",
+      "end": "2026-09-28T00:00:00Z",
+      "patch": null,
+      "theme": "Returning Shadows of the Past theme: shrine/pylon shadow clones and a fourth Kanai's Cube slot.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24287549/season-39-shades-of-the-nephalem-now-live",
+        "https://news.blizzard.com/en-us/article/24301510",
+        "https://d3guides.de/de/seasons"
+      ],
+      "confidence": "official",
+      "notes": "Start Jun 26 at 5:00 PM PDT and end Sep 27 at 5:00 PM PDT are both from Blizzard. DiabloBytes' next-season page says Jun 20, which is wrong. Launch patch not sourced."
+    },
+    {
+      "season": 40,
+      "name": "Light's Calling",
+      "start": "2026-10-03T00:00:00Z",
+      "end": null,
+      "patch": null,
+      "theme": "Returning Angelic Crucibles theme from Season 27: imbue a legendary with one of three random class-specific powers.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24301510",
+        "https://d3guides.de/de/season-40"
+      ],
+      "confidence": "official",
+      "notes": "Current season. Start Oct 2 at 5:00 PM PDT per Blizzard's preview. No end date announced. Launch patch not stated by Blizzard; d3guides cites game data version 2.8.0, but that is not confirmed as the launch patch."
+    }
+  ]
+}

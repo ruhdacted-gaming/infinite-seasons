@@ -1,0 +1,216 @@
+{
+  "game": "pd2",
+  "checked": "2026-10-24",
+  "seasons": [
+    {
+      "season": 1,
+      "name": "Awakening",
+      "start": "2020-11-06",
+      "end": "2021-03-12",
+      "patch": null,
+      "theme": "PD2's launch season, adding tiered maps, group dungeons, more level 85 areas and a reworked Diablo Clone event.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_1"
+      ],
+      "confidence": "secondary",
+      "notes": "Start date from the wiki only; no start time found. Wiki lists 127 days, one more than start-to-start (it appears to count days inclusively). End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 2,
+      "name": "Transcendence",
+      "start": "2021-03-12",
+      "end": "2021-07-23",
+      "patch": null,
+      "theme": "Massive crafting overhaul, 9 new maps and the first dungeon, and halved PvP damage.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_2"
+      ],
+      "confidence": "secondary",
+      "notes": "Start date from the wiki only; no start time found (official Reddit patch notes post is linked from the wiki but could not be fetched). End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 3,
+      "name": "Domination",
+      "start": "2021-07-23",
+      "end": "2021-12-03",
+      "patch": null,
+      "theme": "Rare item and corruption overhauls, map changes, new class-specific unique items and a server-wide announcement system.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_3"
+      ],
+      "confidence": "secondary",
+      "notes": "Start date from the wiki only; no start time found. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 4,
+      "name": "Enlightenment",
+      "start": "2021-12-03",
+      "end": "2022-06-24",
+      "patch": null,
+      "theme": "Introduced Rathma, a new uber boss, plus random map events and new maps.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_4"
+      ],
+      "confidence": "secondary",
+      "notes": "Wiki length is 169 days (120+49): the season was replaced by Crafters Race League #1 (began 2022-04-01 10am PST per the wiki, ran to May 6) and then resumed until Season 5. Season 5 was delayed to stagger with D2R ladders. No start time found. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 5,
+      "name": "Ascension",
+      "start": "2022-06-24",
+      "end": "2022-11-25T18:00:00Z",
+      "patch": null,
+      "theme": "Added the Uber Ancients boss, a shared stash, an Act 5 mercenary, and non-ladder play.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_5"
+      ],
+      "confidence": "secondary",
+      "notes": "Start date from the wiki only; no start time found. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 6,
+      "name": "Fortification",
+      "start": "2022-11-25T18:00:00Z",
+      "end": "2023-04-28",
+      "patch": null,
+      "theme": "Removed the global skill cooldown and added two new maps and new map and corruption mods.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_6",
+        "https://web.archive.org/web/20230417181434/https://www.projectdiablo2.com/"
+      ],
+      "confidence": "official",
+      "notes": "Official site: 'will begin on November 25th at 10am PST' (PST in effect, = 18:00 UTC). End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 7,
+      "name": "Revelation",
+      "start": "2023-04-28",
+      "end": "2023-09-22T17:00:00Z",
+      "patch": null,
+      "theme": "Added difficulty tiers for Diablo Clone and Rathma, stackable maps, two unique maps and new mercenaries.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_7"
+      ],
+      "confidence": "secondary",
+      "notes": "Start date from the wiki only; no start time found (archived site still showed Season 6 text). First season to co-exist with the open beta of the next season. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 8,
+      "name": "Depravity",
+      "start": "2023-09-22T17:00:00Z",
+      "end": "2024-02-09",
+      "patch": null,
+      "theme": "Introduced Corrupted Zones, rotating area-level-85 zones with higher worldstone shard drops.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_8",
+        "https://web.archive.org/web/20230920000000/https://www.projectdiablo2.com/",
+        "https://www.projectdiablo2.com/news/65148a917361278b17828bc3"
+      ],
+      "confidence": "official",
+      "notes": "Official site: 'will begin on September 22nd at 10am PST'; the dev team writes PST year-round, and PDT was in effect, so 10am Pacific = 17:00 UTC. Ladder ended when the Mini Crafters League (Crafters Race League #2) began on 2024-02-09 (10am PST per the wiki's quote of the Reddit post). The league ran 63 days until Season 9; that gap is not part of any season."
+    },
+    {
+      "season": 9,
+      "name": "Anarchy",
+      "start": "2024-04-12T17:00:00Z",
+      "end": "2024-10-25T17:00:00Z",
+      "patch": null,
+      "theme": "Map tier shuffle with denser maps, a new dungeon, and permanent summons that persist between games.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_9",
+        "https://www.projectdiablo2.com/news/661a8de069c26555e7611ec3"
+      ],
+      "confidence": "official",
+      "notes": "Official news post: 'Season 9 Anarchy will begin Friday 10am PST April 12th'; PDT in effect, so 17:00 UTC. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 10,
+      "name": "Desecration",
+      "start": "2024-10-25T17:00:00Z",
+      "end": "2025-05-16T17:00:00Z",
+      "patch": null,
+      "theme": "Introduced Lucion, a new uber boss, plus an Allocated Loot game mode and two new maps.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_10",
+        "https://web.archive.org/web/20241020000000/https://www.projectdiablo2.com/",
+        "https://www.projectdiablo2.com/news/671ba616e5fb3be79f1598e8"
+      ],
+      "confidence": "official",
+      "notes": "Official site: 'will begin on October 25th at 10am PST'; PDT in effect, so 17:00 UTC. Lucion was disabled on non-ladder during the first part of the season. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 11,
+      "name": "Prosperity",
+      "start": "2025-05-16T17:00:00Z",
+      "end": "2025-11-28T18:00:00Z",
+      "patch": null,
+      "theme": "Shared stash and gold in single player, a materials stash tab, and new unique maps.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_11",
+        "https://web.archive.org/web/20250512000000/https://www.projectdiablo2.com/",
+        "https://www.projectdiablo2.com/news/682c9a1f843a1aeb51b8ee67"
+      ],
+      "confidence": "official",
+      "notes": "Official site: 'will begin on May 16th at 10am PST'; PDT in effect, so 17:00 UTC. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 12,
+      "name": "Suffering",
+      "start": "2025-11-28T18:00:00Z",
+      "end": "2026-04-24T17:00:00Z",
+      "patch": null,
+      "theme": "Added stash search, three-portal tier 0 uber fights, and the City of Ureh unique map.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_12",
+        "https://web.archive.org/web/20251115000000/https://www.projectdiablo2.com/",
+        "https://www.projectdiablo2.com/news/6928d801adbfe010922c7b4f"
+      ],
+      "confidence": "official",
+      "notes": "Official site: 'will begin on Nov 28th at 10am PST' (PST in effect, = 18:00 UTC). End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 13,
+      "name": "Betrayal",
+      "start": "2026-04-24T17:00:00Z",
+      "end": "2026-10-23T17:00:00Z",
+      "patch": null,
+      "theme": "Added the Corrupted Heroes Invasion map event, two unique maps, and a critical strike rework.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_13",
+        "https://web.archive.org/web/20260420000000/https://www.projectdiablo2.com/",
+        "https://www.projectdiablo2.com/news/69eae6327bb43338eb53be99"
+      ],
+      "confidence": "official",
+      "notes": "Official site: 'will begin on Apr 24th at 10am PST'; PDT in effect, so 17:00 UTC. End is the start of the next season. Per the wiki, the ladder realm actually shuts down a few days earlier, when the closed beta ends and the open beta starts on the main realm."
+    },
+    {
+      "season": 14,
+      "name": "Alliance",
+      "start": "2026-10-23T17:00:00Z",
+      "end": null,
+      "patch": null,
+      "theme": "Introduced guilds with upgradeable Guild Halls, plus global chat.",
+      "sources": [
+        "https://wiki.projectdiablo2.com/wiki/Seasons",
+        "https://wiki.projectdiablo2.com/wiki/Patch:Season_14",
+        "https://www.projectdiablo2.com/",
+        "https://www.projectdiablo2.com/news/6adacfefa9def04d275a1486"
+      ],
+      "confidence": "official",
+      "notes": "Current season. Official site: 'will begin on Oct 23rd at 10am PST'; PDT in effect (DST ends Nov 1, 2026), so 17:00 UTC. If 'PST' were taken literally it would be 18:00 UTC; the team uses 'PST' year-round. No end date announced."
+    }
+  ]
+}

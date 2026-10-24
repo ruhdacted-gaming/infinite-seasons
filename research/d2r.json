@@ -1,0 +1,214 @@
+{
+  "game": "d2r",
+  "checked": "2026-10-24",
+  "seasons": [
+    {
+      "season": 1,
+      "name": null,
+      "start": "2022-04-29T00:00:00Z",
+      "end": null,
+      "patch": "2.4",
+      "theme": "First D2R ladder season, launched two weeks after Patch 2.4 brought class balance changes, new runewords and mercenary reworks.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/23788293/diablo-ii-resurrected-patch-2-4-ladder-now-live",
+        "https://maxroll.gg/d2/news/get-ready-for-ladder-season-1"
+      ],
+      "confidence": "official",
+      "notes": "Start: April 28, 2022, 5 PM PDT (Americas); April 29, 2 AM CEST / 9 AM KST. Patch 2.4 went live April 14, 2022. End not published by Blizzard. Secondary sources conflict: Blizzard Watch and vhpg.com say Season 1 ended October 6, 2022, when Season 2 began; aoeah.com says October 3, 2022."
+    },
+    {
+      "season": 2,
+      "name": null,
+      "start": "2022-10-07T00:00:00Z",
+      "end": null,
+      "patch": "2.5",
+      "theme": "Introduced ladder-only Sunder Charms; Patch 2.5 had added Terror Zones shortly before.",
+      "sources": [
+        "https://maxroll.gg/d2/news/get-ready-for-ladder-season-2",
+        "https://maxroll.gg/d2/news/sunder-charms-in-patch-2-5",
+        "https://news.blizzard.com/en-us/diablo2/23827590/diablo-ii-resurrected-patch-2-5-now-live"
+      ],
+      "confidence": "secondary",
+      "notes": "The October 6 date is in Blizzard's Patch 2.5 PTR notes; the exact time (October 6, 5 PM PDT; October 7, 2 AM CEST / 9 AM KST) comes from Maxroll only. End not published by Blizzard. aoeah.com lists 'February 15, 2022' (an obvious typo, likely 2023); arpgseasons.com uses the Season 3 start. Left null."
+    },
+    {
+      "season": 3,
+      "name": null,
+      "start": "2023-02-17T01:00:00Z",
+      "end": null,
+      "patch": "2.6",
+      "theme": "Patch 2.6 added new runewords, including Mosaic, Metamorphosis and Hustle.",
+      "sources": [
+        "https://tbc.wowhead.com/diablo-2/news/diablo-ii-resurrected-ladder-season-3-tier-lists-now-live-331421",
+        "https://maxroll.gg/d2/news/patch-2-6-ptr",
+        "https://us.forums.blizzard.com/en/d2r/t/season-3-ladder-reset-timing-update/153229"
+      ],
+      "confidence": "secondary",
+      "notes": "Start time (February 16, 2023, 5 PM PST) comes from Wowhead; Maxroll gives the February 16 date. I did not find Blizzard's own Season 3 launch post. Fextralife dates Patch 2.6 as February 17, 2023, a day after the ladder start; not resolved. End not published by Blizzard: aoeah.com says May 2, 2023 (the day Patch 2.7 went live at 10 AM PDT); arpgseasons.com uses the Season 4 start. Left null."
+    },
+    {
+      "season": 4,
+      "name": null,
+      "start": "2023-05-05T00:00:00Z",
+      "end": null,
+      "patch": "2.7",
+      "theme": "Patch 2.7 added four extra character slots in all online modes and automated chat moderation.",
+      "sources": [
+        "https://news.blizzard.com/en-gb/diablo2/23938388/diablo-ii-resurrected-ladder-season-4-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: May 4, 2023, 5:00 PM PDT. Patch 2.7 went live May 2, 2023, 10:00 AM PDT. End not published by Blizzard: aoeah.com says September 14, 2023; arpgseasons.com uses the Season 5 start (September 28). Left null."
+    },
+    {
+      "season": 5,
+      "name": null,
+      "start": "2023-09-28T21:00:00Z",
+      "end": null,
+      "patch": null,
+      "theme": null,
+      "sources": [
+        "https://news.blizzard.com/en-gb/diablo2/23991801/diablo-ii-resurrected-ladder-season-5-coming-soon",
+        "https://maxroll.gg/d2/news/d2r-ladder-season-5-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: September 28, 2023, 2:00 PM PDT (11:00 PM CEST, September 29 6:00 AM KST). This is earlier than the usual 5 PM slot, but Blizzard's post and Maxroll agree. No patch launched with the season; Patch 2.7.2 followed mid-season on November 14. End not published by Blizzard: aoeah.com says February 22, 2024; arpgseasons.com uses the Season 6 start. Left null."
+    },
+    {
+      "season": 6,
+      "name": null,
+      "start": "2024-02-23T01:00:00Z",
+      "end": null,
+      "patch": null,
+      "theme": "A plain leaderboard reset with no new content.",
+      "sources": [
+        "https://news.blizzard.com/en-us/diablo2/24061888/diablo-ii-resurrected-ladder-season-6-coming-soon",
+        "https://maxroll.gg/d2/news/season-6-starts-feb-22nd"
+      ],
+      "confidence": "official",
+      "notes": "Start: February 22, 2024, 5:00 PM PST. The 'no new content' statement comes from Maxroll. End not published by Blizzard: aoeah.com says May 21, 2024, the day Patch 2.7.3 went live at 10 AM PDT; arpgseasons.com uses the Season 7 start. Left null."
+    },
+    {
+      "season": 7,
+      "name": null,
+      "start": "2024-05-24T00:00:00Z",
+      "end": null,
+      "patch": "2.7.3",
+      "theme": "Patch 2.7.3 lowered the age restriction in Korea to 19; no new gameplay content.",
+      "sources": [
+        "https://news.blizzard.com/en-us/diablo2/24096018/diablo-ii-resurrected-ladder-season-7-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: May 23, 2024, 5:00 PM PDT. Maxroll mislabels it PST. Patch 2.7.3 went live May 21, 2024, 10:00 AM PDT. End not published by Blizzard: aoeah.com says August 20, 2024, the day Patch 2.7.4 went live; arpgseasons.com uses the Season 8 start. Left null."
+    },
+    {
+      "season": 8,
+      "name": null,
+      "start": "2024-08-24T00:00:00Z",
+      "end": null,
+      "patch": "2.7.4",
+      "theme": "Patch 2.7.4 brought bug fixes and player-reporting updates.",
+      "sources": [
+        "https://news.blizzard.com/en-us/diablo2/24111638/diablo-ii-resurrected-ladder-season-8-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: August 23, 2024, 5 PM PDT. Patch 2.7.4 went live August 20. End not published by Blizzard: aoeah.com says December 3, 2024, the day Patch 2.8.0 went live; arpgseasons.com uses the Season 9 start. Left null."
+    },
+    {
+      "season": 9,
+      "name": null,
+      "start": "2024-12-07T01:00:00Z",
+      "end": null,
+      "patch": "2.8.0",
+      "theme": "Patch 2.8.0 made move directions bindable, allowing WASD movement.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24158875/diablo-ii-resurrected-ladder-season-9-coming-soon",
+        "https://maxroll.gg/d2/news/ladder-season-9-on-december-6th"
+      ],
+      "confidence": "official",
+      "notes": "Start: December 6, 2024, 5 PM PST. Patch 2.8.0 went live December 3. End not published by Blizzard: aoeah.com says March 7, 2025, the same day Season 10 started; arpgseasons.com agrees, using the Season 10 start. Left null because there is no official source."
+    },
+    {
+      "season": 10,
+      "name": null,
+      "start": "2025-03-08T01:00:00Z",
+      "end": null,
+      "patch": null,
+      "theme": null,
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24179243/diablo-ii-resurrected-ladder-season-10-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: March 7, 2025, 5 PM PST. Blizzard's post names no patch or new features. End not published by Blizzard: aoeah.com says June 20, 2025, the day Season 11 started. Left null."
+    },
+    {
+      "season": 11,
+      "name": null,
+      "start": "2025-06-21T00:00:00Z",
+      "end": null,
+      "patch": null,
+      "theme": null,
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24208340/diablo-ii-resurrected-ladder-season-11-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: June 20, 2025, 5:00 PM PDT. Blizzard's post names no patch or new features. End not published by Blizzard: aoeah.com says October 3, 2025, the day Season 12 started. Left null."
+    },
+    {
+      "season": 12,
+      "name": null,
+      "start": "2025-10-04T00:00:00Z",
+      "end": "2026-02-11T17:00:00Z",
+      "patch": null,
+      "theme": null,
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24226703/diablo-ii-resurrected-ladder-season-12-coming-soon",
+        "https://news.blizzard.com/en-us/article/24246296/diablo-ii-resurrected-ladder-season-13-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: October 3, 2025, 5:00 PM PDT. End: February 11, 2026, 9 AM PST, from Blizzard's Season 13 post. The end matches the Reign of the Warlock launch (DiabloBytes dates its patch notes February 11, 2026). Conflicts: seasondex.com gives the start as October 10, 2025, and arpgseasons.com gives the end as February 21, 2026. Both contradict Blizzard."
+    },
+    {
+      "season": 13,
+      "name": null,
+      "start": "2026-02-21T01:00:00Z",
+      "end": null,
+      "patch": "3.1.1",
+      "theme": "First ladder season after the Reign of the Warlock expansion, which added the Warlock class.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24246296/diablo-ii-resurrected-ladder-season-13-coming-soon",
+        "https://diablo2.wiki.fextralife.com/Patch_Notes",
+        "https://seasondex.com/d2r"
+      ],
+      "confidence": "official",
+      "notes": "Start: February 20, 2026, 5:00 PM PST (Blizzard). Patch 3.1.1 is dated February 20, 2026 by Fextralife, and seasondex lists v3.1.1; this is secondary. The expansion launch patch was 3.1 (February 11), and DiabloBytes calls it '3.0'. Conflicts: a DiabloBytes article says Season 13 launched March 6, 2026, and Blizzard Watch says February 20 at 9 AM Pacific. Both contradict Blizzard. End not published by Blizzard: Patch 3.2 went live May 19, 2026 (mp1st), and Season 14 started May 22. Secondary sites list May 22/23. Left null."
+    },
+    {
+      "season": 14,
+      "name": null,
+      "start": "2026-05-23T00:00:00Z",
+      "end": "2026-08-17T18:00:00Z",
+      "patch": "3.2",
+      "theme": "Patch 3.2 brought large Warlock changes and Terror Zone changes.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24261478/diablo-ii-resurrected-ladder-season-14-coming-soon",
+        "https://news.blizzard.com/en-us/article/24296140/diablo-ii-resurrected-ladder-season-15-coming-soon"
+      ],
+      "confidence": "official",
+      "notes": "Start: May 22, 2026, 5:00 PM PDT. Maxroll mislabels it PST. End: Monday, August 17, 2026, 11 AM PDT, from Blizzard's Season 15 post. Patch 3.2 went live May 19, 2026 (mp1st). Conflict: arpgseasons.com says Season 14 ran to September 15, 2026, which is wrong."
+    },
+    {
+      "season": 15,
+      "name": null,
+      "start": "2026-08-22T00:00:00Z",
+      "end": null,
+      "patch": "3.3",
+      "theme": "Patch 3.3 brought Terror Zone and Colossal Ancients changes plus a set of item adjustments.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24296140/diablo-ii-resurrected-ladder-season-15-coming-soon",
+        "https://diablobytes.com/d2-resurrected/seasons/"
+      ],
+      "confidence": "official",
+      "notes": "Start: August 21, 2026, 5:00 PM PDT (August 22, 1 AM BST / 2 AM CEST / 8 AM CST / 9 AM KST). Patch 3.3 rolled out Tuesday, August 18. Blizzard has announced no end date. Trackers estimate it: seasondex.com and ggseason.com say about November 28, 2026; aoeah.com says mid-November. arpgseasons.com wrongly shows a different current season, 'Season of Hell's Legacy', starting September 15, 2026."
+    }
+  ]
+}

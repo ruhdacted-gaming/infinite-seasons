@@ -1,0 +1,237 @@
+{
+  "game": "d4",
+  "checked": "2026-10-24",
+  "seasons": [
+    {
+      "season": 1,
+      "name": "Season of the Malignant",
+      "start": "2023-07-20T17:00:00Z",
+      "end": "2023-10-17",
+      "patch": "1.1.0",
+      "theme": "Players capture Malignant Hearts from Malignant Monsters and socket them for build-altering powers.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/23967322/malignance-runs-rampant-in-the-first-season-of-diablo-iv",
+        "https://news.blizzard.com/en-us/article/23976339/season-of-the-malignant-now-live",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date",
+        "https://ggseason.com/blog/diablo-4-all-seasons-dates/"
+      ],
+      "confidence": "secondary",
+      "notes": "Start is official (Blizzard: July 20, 10 a.m. PDT). No official post found stating the end. The end date comes from secondary lists (vaultalts, ggseason, Destructoid) and equals the Season 2 start date. Patch 1.1.0 is from vaultalts. It went live a couple of days before the season started."
+    },
+    {
+      "season": 2,
+      "name": "Season of Blood",
+      "start": "2023-10-17",
+      "end": "2024-01-23",
+      "patch": "1.2.0",
+      "theme": "Players gain Vampiric Powers, with a new questline and five additional endgame bosses.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/23989476/season-of-blood-is-dripping-into-sanctuary",
+        "https://news.blizzard.com/en-us/article/24092662/diablo-iv-patch-notes-1-0-1-2",
+        "https://www.icy-veins.com/d4/news/diablo-4-season-2-start-time-delayed/",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Start date is official. Only the date is used, because the scheduled 10 a.m. PT start was delayed by a few hours for technical issues (Icy Veins) and I found no source for the actual go-live time. No official post found stating the end. The end date comes from secondary lists and equals the Season 3 start date."
+    },
+    {
+      "season": 3,
+      "name": "Season of the Construct",
+      "start": "2024-01-23T18:00:00Z",
+      "end": "2024-05-14",
+      "patch": "1.3.0",
+      "theme": "Players get a customizable Seneschal construct companion and a new Vaults dungeon type.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24053482/unearth-a-looming-threat-in-season-of-the-construct",
+        "https://news.blizzard.com/en-us/article/24140806/diablo-iv-patch-notes-1-3-1-5",
+        "https://blizzardwatch.com/2024/03/20/diablo-4-season-3-end-may/",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "conflicting",
+      "notes": "Start is official (Blizzard: January 23, 10 a.m. PST). The original in-game end date was April 16, 2024. In the Season 4 PTR campfire chat, Blizzard extended the season to May 14, 2024 (reported by BlizzardWatch; the Blizzard transcript was not found). ggseason and Fextralife still list April 16, which is stale. ggseason also claims a 28-day off-season gap, which is wrong. A Wowhead report of April 26 was speculation."
+    },
+    {
+      "season": 4,
+      "name": "Loot Reborn",
+      "start": "2024-05-14T17:00:00Z",
+      "end": "2024-08-06",
+      "patch": "1.4.0",
+      "theme": "Itemization was overhauled, and the Tempering and Masterworking crafting systems were added.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24077223/galvanize-your-legend-in-season-4-loot-reborn",
+        "https://news.blizzard.com/en-us/article/24140806/diablo-iv-patch-notes-1-3-1-5",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Blizzard's official title is \"Season 4: Loot Reborn\". The name has no \"Season of\" form, and ggseason's \"Season of Loot Reborn\" is wrong. The numbering is normal, with no skip or renumbering. Start is official (May 14, 10 a.m. PT). No official post found stating the end. The end date comes from secondary lists and equals the Season 5 start date."
+    },
+    {
+      "season": 5,
+      "name": "Season of the Infernal Hordes",
+      "start": "2024-08-06T17:00:00Z",
+      "end": "2024-10-07",
+      "patch": "1.5.0",
+      "theme": "This season added the Infernal Hordes, a wave-based endgame mode entered with Infernal Compasses.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24119591/slay-endless-demons-in-season-of-the-infernal-hordes",
+        "https://news.blizzard.com/en-us/diablo4/24123440/diablo-iv-1-5-0-patch-notes",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date",
+        "https://ggseason.com/blog/diablo-4-all-seasons-dates/"
+      ],
+      "confidence": "secondary",
+      "notes": "Start is official (August 6, 10 a.m. PT). Patch 1.5.0 is dated August 6, 2024. No official post found stating the end. The end date comes from secondary lists. vaultalts gives Oct 7, which is the Pacific date of the Season 6 start (Oct 7, 4 p.m. PDT). ggseason gives Oct 8, the UTC or European date."
+    },
+    {
+      "season": 6,
+      "name": "Season of Hatred Rising",
+      "start": "2024-10-07T23:00:00Z",
+      "end": "2025-01-21",
+      "patch": "2.0.2",
+      "theme": "Players hunt giant Realmwalkers and enter Seething Realms; the season launched with the Vessel of Hatred expansion.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24140803/conquer-colossal-foes-in-season-of-hatred-rising",
+        "https://news.blizzard.com/en-us/article/24140808/diablo-iv-patch-notes-2-0",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Start is official (October 7, 4 p.m. PDT, with Vessel of Hatred). That is October 8 in UTC, which is why many sites list Oct 8. 2.0.2 (Build #58474, October 7, 2024) is the first live build in Blizzard's 2.0 patch notes. No official post found stating the end. The end date comes from secondary lists and equals the Season 7 start date."
+    },
+    {
+      "season": 7,
+      "name": "Season of Witchcraft",
+      "start": "2025-01-21T18:00:00Z",
+      "end": "2025-04-29",
+      "patch": "2.1.0",
+      "theme": "Players unlock Witchcraft Powers through a seasonal questline and Headrotten hunts for Coven favor.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24167111/master-the-occult-in-season-of-witchcraft",
+        "https://news.blizzard.com/en-us/article/24171214/diablo-iv-patch-notes",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Start is official (January 21, 10 a.m. PST). Patch 2.1.0 (Build #61313) is dated January 21, 2025. No official post found stating the end. The end date comes from secondary lists and equals the Season 8 start date."
+    },
+    {
+      "season": 8,
+      "name": "Belial's Return",
+      "start": "2025-04-29T17:00:00Z",
+      "end": "2025-07-01",
+      "patch": "2.2.0",
+      "theme": "Players absorb Boss Powers from defeated bosses and equip them as Main and Modifier effects.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24189530/combat-deception-in-season-8-belials-return",
+        "https://maxroll.gg/d4/news/diablo-4-2-2-0-patch-notes",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Blizzard's official title is \"Season 8: Belial's Return\". Start is official (April 29, 10 a.m. PDT). Patch 2.2.0 is from Maxroll and vaultalts. No official post found stating the end. The end date comes from secondary lists and equals the Season 9 start date."
+    },
+    {
+      "season": 9,
+      "name": "Sins of the Horadrim",
+      "start": "2025-07-01",
+      "end": "2025-09-23",
+      "patch": "2.3.0",
+      "theme": "Horadric Spellcraft lets players combine Catalysts, Infusions and Arcana into custom spells.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24215863/purge-the-sins-of-the-horadrim",
+        "https://news.blizzard.com/en-us/article/24215257/earn-season-9-sins-of-the-horadrim-twitch-drops",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Blizzard's official title is \"Season 9: Sins of the Horadrim\". The start date and patch 2.3.0 are official. The season post gives no launch time. Only the Twitch drops (10 a.m. PDT) and the shop (12 p.m. PDT) are timed, so only the date is used. Deltia's Gaming gives 10 a.m. PDT. No official post found stating the end. The end date comes from secondary lists and equals the Season 10 start date."
+    },
+    {
+      "season": 10,
+      "name": "Season of Infernal Chaos",
+      "start": "2025-09-23",
+      "end": "2025-12-11",
+      "patch": "2.4.0",
+      "theme": "Players hunt Chaos Armor to unlock Chaos Perks that reshape skills, and seal Chaos Rifts to level them.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24226702/rally-against-hell-in-season-of-infernal-chaos",
+        "https://www.icy-veins.com/d4/news/diablo-4-season-10-season-of-infernal-chaos-release-times/",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "The start date is official. Blizzard's post gives no season launch time. Icy Veins and esports.gg give 10 a.m. PDT, but only the date is used. Patch 2.4.0 was tested on the PTR and is listed by vaultalts. No official post found stating the end. The end date comes from secondary lists. It is the Pacific date of the Season 11 start (Dec 11, 8:30 p.m. PST). In UTC that is Dec 12."
+    },
+    {
+      "season": 11,
+      "name": "Season of Divine Intervention",
+      "start": "2025-12-12T04:30:00Z",
+      "end": "2026-03-11",
+      "patch": "2.5.0",
+      "theme": "Azmodan's Lesser Evils invade Sanctuary, and the angel Hadriel grants Divine Gifts to resist them.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24244465/vanquish-the-lesser-evils-in-season-of-divine-intervention",
+        "https://blizzardwatch.com/2025/12/12/diablo-4-season-11-start/",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Start is official: December 11, 8:30 p.m. PST, an unusual evening launch timed to The Game Awards, where Lord of Hatred was announced. That is December 12 in UTC, and ggseason's Dec 11 is the Pacific date. Patch 2.5.0 is listed by vaultalts and referenced in Blizzard's post. No official post found stating the end. The end date comes from secondary lists and equals the Season 12 start date."
+    },
+    {
+      "season": 12,
+      "name": "Season of Slaughter",
+      "start": "2026-03-11T17:00:00Z",
+      "end": "2026-04-27",
+      "patch": "2.6.0",
+      "theme": "Players transform into The Butcher and build Killstreaks for experience and seasonal reputation.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24244648/become-the-butcher-in-season-of-slaughter",
+        "https://news.blizzard.com/en-gb/article/24266869/diablo-iv-patch-notes-2-6",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Start and patch are official (March 11, 10 a.m. PT; patch 2.6.0). US DST began March 8, 2026, so the start is PDT, which is 17:00 UTC. No official post found stating the end. The end date comes from secondary lists. vaultalts gives Apr 27, the Pacific date of the Season 13 start. ggseason gives Apr 28, the UTC date. At 48 days, this is the shortest D4 season."
+    },
+    {
+      "season": 13,
+      "name": "Season of Reckoning",
+      "start": "2026-04-27T23:30:00Z",
+      "end": "2026-06-30",
+      "patch": "3.0.1",
+      "theme": "This expansion-launch season, released with Lord of Hatred, had no seasonal story or mechanic; it centered on Season Rank, Season Blessings and the return of the Tower and Leaderboards.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24267729/prepare-for-the-reckoning-lord-of-hatred-draws-near",
+        "https://news.blizzard.com/en-us/article/24271857/diablo-iv-patch-notes-3-0",
+        "https://news.blizzard.com/en-us/article/24268702/hunt-the-death-cult-in-season-of-death-awakening",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date"
+      ],
+      "confidence": "secondary",
+      "notes": "Start is official: April 27, 2026, 4:30 p.m. PDT. The Lord of Hatred rollout began at 4:00 p.m. PDT. In UTC that is April 28, which is the date ggseason uses. Blizzard's Reckoning post gives no season number. It is Season 13 because Blizzard calls the next season, Death Awakening, \"Season 14\", so no number was skipped. 3.0.0 was the pre-download build. 3.0.1 (Build #71566, April 27, 2026) is the first live build in Blizzard's 3.0 patch notes. No official post found stating the end. The end date comes from secondary lists and equals the Season 14 start date."
+    },
+    {
+      "season": 14,
+      "name": "Season of Death Awakening",
+      "start": "2026-06-30T17:00:00Z",
+      "end": "2026-09-15",
+      "patch": "3.1.0",
+      "theme": "Pandemonium Ruptures open rifts that spawn monsters and loot, with bigger rewards the longer they stay open.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24268702/hunt-the-death-cult-in-season-of-death-awakening",
+        "https://vaultalts.com/diablo-4/guides/season-history-every-season-and-date",
+        "https://ggseason.com/blog/diablo-4-all-seasons-dates/"
+      ],
+      "confidence": "secondary",
+      "notes": "Start and patch are official (June 30, 2026, 10:00 a.m. PDT; patch 3.1.0). No official post found stating the end. The end date comes from secondary lists and equals the Season 15 start date. ggseason gives the end time as 17:00 UTC. That is wrong, because Season 15 began at 9:30 a.m. PDT (16:30 UTC)."
+    },
+    {
+      "season": 15,
+      "name": "Season of Hell's Legacy",
+      "start": "2026-09-15T16:30:00Z",
+      "end": null,
+      "patch": "3.2.1",
+      "theme": "Players collect Splinters of Evil from echoes of Diablo, Baal and Mephisto to gain a Prime Evil's Iconic Power, for Diablo's 30th anniversary.",
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24301509/diablos-next-era-revealed-at-blizzcon-2026-opening-ceremonies-recap",
+        "https://news.blizzard.com/en-us/article/24295394/celebrate-30-years-of-diablo-in-season-of-hell-s-legacy",
+        "https://news.blizzard.com/en-us/article/24302578/the-3-3-0-ptr-what-you-need-to-know",
+        "https://d4guides.gg/en/news/diablo-4-season-15-season-of-hell-s-legacy-start-date-content-and-rewards"
+      ],
+      "confidence": "official",
+      "notes": "Blizzard's BlizzCon 2026 recap says the season \"begins rolling out on September 15, 9:30 a.m. PT\", which is 16:30 UTC. ggseason's 10:00 a.m. PT (17:00 UTC) is wrong. Patch 3.2.1 is Build #73552, dated September 15, 2026. Blizzard has announced no end date. The Season 16 PTR (3.3.0, PC only) runs October 27, 10 a.m. PDT, to November 3, 10 a.m. PST. In-game and datamined data suggests Season 16 starts December 1, 2026. That is an estimate and not official. ggseason estimates December 2."
+    }
+  ]
+}
