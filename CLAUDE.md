@@ -5,7 +5,9 @@ Tracks seasons for games that run them: current season, start date, end date (of
 ## Current state
 
 - `seasons.js`: the single source of season data (`window.SEASON_DATA`). Times are UTC ISO strings. `end: null` means not announced. The widget then uses `endEstimate`, or `start + typicalDays`, and labels the result as an estimate.
-- `widget.html`: the widget itself, a self-contained page. It loads `seasons.js` with a `<script>` tag, not fetch, so it works from `file://`.
+- `render.js` and `cards.css`: the card and countdown rendering and the card styles, shared by the widget and the site. Estimate handling (`~`, orange end date, dashed bar) lives here.
+- `widget.html`: the desktop widget page. It loads `seasons.js` and `render.js` with `<script>` tags, not fetch, so it works from `file://`.
+- `site/index.html`: the website homepage. It has a header with in-page game anchors (these become `/{game}` links once hub pages exist), an intro, the cards, and a footer that explains estimates and lists sources.
 - `Diablo Seasons.cmd`: opens the widget as an Edge `--app` window with its own profile dir, so the window size is respected.
 
 Tracked games: D2R ladder, Project Diablo 2, Diablo III, Diablo IV.
@@ -53,8 +55,8 @@ Rollout: ARPGs first (the Diablo games, PoE 1/2, Last Epoch). Then Marvel Rivals
 
 The site is static, hosted on Cloudflare Workers with static assets, on the Cloudflare account for ruhdacted@gmail.com. The domain infiniteseasons.com is registered at Porkbun, with its nameservers pointed at Cloudflare.
 
-- `build.mjs` generates the site into `dist/` (gitignored). For now that is `widget.html` as `index.html` plus `seasons.js`. pSEO pages will be generated here too.
-- `src/worker.js` serves `dist/` through the `ASSETS` binding and 301-redirects http to https and `www.` to the apex domain. `run_worker_first` is on so the redirect runs before assets are served.
+- `build.mjs` generates the site into `dist/` (gitignored). For now it copies `site/index.html`, `seasons.js`, `render.js` and `cards.css`. The cards render client-side. pSEO pages should be pre-rendered here so crawlers see the dates in the HTML.
+- `src/worker.js` serves `dist/` through the `ASSETS` binding and 301-redirects http to https and `www.` to the apex domain. `run_worker_first` is on so the redirect runs before assets are served. The redirects only run when `CANONICAL_REDIRECTS` is `"true"`. `npm run dev` sets it to false, because `wrangler dev` reports the production hostname and would loop.
 - `wrangler.jsonc` holds the Worker config and the custom-domain routes.
 - `npm run deploy` builds and deploys. `wrangler login` must be done with the ruhdacted@gmail.com Cloudflare account.
 

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Diablo Season Countdowns: D2R, PD2, Diablo III, Diablo IV | Infinite Seasons</title>
+<meta name="description" content="Current season, start date, end date and live countdown for the D2R ladder, Project Diablo 2, Diablo III and Diablo IV. Estimated dates are marked as estimates.">
+<link rel="canonical" href="https://infiniteseasons.com/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Diablo Season Countdowns | Infinite Seasons">
+<meta property="og:description" content="When does the current Diablo season end? Live countdowns for the D2R ladder, Project Diablo 2, Diablo III and Diablo IV.">
+<meta property="og:url" content="https://infiniteseasons.com/">
+<meta name="theme-color" content="#0d0b0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d0b0a'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' font-weight='700' text-anchor='middle' fill='%23d8b56a'%3E%E2%88%9E%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/cards.css">
+<style>
+  /* Site layout. Card styles live in cards.css, card rendering in render.js. */
+  * { box-sizing: border-box; }
+  html { font-size: 15px; }
+  html, body { margin: 0; color: var(--text);
+    font-family: "Segoe UI", system-ui, sans-serif; line-height: 1.45; }
+  body { background: var(--bg) radial-gradient(ellipse 90% 40% at 50% -5%, #2a1f14 0, var(--bg) 100%) no-repeat; min-height: 100vh;
+    display: flex; flex-direction: column; }
+  a { color: var(--gold); }
+  .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 1.1rem; }
+
+  .site-header { position: sticky; top: 0; z-index: 10; background: #0d0b0ae6;
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .site-header .wrap { display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; min-height: 3.4rem; flex-wrap: wrap; padding-top: .5rem; padding-bottom: .5rem; }
+  .wordmark { font: 700 1.05rem/1 Georgia, "Times New Roman", serif; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--gold); text-decoration: none; white-space: nowrap; }
+  .wordmark span { color: var(--text); font-weight: 400; }
+  .site-header nav { display: flex; gap: .45rem; flex-wrap: wrap; }
+  .site-header nav a { color: var(--accent, var(--gold)); border: 1px solid var(--line);
+    background: var(--card); border-radius: 999px; padding: .22rem .75rem; font-size: .78rem;
+    font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+    white-space: nowrap; }
+  .site-header nav a:hover { border-color: var(--accent, var(--gold)); }
+
+  main { flex: 1; }
+  .hero { padding: 2.6rem 0 1.6rem; max-width: 42rem; }
+  .hero h1 { margin: 0 0 .7rem; font: 600 clamp(1.7rem, 4.5vw, 2.4rem)/1.15 Georgia, "Times New Roman", serif;
+    color: var(--text); }
+  .hero p { margin: 0; color: #cfc3b2; font-size: 1.05rem; }
+  .hero em { font-style: normal; color: var(--warn); font-weight: 700; }
+  .hero .meta { margin-top: .9rem; color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
+
+  .cards { gap: .9rem; padding-bottom: 2.5rem; }
+
+  .site-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem;
+    padding: 1.6rem 0 2rem; }
+  .site-footer p { margin: 0 0 .7rem; max-width: 46rem; }
+  .site-footer p:last-child { margin-bottom: 0; }
+  .site-footer .checked.stale { color: var(--warn); }
+  .site-footer em { font-style: normal; color: var(--warn); }
+  .site-footer a { color: var(--muted); }
+  .site-footer a:hover { color: var(--text); }
+  .site-footer .sources a { white-space: nowrap; }
+  .site-footer .fine { font-size: .8rem; margin-top: 1.1rem; }
+
+  @media (max-width: 480px) {
+    .hero { padding-top: 1.8rem; }
+    .site-header .wrap { justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="/">Infinite <span>Seasons</span></a>
+    <nav id="nav" aria-label="Games"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>When does the current Diablo season end?</h1>
+    <p>Live countdowns, start dates and end dates for the Diablo II: Resurrected ladder, Project Diablo&nbsp;2, Diablo&nbsp;III and Diablo&nbsp;IV. Official dates are shown plainly; anything estimated is marked with <em>~</em>.</p>
+    <p class="meta" id="meta"></p>
+  </section>
+
+  <section class="cards" id="grid" aria-label="Current seasons"></section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="checked" id="checked"></p>
+    <p>How end dates work: when a season's end has been officially announced it is shown as-is. Otherwise we show an estimate, marked <em>~</em> in orange: either a date reported but not yet confirmed (for example from in-game data), or the start date plus that game's typical season length. Estimates are never official. All times are shown in your local time zone.</p>
+    <p class="sources" id="sources"></p>
+    <p class="fine">Infinite Seasons is an independent fan project and is not affiliated with Blizzard Entertainment or the Project Diablo 2 team.</p>
+  </div>
+</footer>
+
+<script src="/seasons.js"></script>
+<script src="/render.js"></script>
+<script>
+const S = window.Seasons;
+const data = window.SEASON_DATA || { games: [] };
+
+// Game links are in-page anchors for now. Once per-game hub pages exist, switch this to `/${g.id}`.
+const hrefFor = g => `#${g.id}`;
+
+document.getElementById("nav").innerHTML = data.games.map(g =>
+  `<a href="${S.esc(hrefFor(g))}" style="--accent:${S.esc(g.accent)}">${S.esc(g.tag)}</a>`).join("");
+
+document.getElementById("sources").innerHTML = "Sources: " + data.games.filter(g => g.link).map(g =>
+  `<a href="${S.esc(g.link)}" target="_blank" rel="noopener">${S.esc(g.tag)} (${S.esc(S.hostOf(g.link))})</a>`).join(" · ");
+
+function render() {
+  const now = Date.now();
+  S.renderCards(document.getElementById("grid"), data, now, { headingTag: "h2" });
+
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
+  document.getElementById("meta").textContent = `${S.fmtClock.format(now)} · times shown in your local time zone (${tz})`;
+
+  const checked = document.getElementById("checked");
+  const age = S.dataAge(data, now);
+  checked.className = "checked" + (age > 30 ? " stale" : "");
+  checked.textContent = `Data checked ${data.verified || "?"}` + (age > 30 ? " — this may be out of date." : "") + " · ~ = estimate";
+}
+
+render();
+setInterval(render, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* Shared season card styles for widget.html and site/index.html.
+   Sizes are in rem so each page picks its own base: the widget sets html { font-size: 13px },
+   the site uses a larger base. Estimates are orange (--warn) and the progress bar is dashed. */
+:root {
+  --bg: #0d0b0a;
+  --card: #17130f;
+  --line: #2c241c;
+  --text: #e9e1d4;
+  --muted: #9a8c7a;
+  --live: #5fd38a;
+  --warn: #e0a84a;
+  --gold: #d8b56a;
+}
+
+.cards { display: grid; gap: .62rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr)); }
+
+.card { background: var(--card); border: 1px solid var(--line);
+  border-left: 3px solid var(--accent, var(--gold)); border-radius: 6px; padding: .77rem .92rem;
+  scroll-margin-top: 5rem; }
+.card .top { display: flex; justify-content: space-between; align-items: center; gap: .62rem; }
+.card .tag { font-weight: 700; letter-spacing: .06em; color: var(--accent, var(--gold));
+  font-size: .92rem; text-transform: uppercase; }
+.card .badge { font-size: .81rem; font-weight: 700; letter-spacing: .08em; padding: 2px .54rem;
+  border-radius: 999px; text-transform: uppercase; white-space: nowrap; }
+.card .badge.live { color: var(--live); background: #5fd38a1f; }
+.card .badge.live::before { content: "● "; animation: pulse 2s infinite; }
+.card .badge.upcoming { color: #7fb8e8; background: #7fb8e81f; }
+.card .badge.overdue { color: var(--warn); background: #e0a84a1f; }
+.card .badge.ended { color: var(--muted); background: #ffffff10; }
+@keyframes pulse { 50% { opacity: .35; } }
+
+.card .title { display: flex; justify-content: space-between; align-items: flex-end; gap: .77rem;
+  margin-top: .31rem; }
+.card .heading { margin: 0; font: inherit; min-width: 0; }
+.card .name { display: block; font: 600 1.15rem/1.2 Georgia, "Times New Roman", serif; color: var(--text); }
+.card .num { display: block; color: var(--muted); font-size: .92rem; font-weight: 400; }
+.card .count { text-align: right; flex: none; }
+.card .count b { display: block; font: 700 1.85rem/1 "Segoe UI", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums; }
+.card .count span { color: var(--muted); font-size: .85rem; }
+
+.card .bar { height: 5px; background: #ffffff12; border-radius: 3px; margin: .7rem 0 .54rem; overflow: hidden; }
+.card .bar i { display: block; height: 100%; background: var(--accent, var(--gold)); border-radius: 3px; }
+.card .bar.est i { background: repeating-linear-gradient(90deg, var(--accent, var(--gold)) 0 6px, transparent 6px 9px); }
+
+.card .dates { display: flex; justify-content: space-between; color: var(--muted); font-size: .88rem;
+  font-variant-numeric: tabular-nums; }
+.card .dates em { font-style: normal; color: var(--warn); }
+.card .event { margin-top: .46rem; font-size: .88rem; color: #cfc3b2; }
+.card .event b { color: var(--accent, var(--gold)); font-weight: 600; }
+.card .note { margin-top: .38rem; color: var(--muted); font-size: .85rem; }
+.card .note a { color: var(--muted); }

@@ -4,57 +4,19 @@
 <meta charset="utf-8">
 <title>Diablo Seasons</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="cards.css">
 <style>
-  :root {
-    --bg: #0d0b0a;
-    --card: #17130f;
-    --line: #2c241c;
-    --text: #e9e1d4;
-    --muted: #9a8c7a;
-    --live: #5fd38a;
-    --warn: #e0a84a;
-  }
+  /* Compact desktop widget layout. Card styles live in cards.css, rendering in render.js. */
   * { box-sizing: border-box; }
+  html { font-size: 13px; }
   html, body { margin: 0; background: var(--bg); color: var(--text);
-    font: 13px/1.35 "Segoe UI", system-ui, sans-serif; }
+    font-family: "Segoe UI", system-ui, sans-serif; line-height: 1.35; }
   body { padding: 10px; }
   header { display: flex; align-items: baseline; justify-content: space-between;
     padding: 2px 4px 10px; }
   header h1 { margin: 0; font: 600 15px/1 Georgia, "Times New Roman", serif;
-    letter-spacing: .12em; text-transform: uppercase; color: #d8b56a; }
+    letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
   header .clock { color: var(--muted); font-variant-numeric: tabular-nums; }
-  .grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
-  .card { background: var(--card); border: 1px solid var(--line);
-    border-left: 3px solid var(--accent); border-radius: 6px; padding: 10px 12px; }
-  .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .tag { font-weight: 700; letter-spacing: .06em; color: var(--accent); font-size: 12px;
-    text-transform: uppercase; }
-  .badge { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; padding: 2px 7px;
-    border-radius: 999px; text-transform: uppercase; white-space: nowrap; }
-  .badge.live { color: var(--live); background: #5fd38a1f; }
-  .badge.live::before { content: "● "; animation: pulse 2s infinite; }
-  .badge.upcoming { color: #7fb8e8; background: #7fb8e81f; }
-  .badge.overdue { color: var(--warn); background: #e0a84a1f; }
-  .badge.ended { color: var(--muted); background: #ffffff10; }
-  @keyframes pulse { 50% { opacity: .35; } }
-  .title { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px;
-    margin-top: 4px; }
-  .title .name { font: 600 15px/1.2 Georgia, serif; }
-  .title .num { color: var(--muted); font-size: 12px; }
-  .count { text-align: right; flex: none; }
-  .count b { display: block; font: 700 24px/1 "Segoe UI", sans-serif;
-    font-variant-numeric: tabular-nums; }
-  .count span { color: var(--muted); font-size: 11px; }
-  .bar { height: 5px; background: #ffffff12; border-radius: 3px; margin: 9px 0 7px; overflow: hidden; }
-  .bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
-  .bar.est i { background: repeating-linear-gradient(90deg, var(--accent) 0 6px, transparent 6px 9px); }
-  .dates { display: flex; justify-content: space-between; color: var(--muted); font-size: 11.5px;
-    font-variant-numeric: tabular-nums; }
-  .dates em { font-style: normal; color: var(--warn); }
-  .event { margin-top: 6px; font-size: 11.5px; color: #cfc3b2; }
-  .event b { color: var(--accent); font-weight: 600; }
-  .note { margin-top: 5px; color: var(--muted); font-size: 11px; }
-  .note a { color: var(--muted); }
   footer { color: var(--muted); font-size: 10.5px; padding: 8px 4px 0; display: flex;
     justify-content: space-between; }
   footer.stale { color: var(--warn); }
@@ -65,105 +27,23 @@
   <h1>Diablo Seasons</h1>
   <span class="clock" id="clock"></span>
 </header>
-<div class="grid" id="grid"></div>
+<div class="cards" id="grid"></div>
 <footer id="footer"></footer>
 
 <script src="seasons.js"></script>
+<script src="render.js"></script>
 <script>
-const DAY = 86400000;
-const fmtDate = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" });
-const fmtDateTime = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-const fmtClock = new Intl.DateTimeFormat(undefined, { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
-
-function endOf(g) {
-  if (g.end) return { t: Date.parse(g.end), est: false };
-  if (g.endEstimate) return { t: Date.parse(g.endEstimate), est: true };
-  if (g.typicalDays) return { t: Date.parse(g.start) + g.typicalDays * DAY, est: true };
-  return null;
-}
-
-// "12d 4h" for long spans, "4h 12m" under a day.
-function span(ms) {
-  ms = Math.max(0, ms);
-  const d = Math.floor(ms / DAY), h = Math.floor(ms % DAY / 3600000), m = Math.floor(ms % 3600000 / 60000);
-  return d >= 1 ? `${d}d ${h}h` : `${h}h ${m}m`;
-}
-
-function esc(s) {
-  return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-}
-
-function card(g, now) {
-  const start = Date.parse(g.start);
-  const end = endOf(g);
-  let status, big, sub;
-
-  if (now < start) {
-    status = ["upcoming", "Upcoming"];
-    big = span(start - now); sub = "until start";
-  } else if (!end) {
-    status = ["live", "Live"];
-    big = Math.floor((now - start) / DAY) + "d"; sub = "in, no end date";
-  } else if (now < end.t) {
-    status = ["live", "Live"];
-    const days = Math.ceil((end.t - now) / DAY);
-    big = (end.est ? "~" : "") + (days > 1 ? days : span(end.t - now));
-    sub = days > 1 ? (end.est ? "days left (est.)" : "days left") : (end.est ? "left (est.)" : "left");
-  } else if (end.est) {
-    status = ["overdue", "Ending?"];
-    big = Math.floor((now - start) / DAY) + "d"; sub = "in, past estimate";
-  } else {
-    status = ["ended", "Ended"];
-    big = span(now - end.t); sub = "since end";
-  }
-
-  const pct = end && now >= start ? Math.min(100, (now - start) / (end.t - start) * 100) : 0;
-  const endLabel = !end ? "TBA"
-    : end.est ? `<em>~${fmtDate.format(end.t)}</em>`
-    : fmtDate.format(end.t);
-  const dayN = now >= start ? `Day ${Math.floor((now - start) / DAY) + 1}` : "";
-
-  const events = (g.events || []).filter(e => Date.parse(e.end) > now).map(e => {
-    const s = Date.parse(e.start), en = Date.parse(e.end);
-    const when = now < s ? `starts in ${span(s - now)} · ${fmtDateTime.format(s)}`
-      : `live · ends in ${span(en - now)}`;
-    return `<div class="event"><b>${esc(e.label)}</b> — ${when}</div>`;
-  }).join("");
-
-  return `
-  <div class="card" style="--accent:${esc(g.accent)}">
-    <div class="top">
-      <span class="tag">${esc(g.tag)}</span>
-      <span class="badge ${status[0]}">${status[1]}</span>
-    </div>
-    <div class="title">
-      <div>
-        <div class="name">${esc(g.name)}</div>
-        <div class="num">${esc(g.game)} · Season ${esc(g.season)}</div>
-      </div>
-      <div class="count"><b>${big}</b><span>${sub}</span></div>
-    </div>
-    <div class="bar ${end && end.est ? "est" : ""}"><i style="width:${pct.toFixed(1)}%"></i></div>
-    <div class="dates">
-      <span>${fmtDate.format(start)}</span>
-      <span>${dayN}</span>
-      <span>${endLabel}</span>
-    </div>
-    ${events}
-    ${g.note || g.link ? `<div class="note">${esc(g.note || "")} ${g.link ? `<a href="${esc(g.link)}" target="_blank">news ↗</a>` : ""}</div>` : ""}
-  </div>`;
-}
-
 function render() {
+  const S = window.Seasons;
   const now = Date.now();
   const data = window.SEASON_DATA || { games: [] };
-  document.getElementById("clock").textContent = fmtClock.format(now);
-  document.getElementById("grid").innerHTML = data.games.map(g => card(g, now)).join("");
+  document.getElementById("clock").textContent = S.fmtClock.format(now);
+  S.renderCards(document.getElementById("grid"), data, now);
 
   const footer = document.getElementById("footer");
-  const age = data.verified ? Math.floor((now - Date.parse(data.verified)) / DAY) : null;
+  const age = S.dataAge(data, now);
   footer.className = age > 30 ? "stale" : "";
-  footer.innerHTML = `<span>Data checked ${esc(data.verified || "?")}${age > 30 ? " — may be stale, edit seasons.js" : ""}</span>
+  footer.innerHTML = `<span>Data checked ${S.esc(data.verified || "?")}${age > 30 ? " — may be stale, edit seasons.js" : ""}</span>
     <span>~ = estimate</span>`;
 }
 
