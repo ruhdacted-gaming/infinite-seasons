@@ -51,7 +51,12 @@ Rollout: ARPGs first (the Diablo games, PoE 1/2, Last Epoch). Then Marvel Rivals
 
 ## Hosting
 
-The site will be static and hosted on Cloudflare Workers with static assets (`wrangler` with `assets.directory`). The domain infiniteseasons.com is to be bought and attached there.
+The site is static, hosted on Cloudflare Workers with static assets, on the Cloudflare account for ruhdacted@gmail.com. The domain infiniteseasons.com is registered at Porkbun, with its nameservers pointed at Cloudflare.
+
+- `build.mjs` generates the site into `dist/` (gitignored). For now that is `widget.html` as `index.html` plus `seasons.js`. pSEO pages will be generated here too.
+- `src/worker.js` serves `dist/` through the `ASSETS` binding and 301-redirects http to https and `www.` to the apex domain. `run_worker_first` is on so the redirect runs before assets are served.
+- `wrangler.jsonc` holds the Worker config and the custom-domain routes.
+- `npm run deploy` builds and deploys. `wrangler login` must be done with the ruhdacted@gmail.com Cloudflare account.
 
 ## Git
 
