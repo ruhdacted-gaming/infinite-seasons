@@ -1,0 +1,27 @@
+# Daily check for new season announcements. Files `season-watch` issues and, when a game
+# is due for a check, calls the T3 webhook that starts the research agent. See scripts/watch.mjs.
+name: Watch
+
+on:
+  schedule:
+    # After Blizzard's usual 17:00 UTC posting time.
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/watch.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          T3_WEBHOOK_URL: ${{ secrets.T3_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

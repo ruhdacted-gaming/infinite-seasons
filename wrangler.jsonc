@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "infinite-seasons",
   "main": "src/worker.js",
+  "account_id": "3ea5e08a789d4900d99ea3cbe8965e84",
   "compatibility_date": "2026-10-24",
   "routes": [
     { "pattern": "infiniteseasons.com", "custom_domain": true },

@@ -69,6 +69,20 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
 - `src/worker.js` serves `dist/` through the `ASSETS` binding and 301-redirects http to https and `www.` to the apex domain. `run_worker_first` is on so the redirect runs before assets are served. The redirects only run when `CANONICAL_REDIRECTS` is `"true"`. `npm run dev` sets it to false, because `wrangler dev` reports the production hostname and would loop.
 - `wrangler.jsonc` holds the Worker config and the custom-domain routes.
 - `npm run deploy` builds and deploys. `wrangler login` must be done with the ruhdacted@gmail.com Cloudflare account.
+- `npm run build` runs `scripts/check.mjs` first. It checks the data for impossible dates, gaps, overlaps, odd lengths and missing sources. A failing check blocks every build and deploy.
+
+## Automation
+
+- **Deploy** (`.github/workflows/deploy.yml`) runs on every push to main, and daily at 00:30 and 17:30 UTC so pages roll over to new seasons. It needs the `CLOUDFLARE_API_TOKEN` repo secret.
+- **Watch** (`.github/workflows/watch.yml` and `scripts/watch.mjs`) runs daily at 19:00 UTC and uses no AI.
+  - It polls Blizzard's news feed API, the PD2 news API and the PD2 wiki Seasons revisions, and files new posts as `season-watch` issues.
+  - A game is due for research when it has open `season-watch` issues, when a season change is within 21 days and the last check was 2 or more days ago, or when the last check was 7 or more days ago. The last check is the `checked` field in `research/<game>.json`.
+  - When a game is due, it POSTs to the T3 webhook stored in the `T3_WEBHOOK_URL` secret.
+- **Research run**: the webhook starts the T3 scheduled task "Season research run" on the user's always-on gaming PC. Each run is a fresh Claude Opus thread that follows `automation/RUNBOOK.md`.
+  - It works in the `D:/Dev/infinite-seasons-bot` worktree.
+  - If nothing changed, it pushes the `checked` and `verified` bump to main.
+  - If dates changed, it opens a PR, has GPT (Codex) review it until it approves, and then merges. The user doesn't review data PRs for now.
+- `gh` is installed at `%LOCALAPPDATA%\Programs\gh\bin` and isn't logged in. The runbook takes `GH_TOKEN` from the repo's stored git credential.
 
 ## Git
 

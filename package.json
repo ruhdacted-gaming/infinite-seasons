@@ -3,9 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node build.mjs",
-    "dev": "node build.mjs && wrangler dev --var CANONICAL_REDIRECTS:false",
-    "deploy": "node build.mjs && wrangler deploy"
+    "check": "node scripts/check.mjs",
+    "build": "node scripts/check.mjs && node build.mjs",
+    "dev": "npm run build && wrangler dev --var CANONICAL_REDIRECTS:false",
+    "deploy": "npm run build && wrangler deploy"
   },
   "devDependencies": {
     "wrangler": "^4.152.0"
