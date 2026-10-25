@@ -17,6 +17,13 @@ cd D:/Dev/infinite-seasons-bot
 git fetch origin
 ```
 
+T3 starts each run in its own worktree under `C:/Users/supir/.t3/worktrees/infinite-seasons/`, on a `t3/...` branch. Remove the ones left by earlier research runs. Keep your own, the one `pwd` was in when you started.
+
+```sh
+git worktree list   # then for each old .t3 worktree on a t3/research-* branch:
+git worktree remove --force <path> && git branch -D <branch>
+```
+
 If `git status --porcelain` shows changes, an earlier run crashed. Save them with `git diff > ../infinite-seasons-bot-<YYYY-MM-DD>.patch`, mention the patch in your final reply, and then clean up:
 
 ```sh
