@@ -84,6 +84,13 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
   - If dates changed, it opens a PR, has GPT (Codex) review it until it approves, and then merges. The user doesn't review data PRs for now.
 - `gh` is installed at `%LOCALAPPDATA%\Programs\gh\bin` and isn't logged in. The runbook takes `GH_TOKEN` from the repo's stored git credential.
 
+## Search Console
+
+The property is the domain property `sc-domain:infiniteseasons.com`. `scripts/gsc.mjs` reads it through the Search Console API: search queries, pages and countries, the index status of every sitemap URL, and sitemap submission. Usage is at the top of the file.
+
+- It signs in as a Google Cloud service account. The account's JSON key lives outside the repo at `~/.config/infinite-seasons/gsc-key.json`, or wherever `GSC_KEY_FILE` points. Never commit it or print it.
+- The service account is a "Full" user on the property, so it can submit sitemaps but can't add users or delete the property.
+
 ## Git
 
 Commit to this repo as `heyitisj@gmail.com` and push as GitHub user `supiriority`. Both are set in this repo's local git config (`user.email` and `credential.https://github.com.username`). The machine's global git identity is a different account, so don't change the global config.
