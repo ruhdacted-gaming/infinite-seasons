@@ -75,7 +75,7 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
 
 - **Deploy** (`.github/workflows/deploy.yml`) runs on every push to main, and daily at 00:30 and 17:30 UTC so pages roll over to new seasons. It needs the `CLOUDFLARE_API_TOKEN` repo secret.
 - **Watch** (`.github/workflows/watch.yml` and `scripts/watch.mjs`) runs daily at 19:00 UTC and uses no AI.
-  - It polls Blizzard's news feed API, the PD2 news API and the PD2 wiki Seasons revisions, and files new posts as `season-watch` issues.
+  - It polls Blizzard's news feed API and the PD2 news API (the PD2 wiki blocks GitHub's servers), and files new posts as `season-watch` issues.
   - A game is due for research when it has open `season-watch` issues, when a season change is within 21 days and the last check was 2 or more days ago, or when the last check was 7 or more days ago. The last check is the `checked` field in `research/<game>.json`.
   - When a game is due, it POSTs to the T3 webhook stored in the `T3_WEBHOOK_URL` secret.
 - **Research run**: the webhook starts the T3 scheduled task "Season research run" on the user's always-on gaming PC. Each run is a fresh Claude Opus thread that follows `automation/RUNBOOK.md`.

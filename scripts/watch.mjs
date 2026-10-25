@@ -1,6 +1,7 @@
 // Daily season watcher. Runs in GitHub Actions; no AI.
-// 1. Looks for new official posts (Blizzard news, PD2 news, PD2 wiki Seasons page edits)
-//    and files each game's new ones as a `season-watch` issue.
+// 1. Looks for new official posts (Blizzard news, PD2 news) and files each game's new ones
+//    as a `season-watch` issue. The PD2 wiki blocks GitHub's servers, so the research
+//    agent's weekly check covers it instead.
 // 2. Decides which games are due for a research run: new posts, a season change within
 //    3 weeks, or more than a week since the last check (research/<game>.json "checked").
 // 3. If any are due and T3_WEBHOOK_URL is set, calls the T3 webhook on the gaming PC, which
@@ -42,12 +43,6 @@ const sources = {
       return { game: "pd2", key: `${url}#${a.updated_at}`, at: Date.parse(a.updated_at), title: a.title, url };
     });
   },
-  "PD2 wiki": async () => {
-    const j = await getJSON("https://wiki.projectdiablo2.com/w/api.php?action=query&prop=revisions&titles=Seasons&rvprop=timestamp|ids&format=json");
-    const rev = Object.values(j.query.pages)[0].revisions[0];
-    return [{ game: "pd2", key: `pd2wiki#${rev.revid}`, at: Date.parse(rev.timestamp), title: "Seasons page edited",
-      url: `https://wiki.projectdiablo2.com/w/index.php?title=Seasons&diff=${rev.revid}&oldid=${rev.parentid}` }];
-  },
 };
 
 const github = (path, opts = {}) => getJSON(`https://api.github.com/repos/${GITHUB_REPOSITORY}${path}`, {
@@ -81,7 +76,7 @@ for (const g of data.games) {
   console.log(`New ${g.id} posts:\n${body}`);
   if (!GITHUB_TOKEN) continue;
   const issue = await github("/issues", { method: "POST", body: {
-    title: `${g.name}: new posts to check`,
+    title: `${g.game}: new posts to check`,
     body: `New or edited posts that may change season dates. The research agent checks them and closes this issue.\n\n${body}`,
     labels: ["season-watch", g.id],
   } });
@@ -99,7 +94,7 @@ const due = data.games.map(g => {
   if (open[g.id]) reasons.push(`new posts in ${open[g.id].map(n => `#${n}`).join(", ")}`);
   if (change - now < NEAR && age >= 2) reasons.push(`season change due around ${new Date(change).toISOString().slice(0, 10)}`);
   if (age >= 7) reasons.push(age === Infinity ? "no valid checked date" : `last checked ${age} days ago`);
-  return { id: g.id, name: g.name, reasons, issues: open[g.id] || [] };
+  return { id: g.id, name: g.game, reasons, issues: open[g.id] || [] };
 }).filter(g => g.reasons.length);
 
 console.log(due.length ? `Due:\n${due.map(g => `- ${g.id}: ${g.reasons.join("; ")}`).join("\n")}` : "Nothing due.");
