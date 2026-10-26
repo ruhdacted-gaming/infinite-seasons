@@ -67,14 +67,20 @@ async function run() {
   } else if (cmd === "inspect") {
     const urls = args.length ? args.map(u => u.startsWith("http") ? u : ORIGIN + u)
       : [...(await (await fetch(`${ORIGIN}/sitemap.xml`)).text()).matchAll(/<loc>([^<]+)/g)].map(m => m[1]);
+    // Each inspection takes a few seconds; run 5 at a time (the quota is 600 a minute, 2000 a day).
     const out = [];
-    for (const url of urls) {
-      const { inspectionResult: { indexStatusResult: s } } = await api("/v1/urlInspection/index:inspect", {
-        method: "POST", body: { inspectionUrl: url, siteUrl: SITE },
-      });
-      out.push({ url: url.replace(ORIGIN, "") || "/", verdict: s.verdict, coverage: s.coverageState, lastCrawl: s.lastCrawlTime?.slice(0, 10) || "" });
+    for (let i = 0; i < urls.length; i += 5) {
+      out.push(...await Promise.all(urls.slice(i, i + 5).map(async url => {
+        const { inspectionResult: { indexStatusResult: s } } = await api("/v1/urlInspection/index:inspect", {
+          method: "POST", body: { inspectionUrl: url, siteUrl: SITE },
+        });
+        return { url: url.replace(ORIGIN, "") || "/", verdict: s.verdict, coverage: s.coverageState, lastCrawl: s.lastCrawlTime?.slice(0, 10) || "" };
+      })));
     }
     console.table(out);
+    const counts = {};
+    for (const r of out) counts[r.coverage] = (counts[r.coverage] || 0) + 1;
+    console.log(Object.entries(counts).map(([k, n]) => `${n} ${k}`).join("\n"));
   } else if (cmd === "sitemaps") {
     const { sitemap = [] } = await api(`/webmasters/v3/sites/${site}/sitemaps`);
     console.table(sitemap.map(s => ({
