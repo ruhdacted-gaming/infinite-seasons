@@ -189,6 +189,20 @@ function gapSentence(g) {
     : `Recently, new seasons have started a median of ${days(m)} after the previous one ended.`}</p>`;
 }
 
+// Search snippet with the actual dates, worded for the season's state. Estimates carry "~" here too.
+function seasonDescription(g, s, v, { label, isCur, started, len }) {
+  const full = label + (s.name ? ` (${s.name})` : ""), start = S.fmtDay(s.start);
+  const extra = s.theme ? " Dates, length and what's new." : " Dates and length.";
+  if (!started) return `${full} starts on ${start}. Countdown and start time in your time zone.`;
+  if (len != null) return `${full} ran from ${start} to ${S.fmtDay(s.end)}, lasting ${days(len)}.${extra}`;
+  if (!isCur) return `${full} started on ${start}. ${cap(g.publisher)} didn't publish an exact end date.${extra}`;
+  const end = S.endOf(v);
+  const ends = !end ? "No end date has been announced yet."
+    : end.est ? `No end date announced yet; estimated end ~${S.fmtDate.format(end.t)}.`
+    : `It ends on ${S.fmtDay(v.end)}.`;
+  return `${full} started on ${start}. ${ends} Live countdown${s.theme ? " and what's new" : ""}.`;
+}
+
 export function season(data, g, i, now) {
   const s = g.seasons[i];
   const prev = g.seasons[i - 1], next = g.seasons[i + 1];
@@ -229,7 +243,7 @@ export function season(data, g, i, now) {
     data, game: g, path: seasonPath(g, s),
     crumbs: [["Home", "/"], [g.tag, `/${g.id}`], [`Season ${s.season}`, seasonPath(g, s)]],
     title: `${label}${s.name ? ` (${s.name})` : ""}: Start and End Date | Infinite Seasons`,
-    description: `When ${label}${s.name ? ` (${s.name})` : ""} started and ended, how long it lasted${s.theme ? ", and what was new" : ""}.`,
+    description: seasonDescription(g, s, v, { label, isCur, started, len }),
     body: `<header class="page-head">
     <h1>${esc(named)}</h1>
     <p>${lede}</p>
