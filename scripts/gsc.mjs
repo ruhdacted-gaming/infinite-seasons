@@ -1,5 +1,5 @@
 // Google Search Console from the command line, through a service account. No dependencies.
-//   node scripts/gsc.mjs [queries|pages|countries] [days]   search traffic (default: queries, 28 days)
+//   node scripts/gsc.mjs [queries|pages|countries|dates] [days]   search traffic (default: queries, 28 days)
 //   node scripts/gsc.mjs inspect [url...]                    index status (default: every sitemap URL)
 //   node scripts/gsc.mjs sitemaps                            list submitted sitemaps
 //   node scripts/gsc.mjs submit                              submit /sitemap.xml
@@ -15,7 +15,7 @@ const KEY_FILE = process.env.GSC_KEY_FILE || join(homedir(), ".config", "infinit
 const API = "https://searchconsole.googleapis.com";
 const site = encodeURIComponent(SITE);
 
-const COMMANDS = ["queries", "pages", "countries", "inspect", "sitemaps", "submit"];
+const COMMANDS = ["queries", "pages", "countries", "dates", "inspect", "sitemaps", "submit"];
 const [cmd = "queries", ...args] = process.argv.slice(2);
 if (!COMMANDS.includes(cmd)) { console.error(`Unknown command "${cmd}". See the top of scripts/gsc.mjs.`); process.exit(1); }
 
@@ -53,8 +53,8 @@ async function run() {
 
   const day = d => new Date(Date.now() - d * 864e5).toISOString().slice(0, 10);
 
-  if (["queries", "pages", "countries"].includes(cmd)) {
-    const days = Number(args[0]) || 28, dim = { queries: "query", pages: "page", countries: "country" }[cmd];
+  if (["queries", "pages", "countries", "dates"].includes(cmd)) {
+    const days = Number(args[0]) || 28, dim = { queries: "query", pages: "page", countries: "country", dates: "date" }[cmd];
     // dataState "all" includes the last day or two, which Search Console otherwise holds back.
     const { rows = [] } = await api(`/webmasters/v3/sites/${site}/searchAnalytics/query`, { method: "POST", body: {
       startDate: day(days), endDate: day(0), dimensions: [dim], rowLimit: 50, dataState: "all",
