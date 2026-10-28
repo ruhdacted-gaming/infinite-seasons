@@ -66,7 +66,9 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
   - `/`, `/{game}`, `/{game}/history` and one `/{game}/season-{n}` page per announced season
   - `404.html`, `sitemap.xml` and `robots.txt`
   - a slim `seasons.js` holding only the previous, current and next seasons
-- `src/worker.js` serves `dist/` through the `ASSETS` binding and 301-redirects http to https and `www.` to the apex domain. `run_worker_first` is on so the redirect runs before assets are served. The redirects only run when `CANONICAL_REDIRECTS` is `"true"`. `npm run dev` sets it to false, because `wrangler dev` reports the production hostname and would loop.
+- The Worker is assets-only: it has no script, so asset requests are free and don't count toward the Workers request limit. Two settings in the Cloudflare dashboard, not in the repo, handle canonical URLs:
+  - **Always Use HTTPS** (SSL/TLS > Edge Certificates) redirects http to https.
+  - A **Redirect Rule** (Rules > Redirect Rules) 301-redirects `www.infiniteseasons.com/*` to the apex domain and keeps the path and query string. The `www` custom domain stays in `wrangler.jsonc` so the hostname resolves and the rule can run.
 - `wrangler.jsonc` holds the Worker config and the custom-domain routes.
 - `npm run deploy` builds and deploys. `wrangler login` must be done with the ruhdacted@gmail.com Cloudflare account.
 - `npm run build` runs `scripts/check.mjs` first. It checks the data for impossible dates, gaps, overlaps, odd lengths and missing sources. A failing check blocks every build and deploy.
