@@ -57,10 +57,12 @@ async function run() {
     const days = Number(args[0]) || 28, dim = { queries: "query", pages: "page", countries: "country", dates: "date" }[cmd];
     // dataState "all" includes the last day or two, which Search Console otherwise holds back.
     const { rows = [] } = await api(`/webmasters/v3/sites/${site}/searchAnalytics/query`, { method: "POST", body: {
-      startDate: day(days), endDate: day(0), dimensions: [dim], rowLimit: 50, dataState: "all",
+      startDate: day(days), endDate: day(0), dimensions: [dim], rowLimit: 1000, dataState: "all",
     } });
-    console.log(`${cmd}, last ${days} days: ${rows.length} rows`);
-    console.table(rows.map(r => ({
+    // The API orders ties arbitrarily, so sort by clicks, then impressions (dates stay in date order).
+    if (dim !== "date") rows.sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions);
+    console.log(`${cmd}, last ${days} days: ${rows.length} rows${rows.length > 50 ? ", top 50 shown" : ""}`);
+    console.table(rows.slice(0, dim === "date" ? undefined : 50).map(r => ({
       [dim]: r.keys[0].replace(ORIGIN, ""), clicks: r.clicks, impressions: r.impressions,
       ctr: `${(r.ctr * 100).toFixed(1)}%`, position: +r.position.toFixed(1),
     })));
