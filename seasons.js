@@ -15,7 +15,7 @@
 //   confidence   - "official" (from the developer), "secondary" (wikis/guide sites only) or "conflicting"
 //   research     - internal research notes: conflicts, missing times, why a field is null. Not shown on the site.
 window.SEASON_DATA = {
-  "verified": "2026-10-30",
+  "verified": "2026-10-31",
   "games": [
     {
       "id": "d2r",
@@ -217,16 +217,30 @@ window.SEASON_DATA = {
           "season": 15,
           "name": null,
           "start": "2026-08-22T00:00:00Z",
-          "end": null,
+          "end": "2026-11-09T19:00:00Z",
           "patch": "3.3",
           "theme": "Patch 3.3 brought Terror Zone and Colossal Ancients changes plus a set of item adjustments.",
-          "note": "No reset date announced. S14 ran May 22 – Aug 17.",
+          "note": "Patch 3.4 begins rolling out Nov 9. S16 starts Nov 13, 5 PM PST.",
           "sources": [
             "https://news.blizzard.com/en-us/article/24296140/diablo-ii-resurrected-ladder-season-15-coming-soon",
+            "https://news.blizzard.com/en-us/article/24316567/diablo-ii-resurrected-ladder-season-16",
             "https://diablobytes.com/d2-resurrected/seasons/"
           ],
           "confidence": "official",
-          "research": "Start: August 21, 2026, 5:00 PM PDT (August 22, 1 AM BST / 2 AM CEST / 8 AM CST / 9 AM KST). Patch 3.3 rolled out Tuesday, August 18. Blizzard has announced no end date. Trackers estimate it: seasondex.com and ggseason.com say about November 28, 2026; aoeah.com says mid-November. arpgseasons.com wrongly shows a different current season, 'Season of Hell's Legacy', starting September 15, 2026."
+          "research": "Start: August 21, 2026, 5:00 PM PDT (August 22, 1 AM BST / 2 AM CEST / 8 AM CST / 9 AM KST). Patch 3.3 rolled out Tuesday, August 18. End: Monday, November 9, 2026, 11 a.m. PST, from Blizzard's Season 16 post. Conflicts: seasondex.com and ggseason.com had estimated about November 28, 2026, aoeah.com about November 16; these predate the announcement. arpgseasons.com wrongly shows a different current season, 'Season of Hell's Legacy', starting September 15, 2026."
+        },
+        {
+          "season": 16,
+          "name": null,
+          "start": "2026-11-14T01:00:00Z",
+          "end": null,
+          "patch": "3.4",
+          "theme": "Patch 3.4 moves some Reign of the Warlock items from Ladder-only to Non-Ladder and updates others on Online Ladder and Offline.",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24316567/diablo-ii-resurrected-ladder-season-16"
+          ],
+          "confidence": "official",
+          "research": "Start: Friday, November 13, 2026, 5 p.m. PST, which is 01:00 UTC on November 14. Blizzard's regional list agrees for 3 a.m. CEST, 9 a.m. CST and 10 a.m. KST, but its '1:00 a.m. BST' would be 00:00 UTC; the UK is on GMT by then, so this looks like a mislabel, and the PST time is used. Patch 3.4 begins rolling out Monday, November 9 (no time given). The item changes apply to Reign of the Warlock only, not Classic or LoD. From November 16 (no time given), online Expansion (LoD) characters can no longer convert to Reign of the Warlock. Blizzard has announced no end date."
         }
       ]
     },
