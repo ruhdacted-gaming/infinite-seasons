@@ -235,12 +235,12 @@ window.SEASON_DATA = {
           "start": "2026-11-14T01:00:00Z",
           "end": null,
           "patch": "3.4",
-          "theme": "Patch 3.4 moves some Ladder-only items to Non-Ladder, updates several items on Online Ladder and Offline, and ends online Expansion (LoD) conversions to Reign of the Warlock.",
+          "theme": "Patch 3.4 moves some Reign of the Warlock items from Ladder-only to Non-Ladder and updates others on Online Ladder and Offline.",
           "sources": [
             "https://news.blizzard.com/en-us/article/24316567/diablo-ii-resurrected-ladder-season-16"
           ],
           "confidence": "official",
-          "research": "Start: Friday, November 13, 2026, 5 p.m. PST, which is 01:00 UTC on November 14. Blizzard's regional list agrees for 3 a.m. CEST, 9 a.m. CST and 10 a.m. KST, but its '1:00 a.m. BST' would be 00:00 UTC; the UK is on GMT by then, so this looks like a mislabel, and the PST time is used. Patch 3.4 begins rolling out Monday, November 9 (no time given). Blizzard has announced no end date."
+          "research": "Start: Friday, November 13, 2026, 5 p.m. PST, which is 01:00 UTC on November 14. Blizzard's regional list agrees for 3 a.m. CEST, 9 a.m. CST and 10 a.m. KST, but its '1:00 a.m. BST' would be 00:00 UTC; the UK is on GMT by then, so this looks like a mislabel, and the PST time is used. Patch 3.4 begins rolling out Monday, November 9 (no time given). The item changes apply to Reign of the Warlock only, not Classic or LoD. From November 16 (no time given), online Expansion (LoD) characters can no longer convert to Reign of the Warlock. Blizzard has announced no end date."
         }
       ]
     },
