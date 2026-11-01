@@ -15,7 +15,7 @@
 //   confidence   - "official" (from the developer), "secondary" (wikis/guide sites only) or "conflicting"
 //   research     - internal research notes: conflicts, missing times, why a field is null. Not shown on the site.
 window.SEASON_DATA = {
-  "verified": "2026-10-31",
+  "verified": "2026-11-01",
   "games": [
     {
       "id": "d2r",
