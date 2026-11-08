@@ -15,7 +15,7 @@
 //   confidence   - "official" (from the developer), "secondary" (wikis/guide sites only) or "conflicting"
 //   research     - internal research notes: conflicts, missing times, why a field is null. Not shown on the site.
 window.SEASON_DATA = {
-  "verified": "2026-11-07",
+  "verified": "2026-11-08",
   "games": [
     {
       "id": "d2r",
@@ -236,11 +236,19 @@ window.SEASON_DATA = {
           "end": null,
           "patch": "3.4",
           "theme": "Patch 3.4 moves some Reign of the Warlock items from Ladder-only to Non-Ladder and updates others on Online Ladder and Offline.",
+          "events": [
+            {
+              "label": "Legacy of Terror event",
+              "start": "2026-11-14T01:00:00Z",
+              "end": "2026-11-20T01:00:00Z"
+            }
+          ],
           "sources": [
-            "https://news.blizzard.com/en-us/article/24316567/diablo-ii-resurrected-ladder-season-16"
+            "https://news.blizzard.com/en-us/article/24316567/diablo-ii-resurrected-ladder-season-16",
+            "https://news.blizzard.com/en-us/article/24315743/celebrate-diablos-30th-anniversary-with-legacy-of-terror"
           ],
           "confidence": "official",
-          "research": "Start: Friday, November 13, 2026, 5 p.m. PST, which is 01:00 UTC on November 14. Blizzard's regional list agrees: November 14, 1:00 a.m. GMT, 2:00 a.m. CET, 9:00 a.m. CST and 10:00 a.m. KST. (An earlier version of the post said 1:00 a.m. BST and 3 a.m. CEST; it was corrected by 2026-11-04.) Patch 3.4 begins rolling out Monday, November 9 (no time given). The item changes apply to Reign of the Warlock only, not Classic or LoD. From November 16 (no time given), online Expansion (LoD) characters can no longer convert to Reign of the Warlock. Blizzard has announced no end date."
+          "research": "Start: Friday, November 13, 2026, 5 p.m. PST, which is 01:00 UTC on November 14. Blizzard's regional list agrees: November 14, 1:00 a.m. GMT, 2:00 a.m. CET, 9:00 a.m. CST and 10:00 a.m. KST. (An earlier version of the post said 1:00 a.m. BST and 3 a.m. CEST; it was corrected by 2026-11-04.) Patch 3.4 begins rolling out Monday, November 9 (no time given). The item changes apply to Reign of the Warlock only, not Classic or LoD. From November 16 (no time given), online Expansion (LoD) characters can no longer convert to Reign of the Warlock. Blizzard has announced no end date. Blizzard says the Legacy of Terror event will launch the Season 16 Ladder experience. It runs November 13, 2026, 5:00 p.m. PST, to November 19, 2026, 5:00 p.m. PST (2026-11-14T01:00Z to 2026-11-20T01:00Z), for Ladder and Non-Ladder."
         }
       ]
     },
