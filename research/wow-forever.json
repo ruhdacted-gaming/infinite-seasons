@@ -8,7 +8,9 @@
       "start": "2026-09-17",
       "end": "2026-10-22",
       "window": null,
-      "contents": ["Play up to level 30"],
+      "contents": [
+        "Play up to level 30"
+      ],
       "sources": [
         "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
       ],
@@ -19,15 +21,17 @@
       "id": "name-reservation",
       "title": "Early name reservation",
       "start": "2026-10-27",
-      "end": null,
+      "end": "2026-11-03",
       "window": null,
-      "contents": ["Early name reservation and character creation"],
+      "contents": [
+        "Early name reservation and character creation"
+      ],
       "sources": [
         "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
         "https://news.blizzard.com/en-us/article/24303866/claim-your-world-of-warcraft-forever-character-names"
       ],
       "confidence": "official",
-      "notes": "Date from the roadmap image (\"OCT 27 EARLY NAME RESERVATION & CHARACTER CREATION\"). warcraft.wiki.gg gives 20:00 UTC; not checked against Blizzard, so kept date-only."
+      "notes": "Blizzard (article 24303866): early name reservation runs October 27 through November 3. Start times differ by region: Europe Oct 27 18:00 CET (17:00 UTC), North America Oct 27 1:00 p.m. PDT (20:00 UTC), Korea and Taiwan Oct 28 07:00 local (Oct 27 22:00 UTC). Because the regions start at different times, the milestone is kept date-only (Oct 27, the roadmap date) rather than showing one region's time to everyone. End is the date Blizzard gives; no end time stated."
     },
     {
       "id": "launch",
@@ -35,7 +39,10 @@
       "start": "2026-11-04T23:00:00Z",
       "end": null,
       "window": null,
-      "contents": ["Normal, PvP, Roleplay and Roleplay-PvP rulesets", "Levels 1 to 60"],
+      "contents": [
+        "Normal, PvP, Roleplay and Roleplay-PvP rulesets",
+        "Levels 1 to 60"
+      ],
       "sources": [
         "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
         "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live"
@@ -67,8 +74,14 @@
       "title": "Hardcore launch",
       "start": null,
       "end": null,
-      "window": { "label": "Winter 2026–27", "from": "2026-12-01", "to": "2027-02-28" },
-      "contents": ["Hardcore ruleset: a separate ecosystem where death is permanent; dead characters can transfer to another ruleset"],
+      "window": {
+        "label": "Winter 2026–27",
+        "from": "2026-12-01",
+        "to": "2027-02-28"
+      },
+      "contents": [
+        "Hardcore ruleset: a separate ecosystem where death is permanent; dead characters can transfer to another ruleset"
+      ],
       "sources": [
         "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
         "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live",
@@ -82,7 +95,11 @@
       "title": "Spring major update",
       "start": null,
       "end": null,
-      "window": { "label": "Spring 2027", "from": "2027-03-01", "to": "2027-05-31" },
+      "window": {
+        "label": "Spring 2027",
+        "from": "2027-03-01",
+        "to": "2027-05-31"
+      },
       "contents": [
         "2 new raids (10 player and 20 player)",
         "2 new dungeons",
@@ -101,7 +118,11 @@
       "title": "Summer major update",
       "start": null,
       "end": null,
-      "window": { "label": "Summer 2027", "from": "2027-06-01", "to": "2027-08-31" },
+      "window": {
+        "label": "Summer 2027",
+        "from": "2027-06-01",
+        "to": "2027-08-31"
+      },
       "contents": [
         "Revamped iconic raid",
         "New raid",

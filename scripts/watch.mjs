@@ -23,7 +23,7 @@ const BLIZZARD = { d4: "diablo-4", d3: "diablo-3", d2r: "diablo-2-resurrected", 
 const RELEVANT = /season|ladder|ptr|patch|conclud|live|date/i;
 // The WoW feed carries Modern, Classic and Forever, plus daily hotfix notes: keep Forever posts that may move a date.
 const RELEVANT_GAME = {
-  "wow-forever": t => /forever/i.test(t) && /roadmap|raid|hardcore|season|pvp|update|patch|phase|unlock|coming|live|date|launch/i.test(t) && !/hotfix|podcast|ticket|drops|twitch/i.test(t),
+  "wow-forever": t => /forever/i.test(t) && /roadmap|raid|hardcore|season|pvp|update|patch|phase|unlock|coming|live|date|launch|recap|panel|reserv|beta|names/i.test(t) && !/hotfix|podcast|ticket|drops|twitch/i.test(t),
 };
 
 async function getJSON(url, opts = {}) {
@@ -97,8 +97,12 @@ const due = data.games.map(g => {
   // ("Winter") have no date, so they rely on the news watch and the weekly check instead.
   let change;
   if (g.milestones) {
-    const next = g.milestones.find(m => m.start && S.milestoneState(m, now) === "upcoming");
-    change = next ? S.parseT(next.start) : Infinity;
+    // Upcoming and same-day starts count (release day gets a check too), and so do the ends of ranges in progress.
+    const times = g.milestones.flatMap(m => {
+      const st = m.start ? S.milestoneState(m, now) : null;
+      return st === "upcoming" || st === "today" ? [S.parseT(m.start)] : st === "live" ? [S.parseT(m.end)] : [];
+    });
+    change = times.length ? Math.min(...times) : Infinity;
   } else {
     const v = S.view(g, now), end = S.endOf(v);
     change = Math.min(end ? end.t : Infinity, v.next ? S.parseT(v.next.start) : Infinity);

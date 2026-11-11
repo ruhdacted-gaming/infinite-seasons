@@ -154,23 +154,27 @@
   // A milestone has an official `start` (exact time or calendar date), or only a `window`
   // ({ label, from, to }) that is always shown as an estimate and never as a date.
 
-  // Today's calendar date in the display zone, as "YYYY-MM-DD".
-  const ymd = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: TZ });
+  // Today's calendar date in US Pacific time, as "YYYY-MM-DD". Date-only strings are Pacific
+  // calendar dates (research/BRIEF.md), so day counts and "Today" use Pacific in every reader's
+  // browser; otherwise a reader in Tokyo would see a milestone as released while it is still the day in Pacific.
+  const ymd = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "America/Los_Angeles" });
   function today(now) {
     const p = Object.fromEntries(ymd.formatToParts(now).map(x => [x.type, x.value]));
     return `${p.year}-${p.month}-${p.day}`;
   }
-  // Whole calendar days from today to a date-only string; negative once it has passed.
+  // Whole calendar days from today (Pacific) to a date-only string; negative once it has passed.
   const daysUntil = (s, now) => Math.round((parseT(s) - parseT(today(now))) / DAY);
 
-  // "upcoming" | "today" (date-only, no time known) | "live" (a date range in progress) | "done"
-  // | "tba" (window only) | "late" (window only, and the window has passed).
+  // "upcoming" | "today" (date-only start day, time unknown) | "live" (a date range in progress)
+  // | "done" | "tba" (window only) | "late" (window only, and the window has passed).
   function milestoneState(m, now) {
     if (!m.start) return m.window && daysUntil(m.window.to, now) < 0 ? "late" : "tba";
     const until = isDateOnly(m.start) ? daysUntil(m.start, now) : null;
     if (until != null ? until > 0 : parseT(m.start) > now) return "upcoming";
+    // On a date-only start day the start time is unknown, so don't claim it's live yet.
+    if (until === 0) return "today";
     if (m.end && (isDateOnly(m.end) ? daysUntil(m.end, now) >= 0 : parseT(m.end) > now)) return "live";
-    return until === 0 ? "today" : "done";
+    return "done";
   }
 
   // The first milestone that hasn't happened yet, or the last one.

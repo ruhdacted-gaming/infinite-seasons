@@ -1360,6 +1360,7 @@ window.SEASON_DATA = {
           "id": "name-reservation",
           "title": "Early name reservation",
           "start": "2026-10-27",
+          "end": "2026-11-03",
           "contents": [
             "Early name reservation and character creation"
           ],
@@ -1368,7 +1369,7 @@ window.SEASON_DATA = {
             "https://news.blizzard.com/en-us/article/24303866/claim-your-world-of-warcraft-forever-character-names"
           ],
           "confidence": "official",
-          "research": "Date from the roadmap image (\"OCT 27 EARLY NAME RESERVATION & CHARACTER CREATION\"). warcraft.wiki.gg gives 20:00 UTC; not checked against Blizzard, so kept date-only."
+          "research": "Blizzard (article 24303866): early name reservation runs October 27 through November 3. Start times differ by region: Europe Oct 27 18:00 CET (17:00 UTC), North America Oct 27 1:00 p.m. PDT (20:00 UTC), Korea and Taiwan Oct 28 07:00 local (Oct 27 22:00 UTC). Because the regions start at different times, the milestone is kept date-only (Oct 27, the roadmap date) rather than showing one region's time to everyone. End is the date Blizzard gives; no end time stated."
         },
         {
           "id": "launch",

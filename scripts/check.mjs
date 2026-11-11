@@ -27,6 +27,9 @@ for (const f of readdirSync("research").filter(f => f.endsWith(".json"))) {
   if (ids.filter(x => x === id).length !== 1) bad(id, `appears ${ids.filter(x => x === id).length} times in seasons.js`);
 }
 const dateOnly = s => /^\d{4}-\d{2}-\d{2}$/.test(s) && valid(s);
+// A day written in text: "Dec 9", "9 December", "12/9" or "2026-12-09".
+const MONTH = "(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\\.?";
+const DATE_IN_TEXT = new RegExp(`\\b${MONTH} \\d|\\b\\d{1,2}(st|nd|rd|th)? ${MONTH}\\b|\\b\\d{1,2}/\\d{1,2}\\b|\\d{4}-\\d{2}-\\d{2}`, "i");
 
 // Roadmap games: each milestone has an official date, or only a window that is shown as an estimate.
 function checkMilestones(g) {
@@ -48,9 +51,11 @@ function checkMilestones(g) {
     if (m.window) {
       const w = m.window;
       if (!w.label || !dateOnly(w.from) || !dateOnly(w.to) || S.parseT(w.to) <= S.parseT(w.from)) bad(at, `bad window ${JSON.stringify(w)}`);
-      // A window is a time of year, not a date: never put a digit-day in its label.
-      if (/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d/i.test(w.label || "")) bad(at, `window label looks like a date: ${w.label}`);
+      // A window is a time of year, not a date: never put a day in its label.
+      if (DATE_IN_TEXT.test(w.label || "")) bad(at, `window label looks like a date: ${w.label}`);
     }
+    // An announced date must come from the developer; secondary sources only go in research notes.
+    if (m.start && m.confidence !== "official") bad(at, `has a start date but confidence "${m.confidence}"; dates must be official`);
     // Dated milestones stay in order; windows may overlap them (the roadmap puts Dec 9 in "Winter").
     if (m.start) {
       if (lastDated && S.parseT(m.start) < S.parseT(lastDated.start)) bad(at, `dated before ${lastDated.id}`);
@@ -59,7 +64,7 @@ function checkMilestones(g) {
     if (m.contents && !(Array.isArray(m.contents) && m.contents.every(c => typeof c === "string" && c))) bad(at, "contents must be a list of strings");
     if (m.page && (!m.pageTitle || !m.summary)) bad(at, "page: true needs pageTitle and summary");
     // Page copy is hand-written; dates must come from the data, so keep them out of it.
-    if (/\b(19|20)\d\d\b|\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d/i.test(`${m.pageTitle || ""} ${m.summary || ""}`)) bad(at, "pageTitle/summary must not state a date");
+    if (/\b(19|20)\d\d\b/.test(`${m.pageTitle || ""} ${m.summary || ""}`) || DATE_IN_TEXT.test(`${m.pageTitle || ""} ${m.summary || ""}`)) bad(at, "pageTitle/summary must not state a date");
     if (!CONFIDENCE.includes(m.confidence)) bad(at, `confidence "${m.confidence}"`);
     if (!m.sources?.length || !m.sources.every(u => /^https:\/\//.test(u))) bad(at, "needs https sources");
   }

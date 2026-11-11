@@ -399,7 +399,7 @@ function roadmap(data, g, now) {
     <p class="more">${pub}'s roadmap notes that content and timing are subject to change. We re-check it against ${pub}'s announcements and update this page when a date is announced or moves. Data checked ${S.fmtDay(data.verified)}.</p></section>
   ${pvp.length ? `<section class="block prose"><h2>PvP seasons</h2><p>${esc(pub)} hasn't published PvP season dates for ${esc(g.game)}. The roadmap lists a PvP season refresh in ${pvp.map(m => `the ${milestoneLink(g, m)} (${mWhen(m)})`).join(" and ")}.</p></section>` : ""}
   <section class="block prose"><h2>Dates and estimates</h2>
-    <p>A date appears here only after ${esc(pub)} announces it. For items the roadmap only places in a time of year, we show that time of year marked <em>~</em> in orange and don't guess a day. Dates are shown in your time zone; where ${esc(pub)} gave only a calendar date, that date is shown as given.</p>
+    <p>A date appears here only after ${esc(pub)} announces it. For items the roadmap only places in a time of year, we show that time of year marked <em>~</em> in orange and don't guess a day. Dates are shown in your time zone; where ${esc(pub)} gave only a calendar date, that date is shown as given, and day counts follow US Pacific time.</p>
   </section>
   ${sourcesList(g.milestones.flatMap(m => m.sources || []))}`,
   });
