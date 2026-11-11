@@ -81,6 +81,7 @@
   // opts.href(g): if given, the card title links there.
   function card(g, now, opts) {
     opts = opts || {};
+    if (g.milestones) return milestoneCard(g, opts.milestone ? g.milestones.find(m => m.id === opts.milestone) : nextMilestone(g, now), now, opts);
     g = view(g, now);
     const h = opts.headingTag || "div";
     const start = parseT(g.start);
@@ -149,6 +150,107 @@
     </article>`;
   }
 
+  // ---------- roadmap milestones (games with "milestones" instead of "seasons") ----------
+  // A milestone has an official `start` (exact time or calendar date), or only a `window`
+  // ({ label, from, to }) that is always shown as an estimate and never as a date.
+
+  // Today's calendar date in the display zone, as "YYYY-MM-DD".
+  const ymd = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: TZ });
+  function today(now) {
+    const p = Object.fromEntries(ymd.formatToParts(now).map(x => [x.type, x.value]));
+    return `${p.year}-${p.month}-${p.day}`;
+  }
+  // Whole calendar days from today to a date-only string; negative once it has passed.
+  const daysUntil = (s, now) => Math.round((parseT(s) - parseT(today(now))) / DAY);
+
+  // "upcoming" | "today" (date-only, no time known) | "live" (a date range in progress) | "done"
+  // | "tba" (window only) | "late" (window only, and the window has passed).
+  function milestoneState(m, now) {
+    if (!m.start) return m.window && daysUntil(m.window.to, now) < 0 ? "late" : "tba";
+    const until = isDateOnly(m.start) ? daysUntil(m.start, now) : null;
+    if (until != null ? until > 0 : parseT(m.start) > now) return "upcoming";
+    if (m.end && (isDateOnly(m.end) ? daysUntil(m.end, now) >= 0 : parseT(m.end) > now)) return "live";
+    return until === 0 ? "today" : "done";
+  }
+
+  // The first milestone that hasn't happened yet, or the last one.
+  function nextMilestone(g, now) {
+    return g.milestones.find(m => milestoneState(m, now) !== "done") || g.milestones[g.milestones.length - 1];
+  }
+
+  // When a milestone happens, as HTML: the date (or date range), or "~<window>" styled as an estimate.
+  function milestoneWhen(m) {
+    if (!m.start) return `<em title="Estimate: no date announced, only a roadmap window">~${esc(m.window.label)}</em>`;
+    return fmtDay(m.start) + (m.end ? ` – ${fmtDay(m.end)}` : "");
+  }
+
+  // URL template -> href function. {id} is the game, {n} the season, {m} a milestone that has its own page.
+  function hrefFrom(tpl) {
+    return (g, m) => tpl.replace("{id}", g.id).replace("{n}", g.season).replace("{m}", m && m.page ? m.id : "").replace(/\/$/, "");
+  }
+
+  function milestoneCard(g, m, now, opts) {
+    const h = opts.headingTag || "div";
+    const i = g.milestones.indexOf(m);
+    const state = milestoneState(m, now);
+    // The latest dated milestone before this one: the bar runs from it to this one.
+    const prev = g.milestones.slice(0, i).reverse().find(x => x.start);
+    const after = g.milestones[i + 1];
+    const est = !m.start;
+    const dateOnly = m.start && isDateOnly(m.start);
+    let status, big, sub, pct = 0;
+
+    if (state === "upcoming") {
+      status = ["upcoming", "Upcoming"];
+      if (dateOnly) { const d = daysUntil(m.start, now); big = d; sub = d === 1 ? "day to go" : "days to go"; }
+      else { big = span(parseT(m.start) - now); sub = "to go"; }
+      if (prev) { const a = parseT(prev.start), b = parseT(m.start); pct = Math.max(0, Math.min(100, (now - a) / (b - a) * 100)); }
+    } else if (state === "today") {
+      status = ["live", "Today"]; big = "Today"; sub = "time not announced"; pct = 100;
+    } else if (state === "live") {
+      status = ["live", "Live"]; big = "Live"; sub = `until ${fmtDay(m.end)}`;
+      const a = parseT(m.start), b = parseT(m.end); pct = Math.min(100, (now - a) / (b - a) * 100);
+    } else if (state === "done") {
+      const d = dateOnly ? -daysUntil(m.start, now) : Math.floor((now - parseT(m.start)) / DAY);
+      status = ["ended", "Released"]; big = d; sub = d === 1 ? "day ago" : "days ago"; pct = 100;
+    } else {
+      status = state === "late" ? ["overdue", "Late?"] : ["upcoming", "No date"];
+      big = "TBA"; sub = state === "late" ? "window has passed" : "no date announced";
+      // Progress through the window, dashed: it's our reading of the window, not a date.
+      const a = parseT(m.window.from), b = parseT(m.window.to) + DAY;
+      pct = Math.max(0, Math.min(100, (now - a) / (b - a) * 100));
+    }
+
+    const href = opts.href ? opts.href(g, m) : null;
+    const name = href ? `<a href="${esc(href)}">${esc(m.title)}</a>` : esc(m.title);
+    const timeNote = dateOnly && (state === "upcoming" || state === "today")
+      ? `<div class="note">${esc(g.publisher)} hasn't announced the time of day.</div>` : "";
+    const then = after && state !== "done"
+      ? `<div class="event"><b>Then</b> — ${esc(after.title)} · ${milestoneWhen(after)}</div>` : "";
+
+    return `
+    <article class="card" id="${esc(g.id)}" data-game="${esc(g.id)}" style="--accent:${esc(g.accent)}">
+      <div class="top">
+        <span class="tag">${esc(g.tag)}</span>
+        <span class="badge ${status[0]}">${status[1]}</span>
+      </div>
+      <div class="title">
+        <${h} class="heading">
+          <span class="name">${name}</span>
+          <span class="num">${esc(g.game)} · Roadmap</span>
+        </${h}>
+        <div class="count"><b${est ? ' class="est" title="No date announced"' : ""}>${big}</b><span>${sub}</span></div>
+      </div>
+      <div class="bar ${est ? "est" : ""}"><i style="width:${pct.toFixed(1)}%"></i></div>
+      <div class="dates">
+        <span>${prev && m.start ? `${esc(prev.title)} ${fmtDay(prev.start)}` : ""}</span>
+        <span>${milestoneWhen(m)}</span>
+      </div>
+      ${timeNote}${then}
+      ${g.link ? `<div class="note"><a href="${esc(g.link)}" target="_blank" rel="noopener">news ↗</a></div>` : ""}
+    </article>`;
+  }
+
   function renderCards(el, data, now, opts) {
     el.innerHTML = (data.games || []).map(g => card(g, now, opts)).join("");
   }
@@ -156,5 +258,6 @@
   window.Seasons = {
     DAY, fmtDate, fmtDateTime, fmtClock, isDateOnly, parseT, fmtDay, lengthDays, median, typicalDays,
     view, endOf, span, esc, hostOf, dataAge, card, renderCards,
+    today, daysUntil, milestoneState, nextMilestone, milestoneWhen, hrefFrom,
   };
 })();

@@ -1,5 +1,6 @@
 // Builds the static site into dist/ for Cloudflare Workers static assets.
 // Pages: / (all games), /{game} (hub), /{game}/season-{n} (one per announced season), /{game}/history.
+// Roadmap games (milestones instead of seasons): /{game} (the roadmap) and /{game}/{milestone id}.
 // Season data comes from seasons.js; render.js is shared with the browser and the desktop widget.
 import { mkdirSync, readFileSync, rmSync, writeFileSync, copyFileSync } from "node:fs";
 import { dirname } from "node:path";
@@ -27,6 +28,8 @@ function page(path, html, { sitemap = true } = {}) {
 page("/", pages.home(data, now));
 for (const g of data.games) {
   page(`/${g.id}`, pages.hub(data, g, now));
+  // Roadmap games: one page per milestone marked page: true, at a stable /{game}/{milestone id}.
+  if (g.milestones) { g.milestones.filter(m => m.page).forEach(m => page(`/${g.id}/${m.id}`, pages.milestone(data, g, m, now))); continue; }
   page(`/${g.id}/history`, pages.history(data, g, now));
   g.seasons.forEach((s, i) => page(`/${g.id}/season-${s.season}`, pages.season(data, g, i, now)));
 }
@@ -36,6 +39,11 @@ page("/404", pages.notFound(data), { sitemap: false });
 const slim = {
   verified: data.verified,
   games: data.games.map(g => {
+    if (g.milestones) {
+      const { hubTitle, ...rest } = g;
+      const keep = ({ id, title, start, end, window, page }) => ({ id, title, start, end, window, page });
+      return { ...rest, milestones: g.milestones.map(keep) };
+    }
     const v = S.view(g, now), i = g.seasons.findIndex(s => s.season === v.season);
     const { hubTitle, ...rest } = g;
     const keep = ({ season, name, start, end, endEstimate, note, events }) => ({ season, name, start, end, endEstimate, note, events });

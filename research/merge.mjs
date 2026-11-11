@@ -1,6 +1,7 @@
-// One-off: merge research/<game>.json season histories into seasons.js.
-// Keeps each game's settings and the current season's hand-set fields (endEstimate, note, events).
-// Usage: node research/merge.mjs d2r pd2 d3 d4
+// Merge research/<game>.json into seasons.js.
+// Season games: keeps each game's settings and the current season's hand-set fields (endEstimate, note, events).
+// Roadmap games (research has "milestones"): keeps each milestone's site-only fields (page, pageTitle, summary).
+// Usage: node research/merge.mjs d2r pd2 d3 d4 wow-forever
 import { readFileSync, writeFileSync } from "node:fs";
 
 const src = readFileSync("seasons.js", "utf8");
@@ -9,9 +10,7 @@ const window = {};
 new Function("window", src)(window);
 const data = window.SEASON_DATA;
 
-for (const id of process.argv.slice(2)) {
-  const g = data.games.find(x => x.id === id);
-  const research = JSON.parse(readFileSync(`research/${id}.json`, "utf8"));
+function mergeSeasons(g, research) {
   const old = Object.fromEntries(g.seasons.map(s => [s.season, s]));
   g.seasons = research.seasons.map(r => {
     const keep = old[r.season] || {};
@@ -31,7 +30,32 @@ for (const id of process.argv.slice(2)) {
     if (r.notes) s.research = r.notes;
     return s;
   });
-  console.log(`${id}: ${g.seasons.length} seasons`);
+  return `${g.seasons.length} seasons`;
+}
+
+function mergeMilestones(g, research) {
+  const old = Object.fromEntries((g.milestones || []).map(m => [m.id, m]));
+  g.milestones = research.milestones.map(r => {
+    const keep = old[r.id] || {};
+    const m = { id: r.id, title: r.title, start: r.start ?? null };
+    if (r.end) m.end = r.end;
+    // An announced date replaces the roadmap window.
+    if (!m.start && r.window) m.window = r.window;
+    if (r.contents?.length) m.contents = r.contents;
+    for (const k of ["page", "pageTitle", "summary"]) if (keep[k] != null) m[k] = keep[k];
+    m.sources = r.sources || [];
+    m.confidence = r.confidence;
+    if (r.notes) m.research = r.notes;
+    return m;
+  });
+  return `${g.milestones.length} milestones`;
+}
+
+for (const id of process.argv.slice(2)) {
+  const g = data.games.find(x => x.id === id);
+  if (!g) throw new Error(`${id} is not in seasons.js; add the game's settings there first`);
+  const research = JSON.parse(readFileSync(`research/${id}.json`, "utf8"));
+  console.log(`${id}: ${research.milestones ? mergeMilestones(g, research) : mergeSeasons(g, research)}`);
 }
 
 writeFileSync("seasons.js", header + "window.SEASON_DATA = " + JSON.stringify(data, null, 2) + ";\n");

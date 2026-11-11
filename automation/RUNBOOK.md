@@ -57,6 +57,20 @@ For each game:
    - Update `note` and `events` (PTRs and the like) to match announcements.
    - Datamined or rumoured dates go in `note` or `endEstimate`, never in `end`.
 
+### WoW Forever (`wow-forever`)
+
+WoW Forever is a roadmap game: `research/wow-forever.json` has `milestones`, not seasons. Follow the "Roadmap games" section of `research/BRIEF.md`. Only research what can have changed:
+
+- the next dated milestone: is the date unchanged, and has Blizzard now given a time?
+- every milestone that has only a `window`: has Blizzard announced a date? If so, set `start` and set `window` to null.
+- new items Blizzard has added to the roadmap, and items it has dropped or moved to another window.
+
+Start with the `season-watch` issue posts. Then check Blizzard's WoW news (news.blizzard.com/en-us/world-of-warcraft) for posts about WoW Forever, and the roadmap in the newest roadmap post. warcraft.wiki.gg/wiki/World_of_Warcraft:_Forever is a cross-check only.
+
+Then run `node research/merge.mjs wow-forever`. If you added a milestone that deserves its own page (a dated content drop people will search for), add `page`, `pageTitle` and `summary` to it in `seasons.js`. Copy them from an existing milestone. Never write a date into `pageTitle` or `summary`; `check.mjs` rejects it. Never rename an `id`, because it is the page URL.
+
+A window turning into a date, a date moving, or a milestone being added or removed counts as "dates changed" (step 4). Otherwise it's a no-change re-check (step 3).
+
 Then set `verified` in `seasons.js` to today and run `npm run build`. It runs `scripts/check.mjs` first and must pass.
 
 Stage only the data files, never `git add -A` or `commit -a`:

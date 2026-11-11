@@ -14,8 +14,23 @@
 //   sources      - where the dates come from
 //   confidence   - "official" (from the developer), "secondary" (wikis/guide sites only) or "conflicting"
 //   research     - internal research notes: conflicts, missing times, why a field is null. Not shown on the site.
+//
+// Roadmap games (WoW Forever) have "milestones" instead of "seasons": dated roadmap items, oldest first.
+// Per game: hubTitle is used as-is (no {n}); there is no prefix or typicalDays.
+// Per milestone:
+//   id           - stable URL slug; a milestone with page: true gets /{game}/{id}. Never rename one.
+//   title        - short name ("Raids unlock")
+//   start        - official date or time, or null if Blizzard has only given a window
+//   end          - optional, for milestones that are a date range (a beta)
+//   window       - { label, from, to } when there is no date: label is the developer's wording ("Winter 2026-27"),
+//                  from/to are our reading of it. Always shown as an estimate ("~", orange); never shown as a date.
+//                  Drop it once a date is announced.
+//   contents     - what the milestone brings, from the announcement
+//   page, pageTitle, summary - site-only: whether it gets a page, that page's <title>/h1, and a dateless intro.
+//                  merge.mjs keeps these; research files don't carry them.
+//   sources, confidence, research - as for seasons
 window.SEASON_DATA = {
-  "verified": "2026-11-08",
+  "verified": "2026-11-10",
   "games": [
     {
       "id": "d2r",
@@ -1315,6 +1330,154 @@ window.SEASON_DATA = {
           ],
           "confidence": "official",
           "research": "Blizzard's BlizzCon 2026 recap says the season \"begins rolling out on September 15, 9:30 a.m. PT\", which is 16:30 UTC. ggseason's 10:00 a.m. PT (17:00 UTC) is wrong. Patch 3.2.1 is Build #73552, dated September 15, 2026. Blizzard has announced no end date. The Season 16 PTR (3.3.0, PC only) runs October 27, 10 a.m. PDT, to November 3, 10 a.m. PST. In-game and datamined data suggests Season 16 starts December 1, 2026. That is an estimate and not official. ggseason estimates December 2."
+        }
+      ]
+    },
+    {
+      "id": "wow-forever",
+      "game": "World of Warcraft: Forever",
+      "tag": "WoW Forever",
+      "publisher": "Blizzard",
+      "accent": "#3fb8af",
+      "hubTitle": "WoW Forever Roadmap: Every Release Date",
+      "link": "https://news.blizzard.com/en-us/world-of-warcraft",
+      "milestones": [
+        {
+          "id": "beta",
+          "title": "Beta",
+          "start": "2026-09-17",
+          "end": "2026-10-22",
+          "contents": [
+            "Play up to level 30"
+          ],
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+          ],
+          "confidence": "official",
+          "research": "Dates are from Blizzard's 2026/2027 roadmap image in the What's Next recap (\"BETA SEPT 17 - OCT 22\", \"PLAY UP TO LEVEL 30\"). The recap text also says beta begins September 17. No times given."
+        },
+        {
+          "id": "name-reservation",
+          "title": "Early name reservation",
+          "start": "2026-10-27",
+          "contents": [
+            "Early name reservation and character creation"
+          ],
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
+            "https://news.blizzard.com/en-us/article/24303866/claim-your-world-of-warcraft-forever-character-names"
+          ],
+          "confidence": "official",
+          "research": "Date from the roadmap image (\"OCT 27 EARLY NAME RESERVATION & CHARACTER CREATION\"). warcraft.wiki.gg gives 20:00 UTC; not checked against Blizzard, so kept date-only."
+        },
+        {
+          "id": "launch",
+          "title": "Launch",
+          "start": "2026-11-04T23:00:00Z",
+          "contents": [
+            "Normal, PvP, Roleplay and Roleplay-PvP rulesets",
+            "Levels 1 to 60"
+          ],
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
+            "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live"
+          ],
+          "confidence": "official",
+          "research": "Blizzard: \"launches globally on November 4, 2026, at 3:00 p.m. PST\" = 23:00 UTC. The Now Live post is dated 2026-11-04T23:00:00Z. Rulesets at launch per the 2026-11-03 What's New post (Hardcore to follow)."
+        },
+        {
+          "id": "raids",
+          "title": "Raids unlock",
+          "start": "2026-12-09",
+          "contents": [
+            "Barrow Deeps: 10 players, 8 bosses",
+            "Hyjal Summit: 20 players, 13 bosses",
+            "Onyxia's Lair: 40 players; every raider needs the Drakefire Amulet to enter"
+          ],
+          "page": true,
+          "pageTitle": "WoW Forever Raid Release Date: When Do Raids Unlock?",
+          "summary": "Barrow Deeps, Hyjal Summit and Onyxia's Lair are the first raids in World of Warcraft: Forever. All three open on the same day for level 60 characters, and Blizzard plans for every raid to reset weekly.",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303009/world-of-warcraft-forever-raid-overviewlocations-raid-sizes-and-attunement",
+            "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live",
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+          ],
+          "confidence": "official",
+          "research": "Blizzard repeats \"December 9\" in the roadmap image, the What's Next recap, the Raid Overview (2026-10-20) and the Now Live post (2026-11-04). No unlock time has been published, so the date is kept date-only. Raids reset weekly per the Raid Overview; reset day/time not stated. Secondary sources (Icy Veins, Warcraft Tavern, Method) agree on Dec 9 and also give no time."
+        },
+        {
+          "id": "hardcore",
+          "title": "Hardcore launch",
+          "start": null,
+          "window": {
+            "label": "Winter 2026–27",
+            "from": "2026-12-01",
+            "to": "2027-02-28"
+          },
+          "contents": [
+            "Hardcore ruleset: a separate ecosystem where death is permanent; dead characters can transfer to another ruleset"
+          ],
+          "page": true,
+          "pageTitle": "WoW Forever Hardcore Release Date: When Do Hardcore Servers Launch?",
+          "summary": "Hardcore was left out of the World of Warcraft: Forever launch. It is a separate ruleset where death is permanent: Hardcore characters play in their own closed world, and a character that dies can transfer to another ruleset.",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
+            "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live",
+            "https://news.blizzard.com/en-us/article/24302070/choose-your-ruleset-in-world-of-warcraft-forever"
+          ],
+          "confidence": "official",
+          "research": "No date. The roadmap image places \"FOREVER HARDCORE LAUNCH\" in the WINTER column, after the Dec 9 raid unlock. The Now Live post (2026-11-04) says Hardcore \"will become available sometime after launch\"; the Oct 29 post says \"Additional details and timing will be shared later.\" The window bounds (Dec 1 to Feb 28) are our reading of Northern Hemisphere meteorological winter; the roadmap puts Dec 9 in winter, which fits. Some secondary sites write \"Winter 2026\"; Blizzard's image only says Winter. Bounds are an estimate, used only for ordering and re-check timing."
+        },
+        {
+          "id": "spring-update",
+          "title": "Spring major update",
+          "start": null,
+          "window": {
+            "label": "Spring 2027",
+            "from": "2027-03-01",
+            "to": "2027-05-31"
+          },
+          "contents": [
+            "2 new raids (10 player and 20 player)",
+            "2 new dungeons",
+            "New quests and a new playable area",
+            "New legendary questline",
+            "PvP season refresh"
+          ],
+          "page": true,
+          "pageTitle": "WoW Forever Spring Update: New Raids, Dungeons and PvP Season",
+          "summary": "The first major content update on Blizzard's World of Warcraft: Forever roadmap. Blizzard doesn't call it a phase, but it is the next big content drop after the launch raids.",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+          ],
+          "confidence": "official",
+          "research": "From the roadmap image (\"MAJOR UPDATES\" under SPRING). The image header reads \"2026 | 2027 ROADMAP\", so spring is spring 2027. Footer: \"Content and timing subject to change.\" Blizzard does not call this a phase. No PvP season numbers or dates have been published."
+        },
+        {
+          "id": "summer-update",
+          "title": "Summer major update",
+          "start": null,
+          "window": {
+            "label": "Summer 2027",
+            "from": "2027-06-01",
+            "to": "2027-08-31"
+          },
+          "contents": [
+            "Revamped iconic raid",
+            "New raid",
+            "Expanded world content",
+            "2 new dungeons",
+            "PvP season refresh",
+            "Profession and Legacy updates"
+          ],
+          "page": true,
+          "pageTitle": "WoW Forever Summer Update: Revamped Raid, New Raid and Dungeons",
+          "summary": "The second major content update on Blizzard's World of Warcraft: Forever roadmap. Blizzard hasn't said which classic raid gets revamped.",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+          ],
+          "confidence": "official",
+          "research": "From the roadmap image (\"MAJOR UPDATES\" under SUMMER). Which raid is revamped has not been announced."
         }
       ]
     }

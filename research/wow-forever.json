@@ -1,0 +1,120 @@
+{
+  "game": "wow-forever",
+  "checked": "2026-11-10",
+  "milestones": [
+    {
+      "id": "beta",
+      "title": "Beta",
+      "start": "2026-09-17",
+      "end": "2026-10-22",
+      "window": null,
+      "contents": ["Play up to level 30"],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+      ],
+      "confidence": "official",
+      "notes": "Dates are from Blizzard's 2026/2027 roadmap image in the What's Next recap (\"BETA SEPT 17 - OCT 22\", \"PLAY UP TO LEVEL 30\"). The recap text also says beta begins September 17. No times given."
+    },
+    {
+      "id": "name-reservation",
+      "title": "Early name reservation",
+      "start": "2026-10-27",
+      "end": null,
+      "window": null,
+      "contents": ["Early name reservation and character creation"],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
+        "https://news.blizzard.com/en-us/article/24303866/claim-your-world-of-warcraft-forever-character-names"
+      ],
+      "confidence": "official",
+      "notes": "Date from the roadmap image (\"OCT 27 EARLY NAME RESERVATION & CHARACTER CREATION\"). warcraft.wiki.gg gives 20:00 UTC; not checked against Blizzard, so kept date-only."
+    },
+    {
+      "id": "launch",
+      "title": "Launch",
+      "start": "2026-11-04T23:00:00Z",
+      "end": null,
+      "window": null,
+      "contents": ["Normal, PvP, Roleplay and Roleplay-PvP rulesets", "Levels 1 to 60"],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
+        "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live"
+      ],
+      "confidence": "official",
+      "notes": "Blizzard: \"launches globally on November 4, 2026, at 3:00 p.m. PST\" = 23:00 UTC. The Now Live post is dated 2026-11-04T23:00:00Z. Rulesets at launch per the 2026-11-03 What's New post (Hardcore to follow)."
+    },
+    {
+      "id": "raids",
+      "title": "Raids unlock",
+      "start": "2026-12-09",
+      "end": null,
+      "window": null,
+      "contents": [
+        "Barrow Deeps: 10 players, 8 bosses",
+        "Hyjal Summit: 20 players, 13 bosses",
+        "Onyxia's Lair: 40 players; every raider needs the Drakefire Amulet to enter"
+      ],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303009/world-of-warcraft-forever-raid-overviewlocations-raid-sizes-and-attunement",
+        "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live",
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+      ],
+      "confidence": "official",
+      "notes": "Blizzard repeats \"December 9\" in the roadmap image, the What's Next recap, the Raid Overview (2026-10-20) and the Now Live post (2026-11-04). No unlock time has been published, so the date is kept date-only. Raids reset weekly per the Raid Overview; reset day/time not stated. Secondary sources (Icy Veins, Warcraft Tavern, Method) agree on Dec 9 and also give no time."
+    },
+    {
+      "id": "hardcore",
+      "title": "Hardcore launch",
+      "start": null,
+      "end": null,
+      "window": { "label": "Winter 2026–27", "from": "2026-12-01", "to": "2027-02-28" },
+      "contents": ["Hardcore ruleset: a separate ecosystem where death is permanent; dead characters can transfer to another ruleset"],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap",
+        "https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-now-live",
+        "https://news.blizzard.com/en-us/article/24302070/choose-your-ruleset-in-world-of-warcraft-forever"
+      ],
+      "confidence": "official",
+      "notes": "No date. The roadmap image places \"FOREVER HARDCORE LAUNCH\" in the WINTER column, after the Dec 9 raid unlock. The Now Live post (2026-11-04) says Hardcore \"will become available sometime after launch\"; the Oct 29 post says \"Additional details and timing will be shared later.\" The window bounds (Dec 1 to Feb 28) are our reading of Northern Hemisphere meteorological winter; the roadmap puts Dec 9 in winter, which fits. Some secondary sites write \"Winter 2026\"; Blizzard's image only says Winter. Bounds are an estimate, used only for ordering and re-check timing."
+    },
+    {
+      "id": "spring-update",
+      "title": "Spring major update",
+      "start": null,
+      "end": null,
+      "window": { "label": "Spring 2027", "from": "2027-03-01", "to": "2027-05-31" },
+      "contents": [
+        "2 new raids (10 player and 20 player)",
+        "2 new dungeons",
+        "New quests and a new playable area",
+        "New legendary questline",
+        "PvP season refresh"
+      ],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+      ],
+      "confidence": "official",
+      "notes": "From the roadmap image (\"MAJOR UPDATES\" under SPRING). The image header reads \"2026 | 2027 ROADMAP\", so spring is spring 2027. Footer: \"Content and timing subject to change.\" Blizzard does not call this a phase. No PvP season numbers or dates have been published."
+    },
+    {
+      "id": "summer-update",
+      "title": "Summer major update",
+      "start": null,
+      "end": null,
+      "window": { "label": "Summer 2027", "from": "2027-06-01", "to": "2027-08-31" },
+      "contents": [
+        "Revamped iconic raid",
+        "New raid",
+        "Expanded world content",
+        "2 new dungeons",
+        "PvP season refresh",
+        "Profession and Legacy updates"
+      ],
+      "sources": [
+        "https://news.blizzard.com/en-us/article/24303862/world-of-warcraft-forever-whats-next-panel-recap"
+      ],
+      "confidence": "official",
+      "notes": "From the roadmap image (\"MAJOR UPDATES\" under SUMMER). Which raid is revamped has not been announced."
+    }
+  ]
+}

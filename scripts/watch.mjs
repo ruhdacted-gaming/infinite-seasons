@@ -2,8 +2,9 @@
 // 1. Looks for new official posts (Blizzard news, PD2 news) and files each game's new ones
 //    as a `season-watch` issue. The PD2 wiki blocks GitHub's servers, so the research
 //    agent's weekly check covers it instead.
-// 2. Decides which games are due for a research run: new posts, a season change within
-//    3 weeks, or more than a week since the last check (research/<game>.json "checked").
+// 2. Decides which games are due for a research run: new posts, a season change (or dated
+//    roadmap milestone) within 3 weeks, or more than a week since the last check
+//    (research/<game>.json "checked").
 // 3. If any are due and T3_WEBHOOK_URL is set, calls the T3 webhook on the gaming PC, which
 //    starts the research agent (automation/RUNBOOK.md).
 // Without GITHUB_TOKEN it only prints what it found and writes nothing: `node scripts/watch.mjs`.
@@ -18,8 +19,12 @@ const { GITHUB_TOKEN, GITHUB_REPOSITORY, T3_WEBHOOK_URL, RUN_URL } = process.env
 const LOOKBACK = 14 * DAY; // posts older than this are history, not news
 const NEAR = 21 * DAY;     // season change this close: re-check every 2 days instead of weekly
 const UA = { "user-agent": "infiniteseasons.com season watcher (+https://infiniteseasons.com)" };
-const BLIZZARD = { d4: "diablo-4", d3: "diablo-3", d2r: "diablo-2-resurrected" };
+const BLIZZARD = { d4: "diablo-4", d3: "diablo-3", d2r: "diablo-2-resurrected", "wow-forever": "world-of-warcraft" };
 const RELEVANT = /season|ladder|ptr|patch|conclud|live|date/i;
+// The WoW feed carries Modern, Classic and Forever, plus daily hotfix notes: keep Forever posts that may move a date.
+const RELEVANT_GAME = {
+  "wow-forever": t => /forever/i.test(t) && /roadmap|raid|hardcore|season|pvp|update|patch|phase|unlock|coming|live|date|launch/i.test(t) && !/hotfix|podcast|ticket|drops|twitch/i.test(t),
+};
 
 async function getJSON(url, opts = {}) {
   const r = await fetch(url, { ...opts, headers: { ...UA, ...opts.headers } });
@@ -33,7 +38,7 @@ const sources = {
     // A game's feed also carries other games' posts; keep only its own.
     const j = await getJSON(`https://news.blizzard.com/en-us/api/feed/${seg}?offset=0`);
     return j.contentItems.map(c => c.properties)
-      .filter(p => p.cxpProduct?.segment === seg && RELEVANT.test(p.title))
+      .filter(p => p.cxpProduct?.segment === seg && (RELEVANT_GAME[id] || (t => RELEVANT.test(t)))(p.title))
       .map(p => ({ game: id, key: `${p.newsUrl}#${p.lastUpdated}`, at: Date.parse(p.lastUpdated), title: p.title, url: p.newsUrl }));
   }])),
   "PD2 news": async () => {
@@ -88,8 +93,16 @@ const due = data.games.map(g => {
   const checked = S.parseT(JSON.parse(readFileSync(`research/${g.id}.json`, "utf8")).checked);
   // A missing or broken "checked" date counts as never checked.
   const age = checked <= now ? Math.floor((now - checked) / DAY) : Infinity;
-  const v = S.view(g, now), end = S.endOf(v);
-  const change = Math.min(end ? end.t : Infinity, v.next ? S.parseT(v.next.start) : Infinity);
+  // Next date change: a season end or start, or the next dated roadmap milestone. Roadmap windows
+  // ("Winter") have no date, so they rely on the news watch and the weekly check instead.
+  let change;
+  if (g.milestones) {
+    const next = g.milestones.find(m => m.start && S.milestoneState(m, now) === "upcoming");
+    change = next ? S.parseT(next.start) : Infinity;
+  } else {
+    const v = S.view(g, now), end = S.endOf(v);
+    change = Math.min(end ? end.t : Infinity, v.next ? S.parseT(v.next.start) : Infinity);
+  }
   const reasons = [];
   if (open[g.id]) reasons.push(`new posts in ${open[g.id].map(n => `#${n}`).join(", ")}`);
   if (change - now < NEAR && age >= 2) reasons.push(`season change due around ${new Date(change).toISOString().slice(0, 10)}`);

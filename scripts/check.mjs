@@ -26,7 +26,47 @@ for (const f of readdirSync("research").filter(f => f.endsWith(".json"))) {
   const id = f.slice(0, -5);
   if (ids.filter(x => x === id).length !== 1) bad(id, `appears ${ids.filter(x => x === id).length} times in seasons.js`);
 }
+const dateOnly = s => /^\d{4}-\d{2}-\d{2}$/.test(s) && valid(s);
+
+// Roadmap games: each milestone has an official date, or only a window that is shown as an estimate.
+function checkMilestones(g) {
+  if (!g.milestones.length) bad(g.id, "has no milestones");
+  if (!g.hubTitle) bad(g.id, "needs hubTitle");
+  if (g.seasons) bad(g.id, "has both seasons and milestones");
+  const ids = new Set();
+  let lastDated = null;
+  for (const m of g.milestones) {
+    const at = `${g.id} ${m.id}`;
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(m.id || "")) bad(at, "id must be a lowercase URL slug");
+    if (ids.has(m.id)) bad(at, "duplicate id");
+    ids.add(m.id);
+    if (!m.title) bad(at, "missing title");
+    for (const k of ["start", "end"]) if (!valid(m[k])) bad(at, `${k} is not a UTC ISO date: ${m[k]}`);
+    if (!!m.start === !!m.window) bad(at, "needs exactly one of start (an announced date) or window (no date yet)");
+    if (m.end && !m.start) bad(at, "has end but no start");
+    if (m.end && S.parseT(m.end) <= S.parseT(m.start)) bad(at, "ends before it starts");
+    if (m.window) {
+      const w = m.window;
+      if (!w.label || !dateOnly(w.from) || !dateOnly(w.to) || S.parseT(w.to) <= S.parseT(w.from)) bad(at, `bad window ${JSON.stringify(w)}`);
+      // A window is a time of year, not a date: never put a digit-day in its label.
+      if (/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d/i.test(w.label || "")) bad(at, `window label looks like a date: ${w.label}`);
+    }
+    // Dated milestones stay in order; windows may overlap them (the roadmap puts Dec 9 in "Winter").
+    if (m.start) {
+      if (lastDated && S.parseT(m.start) < S.parseT(lastDated.start)) bad(at, `dated before ${lastDated.id}`);
+      lastDated = m;
+    }
+    if (m.contents && !(Array.isArray(m.contents) && m.contents.every(c => typeof c === "string" && c))) bad(at, "contents must be a list of strings");
+    if (m.page && (!m.pageTitle || !m.summary)) bad(at, "page: true needs pageTitle and summary");
+    // Page copy is hand-written; dates must come from the data, so keep them out of it.
+    if (/\b(19|20)\d\d\b|\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.? \d/i.test(`${m.pageTitle || ""} ${m.summary || ""}`)) bad(at, "pageTitle/summary must not state a date");
+    if (!CONFIDENCE.includes(m.confidence)) bad(at, `confidence "${m.confidence}"`);
+    if (!m.sources?.length || !m.sources.every(u => /^https:\/\//.test(u))) bad(at, "needs https sources");
+  }
+}
+
 for (const g of data.games) {
+  if (g.milestones) { checkMilestones(g); continue; }
   if (!g.seasons?.length) bad(g.id, "has no seasons");
   (g.seasons || []).forEach((s, i) => {
     const at = `${g.id} S${s.season}`, prev = g.seasons[i - 1];
@@ -53,4 +93,4 @@ if (errors.length) {
   console.error(`seasons.js has ${errors.length} problem(s):\n  ` + errors.join("\n  "));
   process.exit(1);
 }
-console.log(`seasons.js OK: ${data.games.map(g => `${g.id} ${g.seasons.length}`).join(", ")}`);
+console.log(`seasons.js OK: ${data.games.map(g => `${g.id} ${(g.seasons || g.milestones).length}`).join(", ")}`);
