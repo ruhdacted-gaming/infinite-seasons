@@ -6,8 +6,8 @@
     const now = Date.now();
     document.querySelectorAll("[data-cards]").forEach(el => {
       const ids = el.dataset.cards.split(","), tpl = el.dataset.href;
-      const href = tpl ? g => tpl.replace("{id}", g.id).replace("{n}", g.season) : null;
-      el.innerHTML = data.games.filter(g => ids.includes(g.id)).map(g => S.card(g, now, { headingTag: "h2", href })).join("");
+      const href = tpl ? S.hrefFrom(tpl) : null, milestone = el.dataset.milestone;
+      el.innerHTML = data.games.filter(g => ids.includes(g.id)).map(g => S.card(g, now, { headingTag: "h2", href, milestone })).join("");
     });
     const checked = document.getElementById("checked");
     if (checked && S.dataAge(data, now) > 30) {

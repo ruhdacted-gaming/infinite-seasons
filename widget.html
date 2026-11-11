@@ -38,7 +38,8 @@ function render() {
   const now = Date.now();
   const data = window.SEASON_DATA || { games: [] };
   document.getElementById("clock").textContent = S.fmtClock.format(now);
-  S.renderCards(document.getElementById("grid"), data, now);
+  // Seasons only: roadmap games (WoW Forever) live on the site. Drop the filter to show them here too.
+  S.renderCards(document.getElementById("grid"), { ...data, games: data.games.filter(g => g.seasons) }, now);
 
   const footer = document.getElementById("footer");
   const age = S.dataAge(data, now);

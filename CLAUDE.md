@@ -17,7 +17,17 @@ Tracks seasons for games that run them: current season, start date, end date (of
 - `site/pages.mjs`: the page templates. Every sentence that states a date is generated from the data. `site/site.css` holds the page styles. `site/live.js` keeps countdowns live and shows dates in the reader's time zone.
 - `Diablo Seasons.cmd`: opens the widget as an Edge `--app` window with its own profile dir, so the window size is respected.
 
-Tracked games: D2R ladder, Project Diablo 2, Diablo III, Diablo IV.
+Tracked games: D2R ladder, Project Diablo 2, Diablo III, Diablo IV, and the World of Warcraft: Forever roadmap (added 2026-11-10).
+
+### Roadmap games (WoW Forever)
+
+WoW Forever has no season to count down. It has a dated roadmap, so its game entry has `milestones` instead of `seasons`.
+
+- A milestone has an official `start` (a time, or a calendar date when Blizzard gave no time), or only a `window` (`{ label: "Winter 2026–27", from, to }`) when the roadmap names just a time of year. A window is always shown as an estimate, `~Winter 2026–27` in orange, and never as a date. `from`/`to` are only used for ordering, the dashed progress bar, and marking a window "Late?" once it passes.
+- A date-only milestone counts down in calendar days, never hours, because no time was given.
+- `render.js` draws milestone cards with the same card markup and estimate styling as season cards. `site/pages.mjs` has `roadmap()` (the hub) and `milestone()` (one page per milestone with `page: true`, at `/{game}/{milestone id}`). Ids are URLs; never rename one.
+- `pageTitle` and `summary` are hand-written, and `check.mjs` rejects any date in them. Every date sentence is generated from the data.
+- The desktop widget shows season games only.
 
 ## Data accuracy
 
@@ -25,7 +35,7 @@ Accuracy is what makes or breaks this project. Keep these rules:
 
 - Never present an estimate as official. Estimates are shown with `~` and an orange end date. Datamined dates count as estimates.
 - Update `verified` whenever dates are re-checked.
-- Sources used so far: Blizzard news (news.blizzard.com), the PD2 wiki Seasons page (wiki.projectdiablo2.com/wiki/Seasons), diablobytes.com, d3guides.de, d4guides.gg. Competitors that already rank: arpg-timeline.com, ggseason.com, timesaver.gg.
+- Sources used so far: Blizzard news (news.blizzard.com), including the WoW Forever roadmap image in the What's Next panel recap, the PD2 wiki Seasons page (wiki.projectdiablo2.com/wiki/Seasons), diablobytes.com, d3guides.de, d4guides.gg. Competitors that already rank: arpg-timeline.com, ggseason.com, timesaver.gg.
 
 ## Site plan (pSEO, levelsio-style)
 
@@ -64,6 +74,7 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
 
 - `build.mjs` pre-renders every page into `dist/` (gitignored), so crawlers see the dates in the HTML. Pre-rendered dates use Pacific time, and `live.js` then switches them to the reader's zone. The build writes:
   - `/`, `/{game}`, `/{game}/history` and one `/{game}/season-{n}` page per announced season
+  - for roadmap games: `/{game}` (the roadmap) and one `/{game}/{milestone id}` page per milestone with `page: true`
   - `404.html`, `sitemap.xml` and `robots.txt`
   - a slim `seasons.js` holding only the previous, current and next seasons
 - The Worker is assets-only: it has no script, so asset requests are free and don't count toward the Workers request limit. Two settings in the Cloudflare dashboard, not in the repo, handle canonical URLs:
@@ -77,8 +88,8 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
 
 - **Deploy** (`.github/workflows/deploy.yml`) runs on every push to main, and daily at 00:30 and 17:30 UTC so pages roll over to new seasons. It needs the `CLOUDFLARE_API_TOKEN` repo secret.
 - **Watch** (`.github/workflows/watch.yml` and `scripts/watch.mjs`) runs daily at 19:00 UTC and uses no AI.
-  - It polls Blizzard's news feed API and the PD2 news API (the PD2 wiki blocks GitHub's servers), and files new posts as `season-watch` issues.
-  - A game is due for research when it has open `season-watch` issues, when a season change is within 21 days and the last check was 2 or more days ago, or when the last check was 7 or more days ago. The last check is the `checked` field in `research/<game>.json`.
+  - It polls Blizzard's news feed API and the PD2 news API (the PD2 wiki blocks GitHub's servers), and files new posts as `season-watch` issues. For WoW Forever it keeps only Forever posts that may move a date, and skips hotfix notes and promotions.
+  - A game is due for research when it has open `season-watch` issues, when a season change (or a dated roadmap milestone) is within 21 days and the last check was 2 or more days ago, or when the last check was 7 or more days ago. The last check is the `checked` field in `research/<game>.json`.
   - When a game is due, it POSTs to the T3 webhook stored in the `T3_WEBHOOK_URL` secret.
 - **Research run**: the webhook starts the T3 scheduled task "Season research run" on the user's always-on gaming PC. Each run is a fresh Claude Opus thread that follows `automation/RUNBOOK.md`.
   - It works in the `D:/Dev/infinite-seasons-bot` worktree.

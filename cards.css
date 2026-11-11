@@ -50,5 +50,6 @@
 .card .dates em { font-style: normal; color: var(--warn); }
 .card .event { margin-top: .46rem; font-size: .88rem; color: #cfc3b2; }
 .card .event b { color: var(--accent, var(--gold)); font-weight: 600; }
+.card .event em { font-style: normal; color: var(--warn); }
 .card .note { margin-top: .38rem; color: var(--muted); font-size: .85rem; }
 .card .note a { color: var(--muted); }

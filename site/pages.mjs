@@ -91,10 +91,13 @@ function footer(data, game) {
   const games = game ? [game] : data.games;
   const links = games.filter(g => g.link).map(g =>
     `<a href="${esc(g.link)}" target="_blank" rel="noopener">${esc(g.tag)} (${esc(S.hostOf(g.link))})</a>`).join(" · ");
+  const seasonsNote = `<p>How end dates work: if the developer has announced an end date, that date is shown. If not, we show an estimate marked <em>~</em> in orange: either a date reported but not yet confirmed (for example from in-game data), or the start date plus the median length of that game's recent seasons. Estimates are never official. Dates are shown in your local time zone.</p>`;
+  const roadmapNote = `<p>How roadmap dates work: a date is shown only when the developer has announced it. When the roadmap only names a time of year, such as "Winter", we show that marked <em>~</em> in orange and never turn it into a date. Dates are shown in your local time zone.</p>`;
+  const notes = (!game || !game.milestones ? seasonsNote : "") + (!game || game.milestones ? roadmapNote : "");
   return `<footer class="site-footer">
   <div class="wrap">
     <p class="checked" id="checked" data-verified="${esc(data.verified)}" hidden></p>
-    <p>How end dates work: if the developer has announced an end date, that date is shown. If not, we show an estimate marked <em>~</em> in orange: either a date reported but not yet confirmed (for example from in-game data), or the start date plus the median length of that game's recent seasons. Estimates are never official. Dates are shown in your local time zone.</p>
+    ${notes}
     <p class="sources">Sources: ${links}</p>
     <p class="fine">Infinite Seasons is an independent fan project and is not affiliated with Blizzard Entertainment or the Project Diablo 2 team. Data checked ${S.fmtDay(data.verified)}.</p>
   </div>
@@ -102,11 +105,11 @@ function footer(data, game) {
 }
 
 // Cards are pre-rendered for crawlers and re-rendered live by live.js.
-function cards(games, now, href, extraClass = "") {
-  return `<section class="cards ${extraClass}" data-cards="${games.map(g => g.id).join(",")}" data-href="${href}" aria-label="Current seasons">${
-    games.map(g => S.card(g, now, { headingTag: "h2", href: hrefFn(href) })).join("")}</section>`;
+// `milestone` pins a roadmap game's card to one milestone; otherwise it shows the next one.
+function cards(games, now, href, extraClass = "", milestone) {
+  return `<section class="cards ${extraClass}" data-cards="${games.map(g => g.id).join(",")}" data-href="${href}"${milestone ? ` data-milestone="${esc(milestone)}"` : ""} aria-label="${milestone || games.some(g => g.milestones) ? "Countdown" : "Current seasons"}">${
+    games.map(g => S.card(g, now, { headingTag: "h2", href: S.hrefFrom(href), milestone })).join("")}</section>`;
 }
-const hrefFn = tpl => g => tpl.replace("{id}", g.id).replace("{n}", g.season);
 
 function seasonTable(g, list, now) {
   const cur = S.view(g, now);
@@ -138,10 +141,10 @@ export function home(data, now) {
   return layout({
     data, path: "/",
     title: "Diablo Season Countdowns: D2R, PD2, Diablo III, Diablo IV | Infinite Seasons",
-    description: "Current season, start date, end date and live countdown for the D2R ladder, Project Diablo 2, Diablo III and Diablo IV. Estimated dates are marked as estimates.",
+    description: "Current season, start date, end date and live countdown for the D2R ladder, Project Diablo 2, Diablo III and Diablo IV, plus the WoW Forever roadmap. Estimated dates are marked as estimates.",
     body: `<section class="hero">
     <h1>When does the current Diablo season end?</h1>
-    <p>Live countdowns for the Diablo II: Resurrected ladder, Project Diablo&nbsp;2, Diablo&nbsp;III and Diablo&nbsp;IV. Estimates are marked <em>~</em> in orange; every other date is confirmed.</p>
+    <p>Live countdowns for the Diablo II: Resurrected ladder, Project Diablo&nbsp;2, Diablo&nbsp;III and Diablo&nbsp;IV, plus the <a href="/wow-forever">World of Warcraft: Forever roadmap</a>. Estimates are marked <em>~</em> in orange; every other date is confirmed.</p>
     <p class="meta">Data checked ${S.fmtDay(data.verified)}</p>
   </section>
   ${cards(data.games, now, "/{id}")}`,
@@ -149,6 +152,7 @@ export function home(data, now) {
 }
 
 export function hub(data, g, now) {
+  if (g.milestones) return roadmap(data, g, now);
   const v = S.view(g, now);
   const n = v.season;
   const title = g.hubTitle.replace("{n}", n);
@@ -331,6 +335,109 @@ ${cols}
 </svg>
 <figcaption>Days per season, by season number. ${items.some(d => d.live) ? `The outlined column is the current season so far.` : ""} Hover a column for details.</figcaption>
 </figure>`;
+}
+
+// ---------- roadmap games (milestones instead of seasons) ----------
+
+const milestonePath = (g, m) => `/${g.id}/${m.id}`;
+const STATUS = { upcoming: "Upcoming", today: "Today", live: "Live now", done: "Released", tba: "No date yet", late: "No date yet; window passed" };
+const firstSentence = s => (s || "").split(/(?<=\.)\s/)[0];
+const milestoneLink = (g, m) => m.page ? `<a href="${milestonePath(g, m)}">${esc(m.title)}</a>` : esc(m.title);
+
+// When a milestone happens, for prose: <time> dates, or the roadmap window as an estimate.
+function mWhen(m) {
+  if (!m.start) return `<em>~${esc(m.window.label)}</em>`;
+  return when(m.start) + (m.end ? ` to ${when(m.end)}` : "");
+}
+
+// The one sentence that states a milestone's date, worded for its state.
+// plain: text for <meta> descriptions (estimates still carry "~").
+function dateSentence(g, m, now, plain) {
+  const pub = cap(g.publisher);
+  const d = plain ? (m.start ? S.fmtDay(m.start) + (m.end ? ` to ${S.fmtDay(m.end)}` : "") : `~${m.window.label}`) : mWhen(m);
+  const t = plain ? m.title : `<b>${esc(m.title)}</b>`;
+  const noTime = !plain && m.start && S.isDateOnly(m.start) ? ` The time of day hasn't been announced.` : "";
+  switch (S.milestoneState(m, now)) {
+    case "upcoming": return `${t}: ${d}, announced by ${pub}.${noTime}`;
+    case "today": return `${t}: today, ${d}.${noTime}`;
+    case "live": return `${t}: live now, ${d}.`;
+    case "done": return `${t}: released on ${d}.`;
+    case "late": return `${t}: no date yet. ${pub}'s roadmap placed it in ${d}, and that has passed.`;
+    default: return `${t}: no date yet. ${pub}'s roadmap places it in ${d}.`;
+  }
+}
+
+function roadmap(data, g, now) {
+  const next = S.nextMilestone(g, now);
+  const pub = cap(g.publisher);
+  const launch = g.milestones.find(m => m.id === "launch");
+  const launched = launch && S.milestoneState(launch, now) !== "upcoming";
+  const pvp = g.milestones.filter(m => (m.contents || []).some(c => /pvp season/i.test(c)));
+  const items = g.milestones.map(m => {
+    const st = S.milestoneState(m, now);
+    const src = (m.sources || []).map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener" title="${esc(u)}">${i + 1}</a>`).join(" ");
+    return `<li class="${m === next ? "next" : ""} ${st}">
+      <div class="when">${mWhen(m)}</div>
+      <div class="what">
+        <h3>${milestoneLink(g, m)}</h3>
+        ${m.contents?.length ? `<ul>${m.contents.map(c => `<li>${esc(c)}</li>`).join("")}</ul>` : ""}
+        <p class="meta"><span class="status">${STATUS[st]}</span>${src ? ` · Source ${src}` : ""}</p>
+      </div>
+    </li>`;
+  }).join("");
+  return layout({
+    data, game: g, path: `/${g.id}`,
+    crumbs: [["Home", "/"], [g.tag, `/${g.id}`]],
+    title: `${g.hubTitle} | Infinite Seasons`,
+    description: `${dateSentence(g, next, now, true)} Every ${g.game} release date from ${pub}'s roadmap, with sources. Items without a date are marked ~.`,
+    body: `<header class="page-head">
+    <h1>${esc(g.hubTitle)}</h1>
+    <p>${launch ? `${esc(g.game)} ${launched ? "launched" : "launches"} on ${mWhen(launch)}. ` : ""}Next on ${esc(pub)}'s roadmap: ${dateSentence(g, next, now)}</p>
+  </header>
+  ${cards([g], now, "/{id}/{m}", "single-card")}
+  <section class="block"><h2>Roadmap</h2><ol class="roadmap" style="--accent:${esc(g.accent)}">${items}</ol>
+    <p class="more">${pub}'s roadmap notes that content and timing are subject to change. We re-check it against ${pub}'s announcements and update this page when a date is announced or moves. Data checked ${S.fmtDay(data.verified)}.</p></section>
+  ${pvp.length ? `<section class="block prose"><h2>PvP seasons</h2><p>${esc(pub)} hasn't published PvP season dates for ${esc(g.game)}. The roadmap lists a PvP season refresh in ${pvp.map(m => `the ${milestoneLink(g, m)} (${mWhen(m)})`).join(" and ")}.</p></section>` : ""}
+  <section class="block prose"><h2>Dates and estimates</h2>
+    <p>A date appears here only after ${esc(pub)} announces it. For items the roadmap only places in a time of year, we show that time of year marked <em>~</em> in orange and don't guess a day. Dates are shown in your time zone; where ${esc(pub)} gave only a calendar date, that date is shown as given, and day counts follow US Pacific time.</p>
+  </section>
+  ${sourcesList(g.milestones.flatMap(m => m.sources || []))}`,
+  });
+}
+
+export function milestone(data, g, m, now) {
+  const st = S.milestoneState(m, now);
+  const pages = g.milestones.filter(x => x.page);
+  const i = pages.indexOf(m), prev = pages[i - 1], next = pages[i + 1];
+  const pub = cap(g.publisher);
+  const time = !m.start ? null : S.isDateOnly(m.start) ? "Not announced" : `${S.fmtDateTime.format(S.parseT(m.start))} Pacific`;
+  const rows = [
+    ["Date", m.start ? when(m.start) + (m.end ? ` to ${when(m.end)}` : "") : "Not announced"],
+    time && ["Time", time],
+    m.window && ["Roadmap window", `<em>~${esc(m.window.label)}</em> (estimate, not a date)`],
+    ["Status", STATUS[st]],
+    ["Source", m.confidence === "official" ? `${esc(pub)} (official)` : m.confidence === "secondary" ? "Guide sites and wikis only" : "Sources disagree"],
+  ].filter(Boolean);
+  return layout({
+    data, game: g, path: milestonePath(g, m),
+    crumbs: [["Home", "/"], [g.tag, `/${g.id}`], [m.title, milestonePath(g, m)]],
+    title: `${m.pageTitle} | Infinite Seasons`,
+    description: `${g.tag} ${dateSentence(g, m, now, true).replace(/^./, c => c.toLowerCase())} ${firstSentence(m.summary)}`,
+    body: `<header class="page-head">
+    <h1>${esc(m.pageTitle)}</h1>
+    <p>${dateSentence(g, m, now)}</p>
+  </header>
+  ${cards([g], now, "/{id}", "single-card", m.id)}
+  <section class="block prose"><p>${esc(m.summary)}</p>${!m.start ? `<p>We'll add the date as soon as ${esc(pub)} announces it. Until then this page shows the roadmap's own wording, marked <em>~</em>, and doesn't guess a day.</p>` : ""}</section>
+  ${m.contents?.length ? `<section class="block"><h2>What's included</h2><ul class="contents">${m.contents.map(c => `<li>${esc(c)}</li>`).join("")}</ul></section>` : ""}
+  <section class="block"><h2>Dates</h2><dl class="facts">${rows.map(([k, val]) => `<dt>${k}</dt><dd>${val}</dd>`).join("")}</dl></section>
+  <nav class="pager" aria-label="Other roadmap items">
+    ${prev ? `<a href="${milestonePath(g, prev)}"><small>← Earlier</small>${esc(prev.title)}</a>` : "<span></span>"}
+    ${next ? `<a href="${milestonePath(g, next)}" style="text-align:right"><small>Later →</small>${esc(next.title)}</a>` : "<span></span>"}
+  </nav>
+  <p class="more"><a href="/${g.id}">Full ${esc(g.tag)} roadmap, every date →</a></p>
+  ${sourcesList(m.sources)}`,
+  });
 }
 
 export function notFound(data) {

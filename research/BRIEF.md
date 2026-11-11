@@ -59,3 +59,30 @@ When you're done, reply with:
 - whether the project's existing data for the current season (given in your task) is correct
 
 Keep the reply under 200 words.
+
+## Roadmap games (WoW Forever)
+
+`research/wow-forever.json` lists `milestones` instead of `seasons`: items on the developer's published roadmap, oldest first. The rules above still apply, plus:
+
+- **Official only.** A milestone's `start` is set only from a Blizzard post or Blizzard's roadmap image. Guide sites, wikis and datamining go in `notes`.
+- **Date or window, never both.** If Blizzard has given a date, set `start` (and `end` for a range, like a beta) and set `window` to null. If Blizzard has only named a time of year ("Winter", "Spring"), set `start` to null and `window` to `{ "label": "<Blizzard's wording, with the year>", "from": "YYYY-MM-DD", "to": "YYYY-MM-DD" }`. `from`/`to` are our reading of that time of year, used only for ordering and re-check timing; they are never shown as dates. The label must not contain a day.
+- **Times.** Date-only unless Blizzard states the time. Blizzard often announces a day without a time (the Dec 9 raid unlock); keep it date-only rather than assuming a reset time.
+- **`id` is a URL.** Never rename a milestone's `id`; pages live at `/wow-forever/<id>`. A new roadmap item gets a new lowercase slug.
+- **`contents`.** What the item brings, as short strings taken from the announcement.
+- **New items.** Add an item only when Blizzard has announced it (on the roadmap or in a post). Don't add rumoured content.
+
+Shape of one milestone:
+
+```json
+{
+  "id": "raids",
+  "title": "Raids unlock",
+  "start": "2026-12-09",
+  "end": null,
+  "window": null,
+  "contents": ["Barrow Deeps: 10 players, 8 bosses"],
+  "sources": ["https://news.blizzard.com/..."],
+  "confidence": "official",
+  "notes": ""
+}
+```
