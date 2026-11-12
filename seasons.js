@@ -30,7 +30,7 @@
 //                  merge.mjs keeps these; research files don't carry them.
 //   sources, confidence, research - as for seasons
 window.SEASON_DATA = {
-  "verified": "2026-11-10",
+  "verified": "2026-11-11",
   "games": [
     {
       "id": "d2r",
