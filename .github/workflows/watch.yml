@@ -20,8 +20,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - run: npm test
       - run: node scripts/watch.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
           T3_WEBHOOK_URL: ${{ secrets.T3_WEBHOOK_URL }}
+          T3_WEBHOOK_SECRET: ${{ secrets.T3_WEBHOOK_SECRET }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

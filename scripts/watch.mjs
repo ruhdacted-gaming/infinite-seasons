@@ -5,16 +5,17 @@
 // 2. Decides which games are due for a research run: new posts, a season change (or dated
 //    roadmap milestone) within 3 weeks, or more than a week since the last check
 //    (research/<game>.json "checked").
-// 3. If any are due and T3_WEBHOOK_URL is set, calls the T3 webhook on the gaming PC, which
-//    starts the research agent (automation/RUNBOOK.md).
+// 3. If any are due (with GITHUB_TOKEN), POSTs a signed request (T3_WEBHOOK_URL +
+//    T3_WEBHOOK_SECRET) to the T3 webhook, which starts the research agent (automation/RUNBOOK.md).
 // Without GITHUB_TOKEN it only prints what it found and writes nothing: `node scripts/watch.mjs`.
 import { readFileSync } from "node:fs";
+import { postSignedWebhook } from "./webhook.mjs";
 
 const window = {};
 for (const f of ["seasons.js", "render.js"]) new Function("window", readFileSync(f, "utf8"))(window);
 const data = window.SEASON_DATA, S = window.Seasons;
 const now = Date.now(), DAY = S.DAY;
-const { GITHUB_TOKEN, GITHUB_REPOSITORY, T3_WEBHOOK_URL, RUN_URL } = process.env;
+const { GITHUB_TOKEN, GITHUB_REPOSITORY, T3_WEBHOOK_URL, T3_WEBHOOK_SECRET, RUN_URL } = process.env;
 
 const LOOKBACK = 14 * DAY; // posts older than this are history, not news
 const NEAR = 21 * DAY;     // season change this close: re-check every 2 days instead of weekly
@@ -116,10 +117,14 @@ const due = data.games.map(g => {
 
 console.log(due.length ? `Due:\n${due.map(g => `- ${g.id}: ${g.reasons.join("; ")}`).join("\n")}` : "Nothing due.");
 
-if (due.length && T3_WEBHOOK_URL && GITHUB_TOKEN) {
-  const r = await fetch(T3_WEBHOOK_URL, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ games: due, run: RUN_URL }) });
-  console.log(`T3 webhook: ${r.status}`);
-  if (!r.ok) failed.push(`T3 webhook: ${r.status}`);
+if (due.length && GITHUB_TOKEN) {
+  const res = await postSignedWebhook({
+    url: T3_WEBHOOK_URL,
+    secret: T3_WEBHOOK_SECRET,
+    payload: { games: due, run: RUN_URL },
+  });
+  if (res.status !== undefined) console.log(`T3 webhook: ${res.status}`);
+  if (!res.ok) failed.push(res.error);
 }
 
 if (failed.length) {
