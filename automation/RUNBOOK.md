@@ -6,35 +6,47 @@ Accuracy is the whole product. A wrong date is far worse than a stale one. When 
 
 ## 1. Workspace
 
-Work only in the bot worktree, `D:/Dev/infinite-seasons-bot`, never in the main checkout (the user may be working there).
+You run on Jay's Mac mini. Work only in the bot worktree, `~/Dev/supiriority/infinite-seasons-bot`, never in the main checkout `~/Dev/supiriority/infinite-seasons` (Jay may be working there).
 
-Only one run at a time. If `D:/Dev/infinite-seasons-bot.lock` exists and is less than 6 hours old, another run is in progress. Stop and say so. Otherwise write the current time into the lock file, and delete it when you finish, however the run ends.
+Only one run at a time. The lock is a directory (`mkdir` is atomic so two runs cannot both acquire it). If it exists and is less than 6 hours old, another run is in progress: stop and say so. An older one is stale: replace it. Delete the lock directory when you finish, however the run ends (`rm -rf ~/Dev/supiriority/infinite-seasons-bot.lock`).
 
 ```sh
-cd D:/Dev
-git -C infinite-seasons worktree add --detach ../infinite-seasons-bot origin/main 2>/dev/null
-cd D:/Dev/infinite-seasons-bot
-git fetch origin
+LOCK=~/Dev/supiriority/infinite-seasons-bot.lock
+if ! mkdir "$LOCK" 2>/dev/null; then
+  STARTED=$(cat "$LOCK/started" 2>/dev/null || stat -f %m "$LOCK")
+  [ $(( $(date +%s) - STARTED )) -lt 21600 ] && { echo "locked since $(date -u -r "$STARTED" +%FT%TZ)"; exit 1; }
+  rm -rf "$LOCK" && mkdir "$LOCK" || { echo "another run took the stale lock"; exit 1; }
+fi
+date +%s > "$LOCK/started"
 ```
 
-T3 starts each run in its own worktree under `C:/Users/supir/.t3/worktrees/infinite-seasons/`, on a `t3/...` branch. Remove the ones left by earlier research runs. Keep your own, the one `pwd` was in when you started.
-
 ```sh
-git worktree list   # then for each old .t3 worktree on a t3/research-* branch:
-git worktree remove --force <path> && git branch -D <branch>
+cd ~/Dev/supiriority/infinite-seasons
+git fetch origin --prune
+[ -d ../infinite-seasons-bot ] || git worktree add --detach ../infinite-seasons-bot origin/main
+cd ~/Dev/supiriority/infinite-seasons-bot
+git config user.email   # must be heyitisj@gmail.com; pushes go over SSH as supiriority
 ```
 
-If `git status --porcelain` shows changes, an earlier run crashed. Save them with `git diff > ../infinite-seasons-bot-<YYYY-MM-DD>.patch`, mention the patch in your final reply, and then clean up:
+T3 may start each run in its own worktree under `~/.t3/worktrees/` on a `t3/...` branch. Remove the ones earlier runs left, but only when they are clean and hold nothing that isn't on `origin/main`. Keep your own (the one `pwd` was in when you started) and anything dirty; list dirty ones in your final reply.
 
 ```sh
+git worktree list
+# for each other ~/.t3/worktrees/... entry on a t3/ branch:
+git -C <path> status --porcelain        # must be empty
+git log --oneline origin/main..<branch> # must be empty
+git worktree remove <path> && git branch -D <branch>
+```
+
+If `git status --porcelain` in the bot worktree shows changes, an earlier run crashed. Save all of them (staged, unstaged, and untracked) as a timestamped patch, mention its path in your final reply, and clean up:
+
+```sh
+PATCH=../infinite-seasons-bot-$(date -u +%Y%m%dT%H%M%SZ).patch
+git add -A && git diff --cached --binary > "$PATCH" && echo "saved $PATCH"
 git checkout --detach origin/main && git reset --hard origin/main && git clean -fd
 ```
 
-`gh` lives at `$LOCALAPPDATA/Programs/gh/bin/gh.exe` if it isn't on PATH. If `gh auth status` says you're not logged in, give it the repo's stored git credential for this shell:
-
-```sh
-export GH_TOKEN=$(printf "protocol=https\nhost=github.com\nusername=supiriority\n\n" | git credential fill | sed -n 's/^password=//p')
-```
+`~/.local/bin/gh` is the fleet wrapper on PATH; it automatically authenticates `ruhdacted-gaming` repos with the `supiriority` token. Never run `gh auth switch`.
 
 If `gh pr list --state open --search "head:data/"` shows a PR from an earlier run, check it out and continue from step 5 instead of starting over.
 
@@ -148,7 +160,7 @@ Stop and leave the PR open, without merging, in either case:
 
 ## 6. Finish
 
-Delete the lock file. Your final reply goes back to the user. Keep it to a few lines:
+Delete the lock directory (`rm -rf ~/Dev/supiriority/infinite-seasons-bot.lock`). Your final reply goes back to the user. Keep it to a few lines:
 
 - what changed, with old → new dates
 - the PR link, if there is one

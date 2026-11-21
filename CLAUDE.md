@@ -91,11 +91,11 @@ The site is static, hosted on Cloudflare Workers with static assets, on the Clou
   - It polls Blizzard's news feed API and the PD2 news API (the PD2 wiki blocks GitHub's servers), and files new posts as `season-watch` issues. For WoW Forever it keeps only Forever posts that may move a date, and skips hotfix notes and promotions.
   - A game is due for research when it has open `season-watch` issues, when a season change (or a dated roadmap milestone) is within 21 days and the last check was 2 or more days ago, or when the last check was 7 or more days ago. The last check is the `checked` field in `research/<game>.json`.
   - When a game is due, it POSTs to `T3_WEBHOOK_URL` signed with `T3_WEBHOOK_SECRET` (`x-t3-signature: sha256=<hex>`), failing the run if either secret is missing. Rollout order: set `T3_WEBHOOK_SECRET` in GitHub secrets, merge the signing workflow to `main`, then in the task's T3 project call `request_secret` and update the existing webhook task with `schedule.signature` (`header: "x-t3-signature"`, `prefix: "sha256="`, `encoding: "hex"`, `secretRef: "<ref>"`) — preserving `dedupe` and `maxDeliveryAgeMinutes` — and confirm signed 2xx acceptance and unsigned 401 rejection. To retry pre-merge work after enforcement, dispatch a fresh Watch run from `main` rather than rerunning an old pre-merge workflow run. Rotate both sides together between daily 19:00 UTC runs.
-- **Research run**: the webhook starts the T3 scheduled task "Season research run" on the user's always-on gaming PC. Each run is a fresh Claude Opus thread that follows `automation/RUNBOOK.md`.
-  - It works in the `D:/Dev/infinite-seasons-bot` worktree.
+- **Research run**: the webhook starts the T3 scheduled task "Season research run" on Jay's always-on Mac mini (`~/Dev/supiriority/infinite-seasons`). Each run is a fresh Claude Opus thread that follows `automation/RUNBOOK.md`.
+  - It works in the `~/Dev/supiriority/infinite-seasons-bot` worktree with an atomic directory lock (`~/Dev/supiriority/infinite-seasons-bot.lock`).
   - If nothing changed, it pushes the `checked` and `verified` bump to main.
   - If dates changed, it opens a PR, has GPT (Codex) review it until it approves, and then merges. The user doesn't review data PRs for now.
-- `gh` is installed at `%LOCALAPPDATA%\Programs\gh\bin` and isn't logged in. The runbook takes `GH_TOKEN` from the repo's stored git credential.
+- `gh` uses the fleet wrapper at `~/.local/bin/gh`, which maps `ruhdacted-gaming` to `supiriority` automatically. Never run `gh auth switch`.
 
 ## Search Console
 
