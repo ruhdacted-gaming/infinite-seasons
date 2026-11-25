@@ -30,7 +30,7 @@
 //                  merge.mjs keeps these; research files don't carry them.
 //   sources, confidence, research - as for seasons
 window.SEASON_DATA = {
-  "verified": "2026-11-20",
+  "verified": "2026-11-24",
   "games": [
     {
       "id": "d2r",
@@ -1311,10 +1311,10 @@ window.SEASON_DATA = {
           "name": "Season of Hell's Legacy",
           "start": "2026-09-15T16:30:00Z",
           "end": null,
-          "endEstimate": "2026-12-01T17:00:00Z",
+          "endEstimate": "2026-12-01T17:30:00Z",
           "patch": "3.2.1",
           "theme": "Players collect Splinters of Evil from echoes of Diablo, Baal and Mephisto to gain a Prime Evil's Iconic Power, for Diablo's 30th anniversary.",
-          "note": "S16 start of Dec 1 is from in-game data, not confirmed.",
+          "note": "Season 16 starts Dec 1 (official); Blizzard has not stated when Season 15 ends.",
           "events": [
             {
               "label": "S16 PTR (PC)",
@@ -1326,10 +1326,25 @@ window.SEASON_DATA = {
             "https://news.blizzard.com/en-us/article/24301509/diablos-next-era-revealed-at-blizzcon-2026-opening-ceremonies-recap",
             "https://news.blizzard.com/en-us/article/24295394/celebrate-30-years-of-diablo-in-season-of-hell-s-legacy",
             "https://news.blizzard.com/en-us/article/24302578/the-3-3-0-ptr-what-you-need-to-know",
-            "https://d4guides.gg/en/news/diablo-4-season-15-season-of-hell-s-legacy-start-date-content-and-rewards"
+            "https://d4guides.gg/en/news/diablo-4-season-15-season-of-hell-s-legacy-start-date-content-and-rewards",
+            "https://news.blizzard.com/en-us/article/24316979/advance-the-war-against-death-in-season-of-tyraels-gambit"
           ],
           "confidence": "official",
-          "research": "Blizzard's BlizzCon 2026 recap says the season \"begins rolling out on September 15, 9:30 a.m. PT\", which is 16:30 UTC. ggseason's 10:00 a.m. PT (17:00 UTC) is wrong. Patch 3.2.1 is Build #73552, dated September 15, 2026. Blizzard has announced no end date. The Season 16 PTR (3.3.0, PC only) runs October 27, 10 a.m. PDT, to November 3, 10 a.m. PST. In-game and datamined data suggests Season 16 starts December 1, 2026. That is an estimate and not official. ggseason estimates December 2."
+          "research": "Blizzard's BlizzCon 2026 recap says the season \"begins rolling out on September 15, 9:30 a.m. PT\", which is 16:30 UTC. ggseason's 10:00 a.m. PT (17:00 UTC) is wrong. Patch 3.2.1 is Build #73552, dated September 15, 2026. Blizzard has announced no end date. The Season 16 PTR (3.3.0, PC only) runs October 27, 10 a.m. PDT, to November 3, 10 a.m. PST. Blizzard has now announced Season 16 for December 1, 2026, 9:30 a.m. PT (17:30 UTC), but no post states Season 15's end, so end stays null; it is expected to end when Season 16 begins."
+        },
+        {
+          "season": 16,
+          "name": "Season of Tyrael's Gambit",
+          "start": "2026-12-01T17:30:00Z",
+          "end": null,
+          "patch": "3.3.0",
+          "theme": "The Fractured Reaper joins the Corrupted Reaper in a dual-boss seasonal questline, alongside new War Plans trees and Horadric Items.",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24316979/advance-the-war-against-death-in-season-of-tyraels-gambit",
+            "https://news.blizzard.com/en-us/article/24316980/diablo-iv-patch-notes"
+          ],
+          "confidence": "official",
+          "research": "Blizzard: Season 16 starts \"December 1, 2026 at 9:30 a.m. PT\"; PST is in effect (DST ended November 1), so 17:30 UTC. Patch notes heading: \"3.3.0 Build #74415 (All Platforms)—December 1, 2026\". Pre-download opens November 30 at 10 a.m. PT. No end date announced."
         }
       ]
     },
