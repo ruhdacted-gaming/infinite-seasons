@@ -47,7 +47,8 @@ An earlier run that crashed can leave uncommitted changes, or a commit it never 
 
 ```sh
 if [ -n "$(git status --porcelain)" ]; then
-  git add -A && git commit -qm "Leftovers from a crashed run" || exit 1
+  git add -A || exit 1
+  git diff --cached --quiet || git commit -qm "Leftovers from a crashed run" || exit 1   # nothing to commit if the edits cancel out
 fi
 if [ -z "$(git branch -r --contains HEAD)" ]; then   # HEAD is on no remote branch
   REC=recovery/$(date -u +%Y%m%dT%H%M%SZ)
@@ -174,7 +175,9 @@ After each round:
 - If GPT asked for fixes, fix them, push, and run another round.
 - If GPT asked for something you believe is wrong, explain why in the next round's prompt.
 
-When GPT replies `APPROVE`, wait for the PR's CI check to pass, then merge exactly the commit GPT reviewed. If CI fails, fix it and run another review round.
+When GPT replies `APPROVE`, wait for the PR's CI check (`build`) to pass, then merge exactly the commit GPT reviewed. If CI fails, fix it and run another review round.
+
+`gh pr checks` fails with "no checks reported" when the check hasn't been registered yet. Wait a minute and try again. If there is still none after a few minutes (a PR opened before CI existed), `gh pr close <N> && gh pr reopen <N>` starts it without changing the head.
 
 ```sh
 gh pr checks <N> --watch --fail-fast || exit 1
