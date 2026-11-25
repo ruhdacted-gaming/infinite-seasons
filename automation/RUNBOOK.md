@@ -48,7 +48,7 @@ PATCH=../infinite-seasons-bot-$(date -u +%Y%m%dT%H%M%SZ).patch
 Then, on every run, move the worktree to the `origin/main` you just fetched. An earlier run leaves it on an old commit or a merged `data/` branch, and researching from there would make the step 3 push fail as non-fast-forward:
 
 ```sh
-git checkout --detach origin/main && git reset --hard origin/main && git clean -fd
+git checkout --force --detach origin/main && git clean -fd   # --force: the saved changes are still staged
 git status --porcelain   # must be empty
 ```
 
@@ -65,6 +65,8 @@ Follow `research/BRIEF.md`. Only research what can have changed:
 - a season that recently ended
 
 Read the posts in the game's open `season-watch` issues (`gh issue view N`) first. Then check one or two of the sources in `CLAUDE.md` to confirm. Don't re-research old seasons.
+
+PD2's news page (projectdiablo2.com/news) only renders with JavaScript, so read its posts from the API instead: `curl -sg 'https://api.projectdiablo2.com/social/article?$limit=10&$sort[created_at]=-1'` returns each post's `title`, `content` and `updated_at`.
 
 For each game:
 
