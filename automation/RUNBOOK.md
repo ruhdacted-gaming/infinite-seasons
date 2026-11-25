@@ -38,12 +38,18 @@ git log --oneline origin/main..<branch> # must be empty
 git worktree remove <path> && git branch -D <branch>
 ```
 
-If `git status --porcelain` in the bot worktree shows changes, an earlier run crashed. Save all of them (staged, unstaged, and untracked) as a timestamped patch, mention its path in your final reply, and clean up:
+If `git status --porcelain` in the bot worktree shows changes, an earlier run crashed. Save all of them (staged, unstaged, and untracked) as a timestamped patch and mention its path in your final reply:
 
 ```sh
 PATCH=../infinite-seasons-bot-$(date -u +%Y%m%dT%H%M%SZ).patch
-git add -A && git diff --cached --binary > "$PATCH" && echo "saved $PATCH"
+[ -z "$(git status --porcelain)" ] || { git add -A && git diff --cached --binary > "$PATCH" && echo "saved $PATCH"; }
+```
+
+Then, on every run, move the worktree to the `origin/main` you just fetched. An earlier run leaves it on an old commit or a merged `data/` branch, and researching from there would make the step 3 push fail as non-fast-forward:
+
+```sh
 git checkout --detach origin/main && git reset --hard origin/main && git clean -fd
+git status --porcelain   # must be empty
 ```
 
 `~/.local/bin/gh` is the fleet wrapper on PATH; it automatically authenticates `ruhdacted-gaming` repos with the `supiriority` token. Never run `gh auth switch`.
