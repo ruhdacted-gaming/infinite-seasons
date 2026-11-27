@@ -21,34 +21,62 @@ date +%s > "$LOCK/started"
 ```
 
 ```sh
-cd ~/Dev/supiriority/infinite-seasons
-git fetch origin --prune
-[ -d ../infinite-seasons-bot ] || git worktree add --detach ../infinite-seasons-bot origin/main
-cd ~/Dev/supiriority/infinite-seasons-bot
+MAIN=$(cd ~/Dev/supiriority/infinite-seasons && pwd -P) || exit 1
+BOT=$(dirname "$MAIN")/infinite-seasons-bot
+cd "$MAIN" && git fetch origin --prune && git worktree prune || exit 1
+[ -e "$BOT" ] || git worktree add --detach "$BOT" origin/main || exit 1
+# Must be the bot worktree of the repo just fetched: not the main checkout, a symlink to it, or a separate clone.
+cd "$BOT" && [ "$(pwd -P)" = "$BOT" ] && [ "$(git rev-parse --show-toplevel)" = "$BOT" ] \
+  && [ "$(cd "$(git rev-parse --git-common-dir)" && pwd -P)" = "$MAIN/.git" ] || exit 1
 git config user.email   # must be heyitisj@gmail.com; pushes go over SSH as supiriority
 ```
 
-T3 may start each run in its own worktree under `~/.t3/worktrees/` on a `t3/...` branch. Remove the ones earlier runs left, but only when they are clean and hold nothing that isn't on `origin/main`. Keep your own (the one `pwd` was in when you started) and anything dirty; list dirty ones in your final reply.
+If any of these fails, stop (and delete the lock). Never go on with a failed fetch, and never run the commands below anywhere but the bot worktree.
+
+T3 starts each run in its own worktree under `~/.t3/worktrees/` on a `t3/season-research-run...` branch. Remove the ones earlier research runs left, but only when they are clean and hold nothing that isn't on `origin/main`. You hold the lock, so no other research run is using them. Keep your own (the one `pwd` was in when you started) and anything dirty; list dirty ones in your final reply. Never touch a worktree on any other branch: it belongs to another thread, which may still be running.
 
 ```sh
 git worktree list
-# for each other ~/.t3/worktrees/... entry on a t3/ branch:
+# for each other ~/.t3/worktrees/... entry on a t3/season-research-run... branch:
 git -C <path> status --porcelain        # must be empty
 git log --oneline origin/main..<branch> # must be empty
 git worktree remove <path> && git branch -D <branch>
 ```
 
-If `git status --porcelain` in the bot worktree shows changes, an earlier run crashed. Save all of them (staged, unstaged, and untracked) as a timestamped patch, mention its path in your final reply, and clean up:
+An earlier run that crashed can leave uncommitted changes, or a commit it never pushed. Keep both on a `recovery/` branch, then move the worktree to the `origin/main` you just fetched. Do this on every run: an earlier run leaves the worktree on an old commit or a merged `data/` branch, and researching from there would make the step 3 push fail as non-fast-forward.
 
 ```sh
-PATCH=../infinite-seasons-bot-$(date -u +%Y%m%dT%H%M%SZ).patch
-git add -A && git diff --cached --binary > "$PATCH" && echo "saved $PATCH"
-git checkout --detach origin/main && git reset --hard origin/main && git clean -fd
+if [ -n "$(git status --porcelain)" ]; then
+  git add -A || exit 1
+  git diff --cached --quiet || git commit -qm "Leftovers from a crashed run" || exit 1   # nothing to commit if the edits cancel out
+fi
+if [ -z "$(git branch -r --contains HEAD)" ]; then   # HEAD is on no remote branch
+  REC=recovery/$(date -u +%Y%m%dT%H%M%SZ)
+  git branch "$REC" || exit 1
+  echo "saved $REC"
+fi
+git checkout --detach origin/main || exit 1
+git status --porcelain                              # must be empty
+[ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ] || exit 1
 ```
+
+Mention a saved `recovery/` branch in your final reply. Don't push or delete it.
 
 `~/.local/bin/gh` is the fleet wrapper on PATH; it automatically authenticates `ruhdacted-gaming` repos with the `supiriority` token. Never run `gh auth switch`.
 
-If `gh pr list --state open --search "head:data/"` shows a PR from an earlier run, check it out and continue from step 5 instead of starting over.
+If `gh pr list --state open --search "head:data/"` shows a PR from an earlier run, continue it from step 5 instead of starting over. Only continue a PR from this repo into `main` whose branch starts with `data/`. Start from exactly what is published, so the review covers what will be merged:
+
+```sh
+git fetch origin <branch> || exit 1
+# A local copy of the branch may hold a fix that was never pushed. Keep it before resetting the branch.
+if git rev-parse -q --verify "refs/heads/<branch>" >/dev/null && [ -z "$(git branch -r --contains "<branch>")" ]; then
+  git branch "recovery/$(date -u +%Y%m%dT%H%M%SZ)-pr" "<branch>" || exit 1
+fi
+git checkout -B <branch> FETCH_HEAD || exit 1
+[ "$(git rev-parse HEAD)" = "$(gh pr view <N> --json headRefOid -q .headRefOid)" ] || exit 1
+```
+
+If this run saved a `recovery/` branch (above or just now), look at `git diff HEAD <recovery branch>`: it may hold a review fix the crashed run never pushed. Re-apply what is still needed, commit and push it before the next review round.
 
 ## 2. Research each due game
 
@@ -59,6 +87,8 @@ Follow `research/BRIEF.md`. Only research what can have changed:
 - a season that recently ended
 
 Read the posts in the game's open `season-watch` issues (`gh issue view N`) first. Then check one or two of the sources in `CLAUDE.md` to confirm. Don't re-research old seasons.
+
+PD2's news page (projectdiablo2.com/news) only renders with JavaScript, so read its posts from the API instead: `curl -fsSg 'https://api.projectdiablo2.com/social/article?$limit=10&$sort[updated_at]=-1'` returns the most recently edited posts first, each with `title`, `content` and `updated_at`.
 
 For each game:
 
@@ -106,7 +136,7 @@ The push deploys the site. You're done; skip to step 6.
 ## 4. Dates changed: open a PR
 
 ```sh
-git switch -c data/<YYYY-MM-DD>-<games>
+git switch -C data/<YYYY-MM-DD>-<games>   # -C: an earlier merged run today may have left the name behind
 git commit -m "<Game>: <what changed>"
 git push -u origin HEAD
 gh pr create --fill-first --body "<body>"
@@ -145,9 +175,12 @@ After each round:
 - If GPT asked for fixes, fix them, push, and run another round.
 - If GPT asked for something you believe is wrong, explain why in the next round's prompt.
 
-When GPT replies `APPROVE`, merge exactly the commit it reviewed:
+When GPT replies `APPROVE`, wait for the PR's CI check (`build`) to pass, then merge exactly the commit GPT reviewed. If CI fails, fix it and run another review round.
+
+`gh pr checks` fails with "no checks reported" when the check hasn't been registered yet. Wait a minute and try again. If there is still none after a few minutes (a PR opened before CI existed), `gh pr close <N> && gh pr reopen <N>` starts it without changing the head.
 
 ```sh
+gh pr checks <N> --watch --fail-fast || exit 1
 gh pr merge <N> --squash --delete-branch --match-head-commit <reviewed sha>
 ```
 
