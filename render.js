@@ -26,6 +26,16 @@
     return Math.round((parseT(s.end) - parseT(s.start)) / DAY);
   }
 
+  // Has an official end passed? A date-only end (time not announced) passes at the end of that
+  // Pacific calendar day, so the season isn't called over while that day is still running.
+  function ended(s, now) {
+    if (!s.end) return false;
+    return isDateOnly(s.end) ? daysUntil(s.end, now) < 0 : parseT(s.end) <= now;
+  }
+
+  // Length of a season whose end has passed, or null.
+  const finishedDays = (s, now) => ended(s, now) ? lengthDays(s) : null;
+
   function median(xs) {
     if (!xs.length) return null;
     const a = [...xs].sort((x, y) => x - y), m = a.length >> 1;
@@ -33,8 +43,8 @@
   }
 
   // Typical season length: median of the last 6 finished seasons, or the game's typicalDays.
-  function typicalDays(g) {
-    const done = (g.seasons || []).map(lengthDays).filter(d => d != null).slice(-6);
+  function typicalDays(g, now) {
+    const done = (g.seasons || []).map(s => finishedDays(s, now)).filter(d => d != null).slice(-6);
     return done.length >= 3 ? median(done) : g.typicalDays || null;
   }
 
@@ -46,7 +56,7 @@
     let i = -1;
     list.forEach((s, j) => { if (parseT(s.start) <= now) i = j; });
     if (i < 0) i = 0;
-    return { ...g, ...list[i], prev: list[i - 1] || null, next: list[i + 1] || null, typicalDays: typicalDays(g) };
+    return { ...g, ...list[i], prev: list[i - 1] || null, next: list[i + 1] || null, typicalDays: typicalDays(g, now) };
   }
 
   // Official end wins. Otherwise endEstimate, otherwise start + typical length; both are estimates.
@@ -94,6 +104,11 @@
     } else if (!end) {
       status = ["live", "Live"];
       big = Math.floor((now - start) / DAY) + "d"; sub = "in, no end date";
+    } else if (!end.est && isDateOnly(g.end) && !ended(g, now)) {
+      // Official end date without a time: count calendar days, never hours.
+      status = ["live", "Live"];
+      const d = daysUntil(g.end, now);
+      big = d === 0 ? "Today" : d; sub = d === 0 ? "last day, time not announced" : d === 1 ? "day left" : "days left";
     } else if (now < end.t) {
       status = ["live", "Live"];
       const days = Math.ceil((end.t - now) / DAY);
@@ -104,7 +119,7 @@
       big = Math.floor((now - start) / DAY) + "d"; sub = "in, past estimate";
     } else {
       status = ["ended", "Ended"];
-      big = span(now - end.t); sub = "since end";
+      big = isDateOnly(g.end) ? -daysUntil(g.end, now) + "d" : span(now - end.t); sub = "since end";
     }
 
     const pct = end && now >= start ? Math.min(100, (now - start) / (end.t - start) * 100) : 0;
@@ -260,7 +275,7 @@
   }
 
   window.Seasons = {
-    DAY, fmtDate, fmtDateTime, fmtClock, isDateOnly, parseT, fmtDay, lengthDays, median, typicalDays,
+    DAY, fmtDate, fmtDateTime, fmtClock, isDateOnly, parseT, fmtDay, lengthDays, ended, finishedDays, median, typicalDays,
     view, endOf, span, esc, hostOf, dataAge, card, renderCards,
     today, daysUntil, milestoneState, nextMilestone, milestoneWhen, hrefFrom,
   };

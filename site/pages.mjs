@@ -22,14 +22,14 @@ const days = n => `${n} day${n === 1 ? "" : "s"}`;
 function endPhrase(g, v) {
   const end = S.endOf(v);
   if (!end) return "No end date has been announced.";
-  if (!end.est) return `It ${end.t < Date.now() ? "ended" : "ends"} on ${when(v.end)}.`;
+  if (!end.est) return `It ${S.ended(v, Date.now()) ? "ended" : "ends"} on ${when(v.end)}.`;
   const date = `<em>~${S.fmtDate.format(end.t)}</em>`;
   if (v.endEstimate) return `${cap(g.publisher)} hasn't announced an end date. Our estimate is ${date}: ${esc(v.note || "")}`;
   return `${cap(g.publisher)} hasn't announced an end date. ${estimateBasis(g, v)}, so we estimate it ends around ${date}.`;
 }
 
 function estimateBasis(g, v) {
-  const finished = (g.seasons || []).filter(s => S.lengthDays(s) != null).length;
+  const finished = (g.seasons || []).filter(s => S.finishedDays(s, Date.now()) != null).length;
   return finished >= 3
     ? `Recent seasons have lasted ${days(v.typicalDays)} (the median of the last ${Math.min(6, finished)} finished seasons)`
     : `Seasons usually last about ${days(v.typicalDays)}`;
@@ -116,7 +116,7 @@ function seasonTable(g, list, now) {
   return `<div class="table-wrap"><table class="seasons">
 <thead><tr><th>Season</th><th>Name</th><th>Start</th><th>End</th><th class="num">Length</th></tr></thead>
 <tbody>${list.map(s => {
-    const len = S.lengthDays(s);
+    const len = S.finishedDays(s, now);
     const isCur = s.season === cur.season;
     const end = s.end ? when(s.end) : isCur ? (() => {
       const e = S.endOf({ ...s, typicalDays: cur.typicalDays });
@@ -213,7 +213,7 @@ export function season(data, g, i, now) {
   const v = S.view(g, now);
   const isCur = s.season === v.season;
   const started = S.parseT(s.start) <= now;
-  const len = S.lengthDays(s);
+  const len = S.finishedDays(s, now);
   const typical = v.typicalDays;
   const label = seasonLabel(g, s);
   const named = label + (s.name ? `: ${s.name}` : "");
@@ -266,7 +266,7 @@ export function season(data, g, i, now) {
 
 export function history(data, g, now) {
   const v = S.view(g, now);
-  const done = g.seasons.filter(s => S.lengthDays(s) != null);
+  const done = g.seasons.filter(s => S.finishedDays(s, now) != null);
   const lens = done.map(S.lengthDays);
   const shortest = done[lens.indexOf(Math.min(...lens))], longest = done[lens.indexOf(Math.max(...lens))];
   const facts = done.length >= 3
@@ -295,8 +295,8 @@ export function history(data, g, now) {
 // The ongoing season is drawn as an outline ("so far"). The table below is the accessible view.
 function chart(g, now) {
   const v = S.view(g, now);
-  const items = g.seasons.filter(s => S.lengthDays(s) != null || s.season === v.season && S.parseT(s.start) <= now).map(s => {
-    const len = S.lengthDays(s);
+  const items = g.seasons.filter(s => S.finishedDays(s, now) != null || s.season === v.season && S.parseT(s.start) <= now).map(s => {
+    const len = S.finishedDays(s, now);
     return { s, len: len != null ? len : Math.floor((now - S.parseT(s.start)) / S.DAY) + 1, live: len == null };
   });
   // R leaves room for the median label to the right of the plot, clear of the columns.
