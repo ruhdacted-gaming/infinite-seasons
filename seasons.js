@@ -1090,7 +1090,7 @@ window.SEASON_DATA = {
             "https://news.blizzard.com/en-us/article/24315748/season-41-eternal-conflict"
           ],
           "confidence": "official",
-          "research": "Start: Blizzard says \"Starting on December 18 at 5 p.m. PST/CET/KST\" (post published 2026-11-28 01:00 UTC per Blizzard news feed). Americas start 5 PM PST Dec 18 = 2026-12-19T01:00Z; EU/Asia start at 5 PM local. No end date announced. Launch patch not stated. Blizzard post says the theme \"first debuted with Season 27\"; our data has it as the Season 19 theme (also returned in Season 35), so no origin season is stated in the theme."
+          "research": "Start: Blizzard says \"Starting on December 18 at 5 p.m. PST/CET/KST\" (article datePublished metadata 2026-11-28T01:00:00Z; the news feed lastUpdated matches). Americas start 5 PM PST Dec 18 = 2026-12-19T01:00Z; EU/Asia start at 5 PM local. No end date announced. Launch patch not stated. Blizzard post says the theme \"first debuted with Season 27\"; our data has it as the Season 19 theme (also returned in Season 35), so no origin season is stated in the theme."
         }
       ]
     },
