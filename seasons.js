@@ -30,7 +30,7 @@
 //                  merge.mjs keeps these; research files don't carry them.
 //   sources, confidence, research - as for seasons
 window.SEASON_DATA = {
-  "verified": "2026-11-26",
+  "verified": "2026-11-27",
   "games": [
     {
       "id": "d2r",
@@ -1068,15 +1068,29 @@ window.SEASON_DATA = {
           "season": 40,
           "name": "Light's Calling",
           "start": "2026-10-03T00:00:00Z",
-          "end": null,
+          "end": "2026-12-13",
           "theme": "Returning Angelic Crucibles theme from Season 27: imbue a legendary with one of three random class-specific powers.",
-          "note": "Angelic Crucibles theme. End not announced.",
+          "note": "Angelic Crucibles theme. Ends December 13 per Blizzard (no time given).",
           "sources": [
             "https://news.blizzard.com/en-us/article/24301510",
-            "https://d3guides.de/de/season-40"
+            "https://d3guides.de/de/season-40",
+            "https://news.blizzard.com/en-us/article/24315748/season-41-eternal-conflict"
           ],
           "confidence": "official",
-          "research": "Current season. Start Oct 2 at 5:00 PM PDT per Blizzard's preview. No end date announced. Launch patch not stated by Blizzard; d3guides cites game data version 2.8.0, but that is not confirmed as the launch patch."
+          "research": "Start Oct 2 at 5:00 PM PDT per Blizzard preview. End: Blizzard Season 41 post says \"Season 40 will officially come to an end on December 13\" (2026; no time given, kept date-only). Launch patch not stated by Blizzard; d3guides cites game data version 2.8.0, but that is not confirmed as the launch patch."
+        },
+        {
+          "season": 41,
+          "name": "Eternal Conflict",
+          "start": "2026-12-19T01:00:00Z",
+          "end": null,
+          "theme": "Returning Eternal Conflict theme: killstreaks stack a Pandemonium buff and trigger escalating milestone effects.",
+          "note": "Eternal Conflict theme. Starts 5 PM local time in each region (PST/CET/KST).",
+          "sources": [
+            "https://news.blizzard.com/en-us/article/24315748/season-41-eternal-conflict"
+          ],
+          "confidence": "official",
+          "research": "Start: Blizzard says \"Starting on December 18 at 5 p.m. PST/CET/KST\" (post published 2026-11-28 01:00 UTC per Blizzard news feed). Americas start 5 PM PST Dec 18 = 2026-12-19T01:00Z; EU/Asia start at 5 PM local. No end date announced. Launch patch not stated. Blizzard post says the theme \"first debuted with Season 27\"; our data has it as the Season 19 theme (also returned in Season 35), so no origin season is stated in the theme."
         }
       ]
     },
